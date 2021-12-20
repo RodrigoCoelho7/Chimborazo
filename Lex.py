@@ -11,7 +11,8 @@ def t_STRING(t):
     return t
 
 def t_ENTER(t):
-    r'\n'
+    r'\n+'
+    t.lexer.lineno += len(t.value)
     return t
 
 def t_TAB(t):
@@ -125,7 +126,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-'''file = open('Exemplos.txt', 'r')
+file = open('Exemplos.txt', 'r')
 contents = file.read()
 
 lexer.input(contents)
@@ -133,7 +134,7 @@ tok = lexer.token()
 while tok:
     print(tok)
     tok = lexer.token()
-
+'''
 
 import sys
 
