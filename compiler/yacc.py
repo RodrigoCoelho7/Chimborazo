@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from Lex import tokens
+from libs.objects import PROGRAM, DECLARATION, FUNCTION
 
 
 def p_prg(p):
@@ -28,21 +29,29 @@ def p_decl_L(p):
 
 def p_declV(p):
     "declV : VAR ids ':' tipo ENTER "
+    for var in p.parser.declarations:
+        p.parser.program.add_variable(var,p.parser.tipo)
+    p.parser.declarations = []
 
 def p_ids_1(p):
     "ids : ID"
+    p.parser.declarations.append(p[1])
 
 def p_ids_mult(p):
     "ids : ids ',' ID"
+    p.parser.declarations.append(p[3])
 
 def p_tipo_int(p):
     "tipo : ENTERO"
+    p.parser.tipo = p[1]
 
 def p_tipo_REAL(p):
     "tipo : REAL"
+    p.parser.tipo = p[1]
 
 def p_tipo_BOOL(p):
     "tipo : BOOLEANO"
+    p.parser.tipo = p[1]
 
 #------------------------------------------------------
 
@@ -186,13 +195,13 @@ def p_expL_1(p):
     "expL : termoB"
 
 def p_expL_mult(p):
-    "expL : expL 'O' termoB"
+    "expL : expL OR termoB"
 
 def p_termoB_1(p):
     "termoB : fatorB"
 
 def p_termoB_mult(p):
-    "termoB : termoB 'y' fatorB"
+    "termoB : termoB AND fatorB"
 
 def p_fatorB_condition(p):
     "fatorB : condition"
@@ -242,10 +251,12 @@ def p_error(p):
     parser.success = False
 
 parser = yacc.yacc()
+parser.program = PROGRAM()
+parser.declarations = []
 parser.success = True
 
-
-file = open("Exemplos.txt","r")
+path = 'code_examples/'
+file = open(path+"cuadrado.txt","r")
 content = file.read()
 
 parser.parse(content)

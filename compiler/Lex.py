@@ -2,9 +2,9 @@ import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","NO",
-          "FLOAT","INT","ID","TAB","ENTER","STRING"]
+          "FLOAT","INT","ID","TAB","ENTER","STRING","AND","OR"]
 
-literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^","O","y"]
+literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^"]
 
 def t_STRING(t):
     r'\"[^"]*\"'
@@ -16,11 +16,19 @@ def t_ENTER(t):
     return t
 
 def t_TAB(t):
-    r'\t|^\s{4}'
+    r'\t|\s{4}'
     return t
 
 def t_SPACE(t):
     r'\s'
+
+def t_OR(t):
+    r'O'
+    return t
+
+def t_AND(t):
+    r'Y'
+    return t
 
 def t_VAR(t):
     r'\bvariable\b'
@@ -127,7 +135,8 @@ def t_error(t):
 lexer = lex.lex()
 
 if __name__ == '__main__':
-    file = open('Exemplos.txt', 'r')
+    path = '../code_examples/'
+    file = open(path+"cuadrado.txt","r")
     contents = file.read()
 
     lexer.input(contents)
