@@ -1,0 +1,11 @@
+variable count, N : entero
+count = 0
+N = 10
+para count < N siguiente count +=1.
+
+
+
+variable x,y : real
+x = 1.5
+y = 2.7
+x,y = y,x

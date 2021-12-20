@@ -1,10 +1,10 @@
 import ply.lex as lex
 
-tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENQUANTO","DIFERENTE","IGUAL","NADA"
+tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","NO",
-          "FLOAT","INT","ID","SPACE","TAB","ENTER","STRING"]
+          "FLOAT","INT","ID","TAB","ENTER","STRING"]
 
-literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'"]
+literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^","O","y"]
 
 def t_STRING(t):
     r'\"[^"]*\"'
@@ -18,9 +18,9 @@ def t_TAB(t):
     r'\t|\s{4}'
     return t
 
-def t_SPACE(t):
-    r'\s'
-    return t
+#def t_SPACE(t):
+#    r'\s'
+#    return t
 
 def t_VAR(t):
     r'\bvariable\b'
@@ -46,8 +46,8 @@ def t_FUNCION(t):
     r'\bfuncion\b'
     return t
 
-def t_ENQUANTO(t):
-    r'\benquanto\b'
+def t_ENCUANTO(t):
+    r'\bencuanto\b'
     return t
 
 def t_DIFERENTE(t):
@@ -117,6 +117,8 @@ def t_INT(t):
 def t_ID(t):
     r'[a-zA-Z]+\w*'
     return t
+
+t_ignore = '\s'
 
 def t_error(t):
     print("Caracter ilegal!",t.value[0])
