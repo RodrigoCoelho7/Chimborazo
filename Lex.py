@@ -15,11 +15,11 @@ def t_ENTER(t):
     return t
 
 def t_TAB(t):
-    r'\s{4}'
+    r'\t|\s{4}'
     return t
 
 def t_SPACE(t):
-    '\s'
+    r'\s'
     return t
 
 def t_VAR(t):
@@ -107,11 +107,11 @@ def t_NO(t):
     return t
 
 def t_FLOAT(t):
-    r'[0-9]+\.[0-9]+'
+    r'([1-9][0-9]*\.[0-9]+|0\.[0-9]+)'
     return t
 
 def t_INT(t):
-    r'[0-9]+'
+    r'[1-9][0-9]*|0'
     return t
 
 def t_ID(t):
