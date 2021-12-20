@@ -126,7 +126,6 @@ def t_error(t):
 
 lexer = lex.lex()
 
-<<<<<<< HEAD
 if __name__ == '__main__':
     file = open('Exemplos.txt', 'r')
     contents = file.read()
@@ -144,21 +143,3 @@ if __name__ == '__main__':
         lexer.input(line)
         for tok in lexer:
             print(tok)
-=======
-file = open('Exemplos.txt', 'r')
-contents = file.read()
-
-lexer.input(contents)
-tok = lexer.token()
-while tok:
-    print(tok)
-    tok = lexer.token()
-'''
-
-import sys
-
-for line in sys.stdin:
-    lexer.input(line)
-    for tok in lexer:
-        print(tok)'''
->>>>>>> a15534ef276b07a991a6b22be92dcb6666c86f86
