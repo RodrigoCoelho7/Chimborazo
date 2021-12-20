@@ -15,12 +15,11 @@ def t_ENTER(t):
     return t
 
 def t_TAB(t):
-    r'\t|\s{4}'
+    r'\t|^\s{4}'
     return t
 
-#def t_SPACE(t):
-#    r'\s'
-#    return t
+def t_SPACE(t):
+    r'\s'
 
 def t_VAR(t):
     r'\bvariable\b'
@@ -118,7 +117,6 @@ def t_ID(t):
     r'[a-zA-Z]+\w*'
     return t
 
-t_ignore = '\s'
 
 def t_error(t):
     print("Caracter ilegal!",t.value[0])
@@ -127,7 +125,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-file = open('Exemplos.txt', 'r')
+'''file = open('Exemplos.txt', 'r')
 contents = file.read()
 
 lexer.input(contents)
@@ -135,3 +133,11 @@ tok = lexer.token()
 while tok:
     print(tok)
     tok = lexer.token()
+
+
+import sys
+
+for line in sys.stdin:
+    lexer.input(line)
+    for tok in lexer:
+        print(tok)'''
