@@ -27,7 +27,11 @@ def p_decl_L(p):
 #----------------- Variable declarations ----------------------------
 
 def p_declV(p):
+<<<<<<< HEAD
     "declV : VAR ids ':' tipo ENTER"
+=======
+    "declV : VAR ids ':' tipo ENTER "
+>>>>>>> a15534ef276b07a991a6b22be92dcb6666c86f86
 
 def p_ids_1(p):
     "ids : ID"
@@ -238,7 +242,11 @@ def p_ciclos_for_mult(p):
     "ciclos : PARA expL SIGUIENTE atrib HACER ENTER statementsI"
 
 def p_error(p):
+<<<<<<< HEAD
     print("Syntax error!",p)
+=======
+    print("Syntax error!")
+>>>>>>> a15534ef276b07a991a6b22be92dcb6666c86f86
     parser.success = False
 
 parser = yacc.yacc()
