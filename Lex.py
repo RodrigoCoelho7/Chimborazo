@@ -23,87 +23,87 @@ def t_SPACE(t):
     return t
 
 def t_VAR(t):
-    r'variable'
+    r'\bvariable\b'
     return t
 
 def t_PARA(t):
-    r'para'
+    r'\bpara\b'
     return t
 
 def t_SIGUIENTE(t):
-    r'siguiente'
+    r'\bsiguiente\b'
     return t
 
 def t_ENTERO(t):
-    r'entero'
+    r'\bentero\b'
     return t
 
 def t_REAL(t):
-    r'real'
+    r'\breal\b'
     return t
 
 def t_FUNCION(t):
-    r'funcion'
+    r'\bfuncion\b'
     return t
 
 def t_ENQUANTO(t):
-    r'enquanto'
+    r'\benquanto\b'
     return t
 
 def t_DIFERENTE(t):
-    r'diferente'
+    r'\bdiferente\b'
     return t
 
 def t_IGUAL(t):
-    r'igual'
+    r'\bigual\b'
     return t
 
 def t_NADA(t):
-    r'nada'
+    r'\bnada\b'
     return t
 
 def t_HACER(t):
-    r'hacer'
+    r'\bhacer\b'
     return t
 
 def t_LISTA(t):
-    r'lista'
+    r'\blista\b'
     return t
 
 def t_DEVUELVE(t):
-    r'devuelve'
+    r'\bdevuelve\b'
     return t
 
 def t_BOOLEANO(t):
-    r'booleano'
+    r'\bbooleano\b'
     return t
 
 def t_SI(t):
-    r'si'
+    r'\bsi\b'
     return t
 
 def t_RESTO(t):
-    r'resto'
+    r'\bresto\b'
     return t
 
 def t_ENTONCES(t):
-    r'entonces'
+    r'\bentonces\b'
     return t
 
 def t_ESCRIBE(t):
-    r'escribe'
+    r'\bescribe\b'
     return t
 
 def t_VERDADERO(t):
-    r'Verdadero'
+    r'\bVerdadero\b'
     return t
 
 def t_FALSO(t):
-    r'Falso'
+    r'\bFalso\b'
     return t
 
 def t_NO(t):
-    r'no'
+    r'\bno\b'
     return t
 
 def t_FLOAT(t):
