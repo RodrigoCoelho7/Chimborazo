@@ -10,6 +10,10 @@ def p_prg(p):
 
 def p_declarations_1(p):
     "declarations : decl"
+    print([v.ID for v in p.parser.declarations])
+    for decl in p.parser.declarations:
+        p.parser.program.add_variable(decl)
+    p.parser.declarations = []
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
@@ -30,16 +34,15 @@ def p_decl_L(p):
 def p_declV(p):
     "declV : VAR ids ':' tipo ENTER "
     for var in p.parser.declarations:
-        p.parser.program.add_variable(var,p.parser.tipo)
-    p.parser.declarations = []
+        var.set_tipo(p.parser.tipo)
 
 def p_ids_1(p):
     "ids : ID"
-    p.parser.declarations.append(p[1])
+    p.parser.declarations.append(DECLARATION(p[1]))
 
 def p_ids_mult(p):
     "ids : ids ',' ID"
-    p.parser.declarations.append(p[3])
+    p.parser.declarations.append(DECLARATION(p[3]))
 
 def p_tipo_int(p):
     "tipo : ENTERO"
@@ -102,6 +105,7 @@ def p_declF_vazia(p):
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
+    #p.parser.parameters.append([p[1],p[3]])
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
@@ -253,6 +257,7 @@ def p_error(p):
 parser = yacc.yacc()
 parser.program = PROGRAM()
 parser.declarations = []
+parser.parameters = []
 parser.success = True
 
 path = 'code_examples/'
