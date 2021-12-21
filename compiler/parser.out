@@ -62,7 +62,7 @@ Rule 48    fator -> FLOAT
 Rule 49    fator -> ID
 Rule 50    fator -> ( exp )
 Rule 51    conditions -> SI expL ENTONCES ENTER statementsI
-Rule 52    conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+Rule 52    conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
 Rule 53    expL -> termoB
 Rule 54    expL -> expL OR termoB
 Rule 55    termoB -> fatorB
@@ -97,6 +97,8 @@ Terminals, with rules where they appear
 >                    : 61 65
 AND                  : 56
 BOOLEANO             : 12 20 58
+CASO                 : 52
+CONTRARIO            : 52
 DEVUELVE             : 24 25
 DIFERENTE            : 64
 ENCUANTO             : 67
@@ -113,12 +115,11 @@ IGUAL                : 63 65 66
 INT                  : 18 30 47
 LISTA                : 13
 NADA                 : 
-NO                   : 52
 OR                   : 54
 PARA                 : 68 69
 REAL                 : 11
 RESTO                : 
-SI                   : 51 52 52
+SI                   : 51 52
 SIGUIENTE            : 68 69
 STRING               : 21
 TAB                  : 24 25 28 29 32 33
@@ -211,7 +212,7 @@ state 2
     (13) declL -> . LISTA ID = lista ENTER
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -323,7 +324,7 @@ state 10
     (38) stat -> . ciclos
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -379,6 +380,7 @@ state 14
     ENCUANTO        reduce using rule 37 (stat -> conditions .)
     PARA            reduce using rule 37 (stat -> conditions .)
     $end            reduce using rule 37 (stat -> conditions .)
+    CASO            reduce using rule 37 (stat -> conditions .)
     TAB             reduce using rule 37 (stat -> conditions .)
 
 
@@ -391,6 +393,7 @@ state 15
     ENCUANTO        reduce using rule 38 (stat -> ciclos .)
     PARA            reduce using rule 38 (stat -> ciclos .)
     $end            reduce using rule 38 (stat -> ciclos .)
+    CASO            reduce using rule 38 (stat -> ciclos .)
     TAB             reduce using rule 38 (stat -> ciclos .)
 
 
@@ -404,7 +407,7 @@ state 16
 state 17
 
     (51) conditions -> SI . expL ENTONCES ENTER statementsI
-    (52) conditions -> SI . expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> SI . expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (53) expL -> . termoB
     (54) expL -> . expL OR termoB
     (55) termoB -> . fatorB
@@ -566,6 +569,7 @@ state 25
     ENCUANTO        reduce using rule 36 (stat -> atrib ENTER .)
     PARA            reduce using rule 36 (stat -> atrib ENTER .)
     $end            reduce using rule 36 (stat -> atrib ENTER .)
+    CASO            reduce using rule 36 (stat -> atrib ENTER .)
     TAB             reduce using rule 36 (stat -> atrib ENTER .)
 
 
@@ -596,7 +600,7 @@ state 26
 state 27
 
     (51) conditions -> SI expL . ENTONCES ENTER statementsI
-    (52) conditions -> SI expL . ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> SI expL . ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (54) expL -> expL . OR termoB
 
     ENTONCES        shift and go to state 47
@@ -930,7 +934,7 @@ state 46
 state 47
 
     (51) conditions -> SI expL ENTONCES . ENTER statementsI
-    (52) conditions -> SI expL ENTONCES . ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> SI expL ENTONCES . ENTER statementsI CASO CONTRARIO ENTER statementsI
 
     ENTER           shift and go to state 75
 
@@ -1315,7 +1319,7 @@ state 74
 state 75
 
     (51) conditions -> SI expL ENTONCES ENTER . statementsI
-    (52) conditions -> SI expL ENTONCES ENTER . statementsI SI NO ENTER statementsI
+    (52) conditions -> SI expL ENTONCES ENTER . statementsI CASO CONTRARIO ENTER statementsI
     (32) statementsI -> . TAB stat
     (33) statementsI -> . statementsI TAB stat
 
@@ -1698,19 +1702,20 @@ state 104
 state 105
 
     (51) conditions -> SI expL ENTONCES ENTER statementsI .
-    (52) conditions -> SI expL ENTONCES ENTER statementsI . SI NO ENTER statementsI
+    (52) conditions -> SI expL ENTONCES ENTER statementsI . CASO CONTRARIO ENTER statementsI
     (33) statementsI -> statementsI . TAB stat
 
-  ! shift/reduce conflict for SI resolved as shift
+  ! shift/reduce conflict for CASO resolved as shift
   ! shift/reduce conflict for TAB resolved as shift
     ID              reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .)
+    SI              reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .)
     ENCUANTO        reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .)
     PARA            reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .)
     $end            reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .)
-    SI              shift and go to state 116
+    CASO            shift and go to state 116
     TAB             shift and go to state 117
 
-  ! SI              [ reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .) ]
+  ! CASO            [ reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .) ]
   ! TAB             [ reduce using rule 51 (conditions -> SI expL ENTONCES ENTER statementsI .) ]
 
 
@@ -1722,7 +1727,7 @@ state 106
     (38) stat -> . ciclos
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -1748,6 +1753,7 @@ state 107
     ENCUANTO        reduce using rule 67 (ciclos -> ENCUANTO expL HACER ENTER statementsI .)
     PARA            reduce using rule 67 (ciclos -> ENCUANTO expL HACER ENTER statementsI .)
     $end            reduce using rule 67 (ciclos -> ENCUANTO expL HACER ENTER statementsI .)
+    CASO            reduce using rule 67 (ciclos -> ENCUANTO expL HACER ENTER statementsI .)
     TAB             shift and go to state 117
 
   ! TAB             [ reduce using rule 67 (ciclos -> ENCUANTO expL HACER ENTER statementsI .) ]
@@ -1829,9 +1835,9 @@ state 115
 
 state 116
 
-    (52) conditions -> SI expL ENTONCES ENTER statementsI SI . NO ENTER statementsI
+    (52) conditions -> SI expL ENTONCES ENTER statementsI CASO . CONTRARIO ENTER statementsI
 
-    NO              shift and go to state 125
+    CONTRARIO       shift and go to state 125
 
 
 state 117
@@ -1842,7 +1848,7 @@ state 117
     (38) stat -> . ciclos
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -1861,9 +1867,10 @@ state 118
 
     (32) statementsI -> TAB stat .
 
-    SI              reduce using rule 32 (statementsI -> TAB stat .)
+    CASO            reduce using rule 32 (statementsI -> TAB stat .)
     TAB             reduce using rule 32 (statementsI -> TAB stat .)
     ID              reduce using rule 32 (statementsI -> TAB stat .)
+    SI              reduce using rule 32 (statementsI -> TAB stat .)
     ENCUANTO        reduce using rule 32 (statementsI -> TAB stat .)
     PARA            reduce using rule 32 (statementsI -> TAB stat .)
     $end            reduce using rule 32 (statementsI -> TAB stat .)
@@ -1878,6 +1885,7 @@ state 119
     ENCUANTO        reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . ENTER .)
     PARA            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . ENTER .)
     $end            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . ENTER .)
+    CASO            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . ENTER .)
     TAB             reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . ENTER .)
 
 
@@ -1931,7 +1939,7 @@ state 124
 
 state 125
 
-    (52) conditions -> SI expL ENTONCES ENTER statementsI SI NO . ENTER statementsI
+    (52) conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO . ENTER statementsI
 
     ENTER           shift and go to state 132
 
@@ -1940,9 +1948,10 @@ state 126
 
     (33) statementsI -> statementsI TAB stat .
 
-    SI              reduce using rule 33 (statementsI -> statementsI TAB stat .)
+    CASO            reduce using rule 33 (statementsI -> statementsI TAB stat .)
     TAB             reduce using rule 33 (statementsI -> statementsI TAB stat .)
     ID              reduce using rule 33 (statementsI -> statementsI TAB stat .)
+    SI              reduce using rule 33 (statementsI -> statementsI TAB stat .)
     ENCUANTO        reduce using rule 33 (statementsI -> statementsI TAB stat .)
     PARA            reduce using rule 33 (statementsI -> statementsI TAB stat .)
     $end            reduce using rule 33 (statementsI -> statementsI TAB stat .)
@@ -1959,6 +1968,7 @@ state 127
     ENCUANTO        reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER ENTER statementsI .)
     PARA            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER ENTER statementsI .)
     $end            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER ENTER statementsI .)
+    CASO            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER ENTER statementsI .)
     TAB             shift and go to state 117
 
   ! TAB             [ reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER ENTER statementsI .) ]
@@ -2015,7 +2025,7 @@ state 131
 
 state 132
 
-    (52) conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER . statementsI
+    (52) conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER . statementsI
     (32) statementsI -> . TAB stat
     (33) statementsI -> . statementsI TAB stat
 
@@ -2058,7 +2068,7 @@ state 135
     (13) declL -> . LISTA ID = lista ENTER
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -2089,18 +2099,19 @@ state 136
 
 state 137
 
-    (52) conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .
+    (52) conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .
     (33) statementsI -> statementsI . TAB stat
 
   ! shift/reduce conflict for TAB resolved as shift
-    ID              reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .)
-    SI              reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .)
-    ENCUANTO        reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .)
-    PARA            reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .)
-    $end            reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .)
+    ID              reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
+    SI              reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
+    ENCUANTO        reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
+    PARA            reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
+    $end            reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
+    CASO            reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .)
     TAB             shift and go to state 117
 
-  ! TAB             [ reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI .) ]
+  ! TAB             [ reduce using rule 52 (conditions -> SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI .) ]
 
 
 state 138
@@ -2120,7 +2131,7 @@ state 139
     (38) stat -> . ciclos
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -2152,7 +2163,7 @@ state 141
     (38) stat -> . ciclos
     (39) atrib -> . ID = exp
     (51) conditions -> . SI expL ENTONCES ENTER statementsI
-    (52) conditions -> . SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI
+    (52) conditions -> . SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI
     (67) ciclos -> . ENCUANTO expL HACER ENTER statementsI
     (68) ciclos -> . PARA expL SIGUIENTE atrib . ENTER
     (69) ciclos -> . PARA expL SIGUIENTE atrib HACER ENTER statementsI
@@ -2262,7 +2273,7 @@ state 149
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for SI in state 105 resolved as shift
+WARNING: shift/reduce conflict for CASO in state 105 resolved as shift
 WARNING: shift/reduce conflict for TAB in state 105 resolved as shift
 WARNING: shift/reduce conflict for TAB in state 107 resolved as shift
 WARNING: shift/reduce conflict for TAB in state 127 resolved as shift

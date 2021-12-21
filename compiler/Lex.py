@@ -1,7 +1,7 @@
 import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
-          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","NO",
+          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","CASO","CONTRARIO",
           "FLOAT","INT","ID","TAB","ENTER","STRING","AND","OR"]
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^"]
@@ -114,8 +114,12 @@ def t_FALSO(t):
     r'\bFalso\b'
     return t
 
-def t_NO(t):
-    r'\bno\b'
+def t_CASO(t):
+    r'\bcaso\b'
+    return t
+
+def t_CONTRARIO(t):
+    r'\bcontrario\b'
     return t
 
 def t_FLOAT(t):

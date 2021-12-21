@@ -106,16 +106,16 @@ def p_declF_parametros(p):
 
 def p_declF_vazia(p):
     "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
-    print([v.ID for v in p.parser.parameters])
+    #print([v.ID for v in p.parser.parameters])
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
-    print(p[1])
+    #print(p[1])
     p.parser.parameters.append(DECLARATION(p[1],p.parser.tipo))
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
-    print(p[3])
+    #print(p[3])
     p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
 
 def p_declarationsF_1(p):
@@ -139,10 +139,12 @@ def p_return_ID(p):
 def p_statementsI_1(p):
     "statementsI : TAB stat"
     p[0] = p[2]
+    print(p[2])
 
 def p_statementsI_mult(p):
     "statementsI : statementsI TAB stat"
     p[0] = p[1] + p[3]
+    print('H')
 
 def p_statements_1(p):
     "statements : stat"
@@ -156,6 +158,7 @@ def p_stat_atrib(p):
 
 def p_stat_conditions(p):
     "stat : conditions"
+    p[0] = p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
@@ -164,6 +167,7 @@ def p_stat_ciclos(p):
 
 def p_atrib(p):
     "atrib : ID '=' exp"
+    p[0] = p[1] + p[2] + p[3]
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
@@ -215,10 +219,11 @@ def p_fator_exp(p):
 
 def p_conditions_si(p):
     "conditions : SI expL ENTONCES ENTER statementsI"
-    p[0] = p[5]
+    p[0] = p[1]+p[5]
+    print('Condicion')
 
 def p_conditions_si_no(p):
-    "conditions : SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI"
+    "conditions : SI expL ENTONCES ENTER statementsI CASO CONTRARIO ENTER statementsI"
 
 def p_expL_1(p):
     "expL : termoB"
