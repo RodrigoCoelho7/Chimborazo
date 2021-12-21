@@ -10,13 +10,15 @@ def p_prg(p):
 
 def p_declarations_1(p):
     "declarations : decl"
-    print([v.ID for v in p.parser.declarations])
     for decl in p.parser.declarations:
         p.parser.program.add_variable(decl)
     p.parser.declarations = []
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
+    for decl in p.parser.declarations:
+        p.parser.program.add_variable(decl)
+    p.parser.declarations = []
 
 def p_decl_V(p):
     "decl : declV"
@@ -98,17 +100,20 @@ def p_elemento_lista(p):
 #-------------------Function declarations ------------------
 
 def p_declF_parametros(p):
-    "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI DEVUELVE return"
+    "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
+    
 
 def p_declF_vazia(p):
-    "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI DEVUELVE return"
+    "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
+    print([v.ID for v in p.parser.parameters])
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
-    #p.parser.parameters.append([p[1],p[3]])
+    p.parser.parameters.append(DECLARATION(p[1],p.parser.tipo))
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
+    p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
 
 def p_declarationsF_1(p):
     "declarationsF : TAB decl"

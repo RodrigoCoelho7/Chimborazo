@@ -1,7 +1,7 @@
 
 
 class DECLARATION:
-    def __init__(self,ID):
+    def __init__(self,ID,TIPO=None):
         self.ID = ID
     
     def set_tipo(self,TIPO):

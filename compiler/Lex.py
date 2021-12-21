@@ -6,6 +6,7 @@ tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFEREN
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^"]
 
+
 def t_STRING(t):
     r'\"[^"]*\"'
     return t
@@ -16,7 +17,7 @@ def t_ENTER(t):
     return t
 
 def t_TAB(t):
-    r'\t|\s{4}'
+    r'\t+|(\s{4})+'
     return t
 
 def t_SPACE(t):
@@ -135,7 +136,7 @@ def t_error(t):
 lexer = lex.lex()
 
 if __name__ == '__main__':
-    path = '../code_examples/'
+    path = 'code_examples/'
     file = open(path+"cuadrado.txt","r")
     contents = file.read()
 
