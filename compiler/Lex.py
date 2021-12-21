@@ -12,7 +12,7 @@ def t_STRING(t):
     return t
 
 def t_ENTER(t):
-    r'\n+'
+    r'\s*\n+'
     t.lexer.lineno += len(t.value)
     return t
 

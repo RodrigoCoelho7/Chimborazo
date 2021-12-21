@@ -101,7 +101,6 @@ def p_elemento_lista(p):
 
 def p_declF_parametros(p):
     "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
-    
 
 def p_declF_vazia(p):
     "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
