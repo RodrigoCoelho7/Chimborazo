@@ -6,6 +6,9 @@ tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFEREN
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^"]
 
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
 
 def t_STRING(t):
     r'\"[^"]*\"'
@@ -147,9 +150,8 @@ if __name__ == '__main__':
         tok = lexer.token()
 
 
-    import sys
-
-    for line in sys.stdin:
-        lexer.input(line)
-        for tok in lexer:
-            print(tok)
+#import sys
+#for line in sys.stdin:
+#    lexer.input(line)
+#    for tok in lexer:
+#        print(tok)

@@ -103,6 +103,7 @@ def p_elemento_lista(p):
 def p_declF_parametros(p):
     "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
     print(p)
+
 def p_declF_vazia(p):
     "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
     print([v.ID for v in p.parser.parameters])
@@ -119,9 +120,11 @@ def p_parametros_mult(p):
 
 def p_declarationsF_1(p):
     "declarationsF : TAB decl"
-    p[0] += p[2]
+    p[0] = p[2]
+
 def p_declarationsF_mult(p):
     "declarationsF : declarationsF TAB decl"
+    p[0] = p[1] + p[3]
 
 def p_return_INT(p):
     "return : INT ENTER"
@@ -139,6 +142,7 @@ def p_statementsI_1(p):
 
 def p_statementsI_mult(p):
     "statementsI : statementsI TAB stat"
+    p[0] = p[1] + p[3]
 
 def p_statements_1(p):
     "statements : stat"
@@ -148,11 +152,10 @@ def p_statements_mult(p):
 
 def p_stat_atrib(p):
     "stat : atrib ENTER"
-    p[0] += p[1]
+    p[0] = p[1]
 
 def p_stat_conditions(p):
     "stat : conditions"
-    p[0] += p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
@@ -164,36 +167,47 @@ def p_atrib(p):
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
+    p[0] = p[1] + p[3]
 
 def p_exp_sub(p):
     "exp : exp '-' termo"
+    p[0] = p[1] - p[3]
 
 def p_exp_termo(p):
     "exp : termo"
+    p[0] = p[1]
 
 def p_termo_mul(p):
     "termo : termo '*' fator"
+    p[0] = p[1] * p[3]
 
 def p_termo_div(p):
     "termo : termo '/' fator"
+    p[0] = p[1] / p[3]
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
+    p[0] = p[1] ** p[3]
 
 def p_termo_fator(p):
     "termo : fator"
+    p[0] = p[1]
 
 def p_fator_INT(p):
     "fator : INT"
+    p[0] = p[1]
 
 def p_fator_FLOAT(p):
     "fator : FLOAT"
+    p[0] = p[1]
 
 def p_fator_ID(p):
     "fator : ID"
+    p[0] = p[1]
 
 def p_fator_exp(p):
     "fator : '(' exp ')'"
+    p[0] = p[2]
 
 #------------------------------------------------------
 
@@ -201,7 +215,7 @@ def p_fator_exp(p):
 
 def p_conditions_si(p):
     "conditions : SI expL ENTONCES ENTER statementsI"
-    p[0] += p[5]
+    p[0] = p[5]
 
 def p_conditions_si_no(p):
     "conditions : SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI"
