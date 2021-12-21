@@ -22,6 +22,7 @@ def p_declarations_mult(p):
 
 def p_decl_V(p):
     "decl : declV"
+    p[0] = p[1]
 
 def p_decl_F(p):
     "decl : declF"
@@ -37,7 +38,7 @@ def p_declV(p):
     "declV : VAR ids ':' tipo ENTER "
     for var in p.parser.declarations:
         var.set_tipo(p.parser.tipo)
-
+    p[0] = var
 def p_ids_1(p):
     "ids : ID"
     p.parser.declarations.append(DECLARATION(p[1]))
@@ -101,22 +102,24 @@ def p_elemento_lista(p):
 
 def p_declF_parametros(p):
     "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
-
+    print(p)
 def p_declF_vazia(p):
     "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
     print([v.ID for v in p.parser.parameters])
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
+    print(p[1])
     p.parser.parameters.append(DECLARATION(p[1],p.parser.tipo))
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
+    print(p[3])
     p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
 
 def p_declarationsF_1(p):
     "declarationsF : TAB decl"
-
+    p[0] += p[2]
 def p_declarationsF_mult(p):
     "declarationsF : declarationsF TAB decl"
 
@@ -132,6 +135,7 @@ def p_return_ID(p):
 
 def p_statementsI_1(p):
     "statementsI : TAB stat"
+    p[0] = p[2]
 
 def p_statementsI_mult(p):
     "statementsI : statementsI TAB stat"
@@ -144,9 +148,11 @@ def p_statements_mult(p):
 
 def p_stat_atrib(p):
     "stat : atrib ENTER"
+    p[0] += p[1]
 
 def p_stat_conditions(p):
     "stat : conditions"
+    p[0] += p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
@@ -195,6 +201,7 @@ def p_fator_exp(p):
 
 def p_conditions_si(p):
     "conditions : SI expL ENTONCES ENTER statementsI"
+    p[0] += p[5]
 
 def p_conditions_si_no(p):
     "conditions : SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI"
