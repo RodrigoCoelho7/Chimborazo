@@ -99,8 +99,8 @@ DIFERENTE            : 60
 ENCUANTO             : 63
 ENTERO               : 10 24 25
 ENTONCES             : 47 48
-ESCRIBE              : 
-FALSO                : 
+ESCRIBE              :
+FALSO                :
 FLOAT                : 19 44
 FUNCION              : 24 25
 HACER                : 63 65
@@ -108,21 +108,21 @@ ID                   : 8 9 13 22 24 25 26 27 29 35 45
 IGUAL                : 59 61 62
 INT                  : 18 28 43
 LISTA                : 13
-NADA                 : 
+NADA                 :
 NO                   : 48
 OR                   : 50
 PARA                 : 64 65
 REAL                 : 11
-RESTO                : 
+RESTO                :
 SI                   : 47 48 48
 SIGUIENTE            : 64 65
 STRING               : 21
 VAR                  : 7
-VERDADERO            : 
+VERDADERO            :
 [                    : 14 15
 ]                    : 14 15
 ^                    : 41
-error                : 
+error                :
 
 Nonterminals, with rules where they appear
 
@@ -2287,7 +2287,7 @@ state 134
     ENCUANTO        reduce using rule 24 (declF -> FUNCION ID ( parametros ) : ENTERO declarations statements DEVUELVE return . .)
     PARA            reduce using rule 24 (declF -> FUNCION ID ( parametros ) : ENTERO declarations statements DEVUELVE return . .)
 
-WARNING: 
+WARNING:
 WARNING: Conflicts:
-WARNING: 
+WARNING:
 WARNING: shift/reduce conflict for SI in state 103 resolved as shift

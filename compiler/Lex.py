@@ -102,8 +102,12 @@ def t_FALSO(t):
     r'\bFalso\b'
     return t
 
-def t_NO(t):
-    r'\bno\b'
+def t_CASO(t):
+    r'\bcaso\b'
+    return t
+
+def t_CONTRARIO(t):
+    r'\bcontrario\b'
     return t
 
 def t_FLOAT(t):

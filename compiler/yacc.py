@@ -111,12 +111,12 @@ def p_declF_vazia(p):
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
-    print(p[1])
+    #print(p[1])
     p.parser.parameters.append(DECLARATION(p[1],p.parser.tipo))
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
-    print(p[3])
+    #print(p[3])
     p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
 
 def p_return_INT(p):
@@ -141,6 +141,7 @@ def p_stat_atrib(p):
 
 def p_stat_conditions(p):
     "stat : conditions"
+    p[0] = p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
@@ -149,6 +150,7 @@ def p_stat_ciclos(p):
 
 def p_atrib(p):
     "atrib : ID '=' exp"
+    p[0] = p[1] + p[2] + p[3]
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
@@ -277,5 +279,3 @@ content = file.read()
 parser.parse(content)
 if parser.success == True:
     print("Parsing completed")
-
-
