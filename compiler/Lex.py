@@ -1,8 +1,8 @@
 import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
-          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","NO",
-          "FLOAT","INT","ID","STRING","AND","OR"]
+          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","CASO","CONTRARIO",
+          "FLOAT","INT","ID","STRING","AND","OR","ENTER"]
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";"]
 
@@ -122,12 +122,16 @@ def t_ID(t):
     r'[a-zA-Z]+\w*'
     return t
 
+def t_ENTER(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
 
 def t_error(t):
     print("Caracter ilegal!",t.value[0])
     t.lexer.skip(1)
 
-t_ignore = " \n\t"
+t_ignore = " \t"
 
 lexer = lex.lex()
 

@@ -103,7 +103,6 @@ def p_elemento_lista(p):
 
 def p_declF_parametros(p):
     "declF : FUNCION ID '(' parametros ')' ':' ENTERO declarations statements DEVUELVE return '.'"
-    print(p)
 
 def p_declF_vazia(p):
     "declF : FUNCION ID '(' ')' ':' ENTERO declarations statements DEVUELVE return '.'"
@@ -201,11 +200,13 @@ def p_fator_exp(p):
 #----------------Conditions----------------------------
 
 def p_conditions_si(p):
-    "conditions : SI expL ENTONCES statements '.'"
-    p[0] = p[5]
+    "conditions : SI expL ENTONCES statements endcondition"
+
+def p_endcpndition(p):
+    "endcondition : '.'"
 
 def p_conditions_si_no(p):
-    "conditions : SI expL ENTONCES statements '.' SI NO statements '.'"
+    "endcondition : CASO CONTRARIO statements '.'"
 
 def p_expL_1(p):
     "expL : termoB"
