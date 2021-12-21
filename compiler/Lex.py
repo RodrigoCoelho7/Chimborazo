@@ -2,9 +2,9 @@ import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","NO",
-          "FLOAT","INT","ID","TAB","ENTER","STRING","AND","OR"]
+          "FLOAT","INT","ID","STRING","AND","OR"]
 
-literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^"]
+literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";"]
 
 def find_column(input, token):
     line_start = input.rfind('\n', 0, token.lexpos) + 1
@@ -13,18 +13,6 @@ def find_column(input, token):
 def t_STRING(t):
     r'\"[^"]*\"'
     return t
-
-def t_ENTER(t):
-    r'\s*\n+'
-    t.lexer.lineno += len(t.value)
-    return t
-
-def t_TAB(t):
-    r'\t+|(\s{4})+'
-    return t
-
-def t_SPACE(t):
-    r'\s'
 
 def t_OR(t):
     r'O'
@@ -135,6 +123,7 @@ def t_error(t):
     print("Caracter ilegal!",t.value[0])
     t.lexer.skip(1)
 
+t_ignore = " \n\t"
 
 lexer = lex.lex()
 

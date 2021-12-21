@@ -35,10 +35,11 @@ def p_decl_L(p):
 #----------------- Variable declarations ----------------------------
 
 def p_declV(p):
-    "declV : VAR ids ':' tipo ENTER "
+    "declV : VAR ids ':' tipo"
     for var in p.parser.declarations:
         var.set_tipo(p.parser.tipo)
     p[0] = var
+
 def p_ids_1(p):
     "ids : ID"
     p.parser.declarations.append(DECLARATION(p[1]))
@@ -64,7 +65,7 @@ def p_tipo_BOOL(p):
 #-----------------List Declarations --------------------------
 
 def p_declL(p):
-    "declL : LISTA ID '=' lista ENTER"
+    "declL : LISTA ID '=' lista"
 
 def p_lista_vazia(p):
     "lista : '[' ']'"
@@ -101,11 +102,11 @@ def p_elemento_lista(p):
 #-------------------Function declarations ------------------
 
 def p_declF_parametros(p):
-    "declF : FUNCION ID '(' parametros ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
+    "declF : FUNCION ID '(' parametros ')' ':' ENTERO declarations statements DEVUELVE return '.'"
     print(p)
 
 def p_declF_vazia(p):
-    "declF : FUNCION ID '(' ')' ':' ENTERO ENTER declarationsF statementsI TAB DEVUELVE return"
+    "declF : FUNCION ID '(' ')' ':' ENTERO declarations statements DEVUELVE return '.'"
     print([v.ID for v in p.parser.parameters])
 
 def p_parametros_1(p):
@@ -118,31 +119,15 @@ def p_parametros_mult(p):
     print(p[3])
     p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
 
-def p_declarationsF_1(p):
-    "declarationsF : TAB decl"
-    p[0] = p[2]
-
-def p_declarationsF_mult(p):
-    "declarationsF : declarationsF TAB decl"
-    p[0] = p[1] + p[3]
-
 def p_return_INT(p):
-    "return : INT ENTER"
+    "return : INT"
 
 def p_return_ID(p):
-    "return : ID ENTER"
+    "return : ID"
 
 #----------------------------------------------------------------------------
 
 #----------------------STATEMENTS-------------------------------------------
-
-def p_statementsI_1(p):
-    "statementsI : TAB stat"
-    p[0] = p[2]
-
-def p_statementsI_mult(p):
-    "statementsI : statementsI TAB stat"
-    p[0] = p[1] + p[3]
 
 def p_statements_1(p):
     "statements : stat"
@@ -151,7 +136,7 @@ def p_statements_mult(p):
     "statements : statements stat"
 
 def p_stat_atrib(p):
-    "stat : atrib ENTER"
+    "stat : atrib ';'"
     p[0] = p[1]
 
 def p_stat_conditions(p):
@@ -214,11 +199,11 @@ def p_fator_exp(p):
 #----------------Conditions----------------------------
 
 def p_conditions_si(p):
-    "conditions : SI expL ENTONCES ENTER statementsI"
+    "conditions : SI expL ENTONCES statements '.'"
     p[0] = p[5]
 
 def p_conditions_si_no(p):
-    "conditions : SI expL ENTONCES ENTER statementsI SI NO ENTER statementsI"
+    "conditions : SI expL ENTONCES statements '.' SI NO statements '.'"
 
 def p_expL_1(p):
     "expL : termoB"
@@ -267,13 +252,13 @@ def p_op_menorIGUAL(p):
 #------------Ciclos---------------------
 
 def p_ciclos_while(p):
-    " ciclos : ENCUANTO expL HACER ENTER statementsI"
+    " ciclos : ENCUANTO expL HACER statements '.'"
 
 def p_ciclos_for_1(p):
-    "ciclos : PARA expL SIGUIENTE atrib '.' ENTER"
+    "ciclos : PARA expL SIGUIENTE atrib '.'"
 
 def p_ciclos_for_mult(p):
-    "ciclos : PARA expL SIGUIENTE atrib HACER ENTER statementsI"
+    "ciclos : PARA expL SIGUIENTE atrib HACER statements '.'"
 
 def p_error(p):
     print("Syntax error!",p)

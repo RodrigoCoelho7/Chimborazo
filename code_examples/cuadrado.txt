@@ -2,7 +2,7 @@ variable l1,l2,l3,l4 : real
 variable res : entero
 
 funcion valida(a1:entero,a2:entero,a3:entero,a4:entero) : entero
-    variable res:entero
-    si l1 igual l2 Y l2 igual l3 Y l3 igual l4 entonces
-        res = 2
-    devuelve 4
+variable res:entero
+si l1 igual l2 Y l2 igual l3 Y l3 igual l4 entonces
+res = 2;
+devuelve 4.
