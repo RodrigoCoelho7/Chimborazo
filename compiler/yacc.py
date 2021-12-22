@@ -10,15 +10,17 @@ def p_prg(p):
 
 def p_declarations_1(p):
     "declarations : decl"
-    for decl in p.parser.declarations:
-        p.parser.program.add_variable(decl)
-    p.parser.declarations = []
+    if not p.parser.flag_function:
+        for decl in p.parser.declarations:
+            p.parser.program.add_variable(decl)
+        p.parser.declarations = []
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
-    for decl in p.parser.declarations:
-        p.parser.program.add_variable(decl)
-    p.parser.declarations = []
+    if not p.parser.flag_function:
+        for decl in p.parser.declarations:
+            p.parser.program.add_variable(decl)
+        p.parser.declarations = []
 
 def p_decl_V(p):
     "decl : declV"
@@ -37,8 +39,7 @@ def p_decl_L(p):
 def p_declV(p):
     "declV : VAR ids ':' tipo"
     for var in p.parser.declarations:
-        var.set_tipo(p.parser.tipo)
-    p[0] = var
+        var.set_tipo(p[4])
 
 def p_ids_1(p):
     "ids : ID"
@@ -50,15 +51,15 @@ def p_ids_mult(p):
 
 def p_tipo_int(p):
     "tipo : ENTERO"
-    p.parser.tipo = p[1]
+    p[0]= p[1]
 
 def p_tipo_REAL(p):
     "tipo : REAL"
-    p.parser.tipo = p[1]
+    p[0] = p[1]
 
 def p_tipo_BOOL(p):
     "tipo : BOOLEANO"
-    p.parser.tipo = p[1]
+    p[0] = p[1]
 
 #------------------------------------------------------
 
@@ -102,27 +103,48 @@ def p_elemento_lista(p):
 #-------------------Function declarations ------------------
 
 def p_declF_parametros(p):
-    "declF : FUNCION ID '(' parametros ')' ':' ENTERO declarations statements DEVUELVE return '.'"
-
-def p_declF_vazia(p):
-    "declF : FUNCION ID '(' ')' ':' ENTERO declarations statements DEVUELVE return '.'"
-    print([v.ID for v in p.parser.parameters])
+    "declF : FUNCION ID '(' parametros ')' ':' tipo declarations statements DEVUELVE return '.'"
+    f = FUNCTION(p[2],p[7],p.parser.parameters,p.parser.return_tipo)
+    p.parser.return_tipo = None
+    for decl in p.parser.declarations:
+        f.add_variable(decl)
+    f.valida_tipo()
+    p.parser.declarations = [f]
+    p.parser.flag_function = False
+    p.parser.parameters = []
+    
+def p_parametros_0(p):
+    "parametros : "
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
-    #print(p[1])
-    p.parser.parameters.append(DECLARATION(p[1],p.parser.tipo))
+    p.parser.flag_function = True
+    p.parser.parameters.append(DECLARATION(p[1],TIPO=p[3]))
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
-    #print(p[3])
-    p.parser.parameters.append(DECLARATION(p[3],p.parser.tipo))
+    p.parser.flag_function = True
+    p.parser.parameters.append(DECLARATION(p[3],TIPO=p[5]))
 
 def p_return_INT(p):
     "return : INT"
+    p.parser.return_tipo = ('entero',p[1])
 
 def p_return_ID(p):
     "return : ID"
+    p.parser.return_tipo = ('ID',p[1])
+
+def p_return_FLOAT(p):
+    "return : FLOAT"
+    p.parser.return_tipo = ('real',p[1])
+
+def p_return_TRUE(p):
+    "return : VERDADERO"
+    p.parser.return_tipo = ('booleano',p[1])
+
+def p_return_FALSE(p):
+    "return : FALSO"
+    p.parser.return_tipo = ('booleano',p[1])
 
 #----------------------------------------------------------------------------
 
@@ -136,11 +158,9 @@ def p_statements_mult(p):
 
 def p_stat_atrib(p):
     "stat : atrib ';'"
-    p[0] = p[1]
 
 def p_stat_conditions(p):
     "stat : conditions"
-    p[0] = p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
@@ -269,6 +289,7 @@ def p_error(p):
 
 parser = yacc.yacc()
 parser.program = PROGRAM()
+parser.flag_function = False
 parser.declarations = []
 parser.parameters = []
 parser.success = True
