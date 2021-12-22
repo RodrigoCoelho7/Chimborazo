@@ -67,36 +67,54 @@ def p_tipo_BOOL(p):
 
 def p_declL(p):
     "declL : LISTA ID '=' lista"
+    p.parser.declarations.append(DECLARATION(p[4],"lista"))
+    p[0] = p[1] + ' ' + p[2] + p[3] + p[4]
+    print(p[0])
 
 def p_lista_vazia(p):
     "lista : '[' ']'"
+    p[0] = p[1] + p[2]
 
 def p_lista_elem(p):
     "lista : '[' elementos ']'"
+    p[0] = p[1] + str(p[2]) + p[3]
 
 def p_elementos_1(p):
     "elementos : elemento"
+    p[0] = str(p[1])
 
 def p_elementos_mult(p):
     "elementos : elementos ',' elemento"
+    p[0] = str(p[1]) + p[2] + str(p[3])
 
 def p_elemento_INT(p):
     "elemento : INT"
+    p[0] = p[1]
+    parser.comp_lista += 1
 
 def p_elemento_FLOAT(p):
     "elemento : FLOAT"
+    p[0] = p[1]
+    parser.comp_lista += 1
 
 def p_elemento_BOOL(p):
     "elemento : BOOLEANO"
+    p[0] = p[1]
+    parser.comp_lista += 1
 
 def p_elemento_STRING(p):
     "elemento : STRING"
+    p[0] = p[1]
+    parser.comp_lista += 1
 
 def p_elemento_ID(p):
     "elemento : ID"
+    p[0] = p[1]
+    parser.comp_lista += 1
 
 def p_elemento_lista(p):
     "elemento : lista"
+    p[0] = p[1]
 
 #-------------------------------------------------------
 
@@ -169,7 +187,7 @@ def p_stat_ciclos(p):
 
 def p_atrib(p):
     "atrib : ID '=' exp"
-    p[0] = p[1] + p[2] + p[3]
+    p[0] = p[3]
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
@@ -292,8 +310,9 @@ parser.program = PROGRAM()
 parser.flag_function = False
 parser.declarations = []
 parser.parameters = []
-parser.success = True
+parser.comp_lista = 0
 
+parser.success = True
 path = 'code_examples/'
 file = open(path+"cuadrado.txt","r")
 content = file.read()
@@ -301,3 +320,4 @@ content = file.read()
 parser.parse(content)
 if parser.success == True:
     print("Parsing completed")
+    print("Comprimento da lista : ",parser.comp_lista)
