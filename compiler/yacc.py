@@ -5,6 +5,7 @@ from libs.objects import PROGRAM, DECLARATION, FUNCTION
 
 def p_prg(p):
     "prg : declarations statements"
+    parser.code += 'STOP'
 
 #-------------- Declarations ------------------------------
 
@@ -311,8 +312,9 @@ parser.flag_function = False
 parser.declarations = []
 parser.parameters = []
 parser.comp_lista = 0
-
 parser.success = True
+parser.code = 'START\n'
+
 path = 'code_examples/'
 file = open(path+"cuadrado.txt","r")
 content = file.read()
@@ -320,4 +322,3 @@ content = file.read()
 parser.parse(content)
 if parser.success == True:
     print("Parsing completed")
-    print("Comprimento da lista : ",parser.comp_lista)

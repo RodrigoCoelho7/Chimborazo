@@ -1,6 +1,5 @@
-variable l1,l2,l3,l4 : real
-variable res : entero
-lista var = [1,2,3,4,5]
+variable l1,l2,l3,l4: real
+variable res: entero
 
 funcion valida(a1:entero,a2:entero,a3:entero,a4:entero) : entero
     variable res:real
