@@ -42,6 +42,17 @@ def p_declV(p):
     for var in p.parser.declarations:
         var.set_tipo(p[4])
 
+def p_declV_atrib(p):
+    "declV : VAR atribs ':' tipo"
+    for var in p.parser.declarations:
+        var.set_tipo(p[4])
+
+def p_atribs_1(p):
+    "atribs : atrib"
+
+def p_atribs_mult(p):
+    "atribs : atribs ',' atrib"
+
 def p_ids_1(p):
     "ids : ID"
     p.parser.declarations.append(DECLARATION(p[1]))

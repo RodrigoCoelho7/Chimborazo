@@ -19,149 +19,153 @@ Rule 4     decl -> declV
 Rule 5     decl -> declF
 Rule 6     decl -> declL
 Rule 7     declV -> VAR ids : tipo
-Rule 8     ids -> ID
-Rule 9     ids -> ids , ID
-Rule 10    tipo -> ENTERO
-Rule 11    tipo -> REAL
-Rule 12    tipo -> BOOLEANO
-Rule 13    declL -> LISTA ID = lista
-Rule 14    lista -> [ ]
-Rule 15    lista -> [ elementos ]
-Rule 16    elementos -> elemento
-Rule 17    elementos -> elementos , elemento
-Rule 18    elemento -> INT
-Rule 19    elemento -> FLOAT
-Rule 20    elemento -> BOOLEANO
-Rule 21    elemento -> STRING
-Rule 22    elemento -> ID
-Rule 23    elemento -> lista
-Rule 24    declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
-Rule 25    parametros -> <empty>
-Rule 26    parametros -> ID : tipo
-Rule 27    parametros -> parametros , ID : tipo
-Rule 28    return -> INT
-Rule 29    return -> ID
-Rule 30    return -> FLOAT
-Rule 31    return -> VERDADERO
-Rule 32    return -> FALSO
-Rule 33    statements -> stat
-Rule 34    statements -> statements stat
-Rule 35    stat -> atrib ;
-Rule 36    stat -> conditions
-Rule 37    stat -> ciclos
-Rule 38    atrib -> ID = exp
-Rule 39    exp -> exp + termo
-Rule 40    exp -> exp - termo
-Rule 41    exp -> termo
-Rule 42    termo -> termo * fator
-Rule 43    termo -> termo / fator
-Rule 44    termo -> termo ^ fator
-Rule 45    termo -> fator
-Rule 46    fator -> INT
-Rule 47    fator -> FLOAT
-Rule 48    fator -> ID
-Rule 49    fator -> ( exp )
-Rule 50    conditions -> SI expL ENTONCES statements endcondition
-Rule 51    endcondition -> .
-Rule 52    endcondition -> CASO CONTRARIO statements .
-Rule 53    expL -> termoB
-Rule 54    expL -> expL OR termoB
-Rule 55    termoB -> fatorB
-Rule 56    termoB -> termoB AND fatorB
-Rule 57    fatorB -> condition
-Rule 58    fatorB -> BOOLEANO
-Rule 59    fatorB -> ( expL )
-Rule 60    condition -> exp op exp
-Rule 61    op -> >
-Rule 62    op -> <
-Rule 63    op -> IGUAL
-Rule 64    op -> DIFERENTE
-Rule 65    op -> > IGUAL
-Rule 66    op -> < IGUAL
-Rule 67    ciclos -> ENCUANTO expL HACER statements .
-Rule 68    ciclos -> PARA expL SIGUIENTE atrib .
-Rule 69    ciclos -> PARA expL SIGUIENTE atrib HACER statements .
+Rule 8     declV -> VAR atribs : tipo
+Rule 9     atribs -> atrib
+Rule 10    atribs -> atribs , atrib
+Rule 11    ids -> ID
+Rule 12    ids -> ids , ID
+Rule 13    tipo -> ENTERO
+Rule 14    tipo -> REAL
+Rule 15    tipo -> BOOLEANO
+Rule 16    declL -> LISTA ID = lista
+Rule 17    lista -> [ ]
+Rule 18    lista -> [ elementos ]
+Rule 19    elementos -> elemento
+Rule 20    elementos -> elementos , elemento
+Rule 21    elemento -> INT
+Rule 22    elemento -> FLOAT
+Rule 23    elemento -> BOOLEANO
+Rule 24    elemento -> STRING
+Rule 25    elemento -> ID
+Rule 26    elemento -> lista
+Rule 27    declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
+Rule 28    parametros -> <empty>
+Rule 29    parametros -> ID : tipo
+Rule 30    parametros -> parametros , ID : tipo
+Rule 31    return -> INT
+Rule 32    return -> ID
+Rule 33    return -> FLOAT
+Rule 34    return -> VERDADERO
+Rule 35    return -> FALSO
+Rule 36    statements -> stat
+Rule 37    statements -> statements stat
+Rule 38    stat -> atrib ;
+Rule 39    stat -> conditions
+Rule 40    stat -> ciclos
+Rule 41    atrib -> ID = exp
+Rule 42    exp -> exp + termo
+Rule 43    exp -> exp - termo
+Rule 44    exp -> termo
+Rule 45    termo -> termo * fator
+Rule 46    termo -> termo / fator
+Rule 47    termo -> termo ^ fator
+Rule 48    termo -> fator
+Rule 49    fator -> INT
+Rule 50    fator -> FLOAT
+Rule 51    fator -> ID
+Rule 52    fator -> ( exp )
+Rule 53    conditions -> SI expL ENTONCES statements endcondition
+Rule 54    endcondition -> .
+Rule 55    endcondition -> CASO CONTRARIO statements .
+Rule 56    expL -> termoB
+Rule 57    expL -> expL OR termoB
+Rule 58    termoB -> fatorB
+Rule 59    termoB -> termoB AND fatorB
+Rule 60    fatorB -> condition
+Rule 61    fatorB -> BOOLEANO
+Rule 62    fatorB -> ( expL )
+Rule 63    condition -> exp op exp
+Rule 64    op -> >
+Rule 65    op -> <
+Rule 66    op -> IGUAL
+Rule 67    op -> DIFERENTE
+Rule 68    op -> > IGUAL
+Rule 69    op -> < IGUAL
+Rule 70    ciclos -> ENCUANTO expL HACER statements .
+Rule 71    ciclos -> PARA expL SIGUIENTE atrib .
+Rule 72    ciclos -> PARA expL SIGUIENTE atrib HACER statements .
 
 Terminals, with rules where they appear
 
-(                    : 24 49 59
-)                    : 24 49 59
-*                    : 42
-+                    : 39
-,                    : 9 17 27
--                    : 40
-.                    : 24 51 52 67 68 69
-/                    : 43
-:                    : 7 24 26 27
-;                    : 35
-<                    : 62 66
-=                    : 13 38
->                    : 61 65
-AND                  : 56
-BOOLEANO             : 12 20 58
-CASO                 : 52
-CONTRARIO            : 52
-DEVUELVE             : 24
-DIFERENTE            : 64
-ENCUANTO             : 67
+(                    : 27 52 62
+)                    : 27 52 62
+*                    : 45
++                    : 42
+,                    : 10 12 20 30
+-                    : 43
+.                    : 27 54 55 70 71 72
+/                    : 46
+:                    : 7 8 27 29 30
+;                    : 38
+<                    : 65 69
+=                    : 16 41
+>                    : 64 68
+AND                  : 59
+BOOLEANO             : 15 23 61
+CASO                 : 55
+CONTRARIO            : 55
+DEVUELVE             : 27
+DIFERENTE            : 67
+ENCUANTO             : 70
 ENTER                : 
-ENTERO               : 10
-ENTONCES             : 50
+ENTERO               : 13
+ENTONCES             : 53
 ESCRIBE              : 
 ESCRIBIR             : 
-FALSO                : 32
-FLOAT                : 19 30 47
-FUNCION              : 24
-HACER                : 67 69
-ID                   : 8 9 13 22 24 26 27 29 38 48
-IGUAL                : 63 65 66
-INT                  : 18 28 46
+FALSO                : 35
+FLOAT                : 22 33 50
+FUNCION              : 27
+HACER                : 70 72
+ID                   : 11 12 16 25 27 29 30 32 41 51
+IGUAL                : 66 68 69
+INT                  : 21 31 49
 LEER                 : 
-LISTA                : 13
+LISTA                : 16
 NADA                 : 
-OR                   : 54
-PARA                 : 68 69
-REAL                 : 11
+OR                   : 57
+PARA                 : 71 72
+REAL                 : 14
 RESTO                : 
-SI                   : 50
-SIGUIENTE            : 68 69
-STRING               : 21
-VAR                  : 7
-VERDADERO            : 31
-[                    : 14 15
-]                    : 14 15
-^                    : 44
+SI                   : 53
+SIGUIENTE            : 71 72
+STRING               : 24
+VAR                  : 7 8
+VERDADERO            : 34
+[                    : 17 18
+]                    : 17 18
+^                    : 47
 error                : 
 
 Nonterminals, with rules where they appear
 
-atrib                : 35 68 69
-ciclos               : 37
-condition            : 57
-conditions           : 36
+atrib                : 9 10 38 71 72
+atribs               : 8 10
+ciclos               : 40
+condition            : 60
+conditions           : 39
 decl                 : 2 3
 declF                : 5
 declL                : 6
 declV                : 4
-declarations         : 1 3 24
-elemento             : 16 17
-elementos            : 15 17
-endcondition         : 50
-exp                  : 38 39 40 49 60 60
-expL                 : 50 54 59 67 68 69
-fator                : 42 43 44 45
-fatorB               : 55 56
-ids                  : 7 9
-lista                : 13 23
-op                   : 60
-parametros           : 24 27
+declarations         : 1 3 27
+elemento             : 19 20
+elementos            : 18 20
+endcondition         : 53
+exp                  : 41 42 43 52 63 63
+expL                 : 53 57 62 70 71 72
+fator                : 45 46 47 48
+fatorB               : 58 59
+ids                  : 7 12
+lista                : 16 26
+op                   : 63
+parametros           : 27 30
 prg                  : 0
-return               : 24
-stat                 : 33 34
-statements           : 1 24 34 50 52 67 69
-termo                : 39 40 41 42 43 44
-termoB               : 53 54 56
-tipo                 : 7 24 26 27
+return               : 27
+stat                 : 36 37
+statements           : 1 27 37 53 55 70 72
+termo                : 42 43 44 45 46 47
+termoB               : 56 57 59
+tipo                 : 7 8 27 29 30
 
 Parsing method: LALR
 
@@ -175,8 +179,9 @@ state 0
     (5) decl -> . declF
     (6) decl -> . declL
     (7) declV -> . VAR ids : tipo
-    (24) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
-    (13) declL -> . LISTA ID = lista
+    (8) declV -> . VAR atribs : tipo
+    (27) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
+    (16) declL -> . LISTA ID = lista
 
     VAR             shift and go to state 7
     FUNCION         shift and go to state 8
@@ -199,22 +204,23 @@ state 2
 
     (1) prg -> declarations . statements
     (3) declarations -> declarations . decl
-    (33) statements -> . stat
-    (34) statements -> . statements stat
+    (36) statements -> . stat
+    (37) statements -> . statements stat
     (4) decl -> . declV
     (5) decl -> . declF
     (6) decl -> . declL
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
     (7) declV -> . VAR ids : tipo
-    (24) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
-    (13) declL -> . LISTA ID = lista
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (8) declV -> . VAR atribs : tipo
+    (27) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
+    (16) declL -> . LISTA ID = lista
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
     VAR             shift and go to state 7
     FUNCION         shift and go to state 8
@@ -289,39 +295,45 @@ state 6
 state 7
 
     (7) declV -> VAR . ids : tipo
-    (8) ids -> . ID
-    (9) ids -> . ids , ID
+    (8) declV -> VAR . atribs : tipo
+    (11) ids -> . ID
+    (12) ids -> . ids , ID
+    (9) atribs -> . atrib
+    (10) atribs -> . atribs , atrib
+    (41) atrib -> . ID = exp
 
-    ID              shift and go to state 21
+    ID              shift and go to state 22
 
     ids                            shift and go to state 20
+    atribs                         shift and go to state 21
+    atrib                          shift and go to state 23
 
 state 8
 
-    (24) declF -> FUNCION . ID ( parametros ) : tipo declarations statements DEVUELVE return .
+    (27) declF -> FUNCION . ID ( parametros ) : tipo declarations statements DEVUELVE return .
 
-    ID              shift and go to state 22
+    ID              shift and go to state 24
 
 
 state 9
 
-    (13) declL -> LISTA . ID = lista
+    (16) declL -> LISTA . ID = lista
 
-    ID              shift and go to state 23
+    ID              shift and go to state 25
 
 
 state 10
 
     (1) prg -> declarations statements .
-    (34) statements -> statements . stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (37) statements -> statements . stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
     $end            reduce using rule 1 (prg -> declarations statements .)
     ID              shift and go to state 16
@@ -329,7 +341,7 @@ state 10
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    stat                           shift and go to state 24
+    stat                           shift and go to state 26
     atrib                          shift and go to state 13
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
@@ -349,900 +361,953 @@ state 11
 
 state 12
 
-    (33) statements -> stat .
+    (36) statements -> stat .
 
-    ID              reduce using rule 33 (statements -> stat .)
-    SI              reduce using rule 33 (statements -> stat .)
-    ENCUANTO        reduce using rule 33 (statements -> stat .)
-    PARA            reduce using rule 33 (statements -> stat .)
-    $end            reduce using rule 33 (statements -> stat .)
-    .               reduce using rule 33 (statements -> stat .)
-    CASO            reduce using rule 33 (statements -> stat .)
-    DEVUELVE        reduce using rule 33 (statements -> stat .)
+    ID              reduce using rule 36 (statements -> stat .)
+    SI              reduce using rule 36 (statements -> stat .)
+    ENCUANTO        reduce using rule 36 (statements -> stat .)
+    PARA            reduce using rule 36 (statements -> stat .)
+    $end            reduce using rule 36 (statements -> stat .)
+    .               reduce using rule 36 (statements -> stat .)
+    CASO            reduce using rule 36 (statements -> stat .)
+    DEVUELVE        reduce using rule 36 (statements -> stat .)
 
 
 state 13
 
-    (35) stat -> atrib . ;
+    (38) stat -> atrib . ;
 
-    ;               shift and go to state 25
+    ;               shift and go to state 27
 
 
 state 14
 
-    (36) stat -> conditions .
+    (39) stat -> conditions .
 
-    ID              reduce using rule 36 (stat -> conditions .)
-    SI              reduce using rule 36 (stat -> conditions .)
-    ENCUANTO        reduce using rule 36 (stat -> conditions .)
-    PARA            reduce using rule 36 (stat -> conditions .)
-    $end            reduce using rule 36 (stat -> conditions .)
-    .               reduce using rule 36 (stat -> conditions .)
-    CASO            reduce using rule 36 (stat -> conditions .)
-    DEVUELVE        reduce using rule 36 (stat -> conditions .)
+    ID              reduce using rule 39 (stat -> conditions .)
+    SI              reduce using rule 39 (stat -> conditions .)
+    ENCUANTO        reduce using rule 39 (stat -> conditions .)
+    PARA            reduce using rule 39 (stat -> conditions .)
+    $end            reduce using rule 39 (stat -> conditions .)
+    .               reduce using rule 39 (stat -> conditions .)
+    CASO            reduce using rule 39 (stat -> conditions .)
+    DEVUELVE        reduce using rule 39 (stat -> conditions .)
 
 
 state 15
 
-    (37) stat -> ciclos .
+    (40) stat -> ciclos .
 
-    ID              reduce using rule 37 (stat -> ciclos .)
-    SI              reduce using rule 37 (stat -> ciclos .)
-    ENCUANTO        reduce using rule 37 (stat -> ciclos .)
-    PARA            reduce using rule 37 (stat -> ciclos .)
-    $end            reduce using rule 37 (stat -> ciclos .)
-    .               reduce using rule 37 (stat -> ciclos .)
-    CASO            reduce using rule 37 (stat -> ciclos .)
-    DEVUELVE        reduce using rule 37 (stat -> ciclos .)
+    ID              reduce using rule 40 (stat -> ciclos .)
+    SI              reduce using rule 40 (stat -> ciclos .)
+    ENCUANTO        reduce using rule 40 (stat -> ciclos .)
+    PARA            reduce using rule 40 (stat -> ciclos .)
+    $end            reduce using rule 40 (stat -> ciclos .)
+    .               reduce using rule 40 (stat -> ciclos .)
+    CASO            reduce using rule 40 (stat -> ciclos .)
+    DEVUELVE        reduce using rule 40 (stat -> ciclos .)
 
 
 state 16
 
-    (38) atrib -> ID . = exp
+    (41) atrib -> ID . = exp
 
-    =               shift and go to state 26
+    =               shift and go to state 28
 
 
 state 17
 
-    (50) conditions -> SI . expL ENTONCES statements endcondition
-    (53) expL -> . termoB
-    (54) expL -> . expL OR termoB
-    (55) termoB -> . fatorB
-    (56) termoB -> . termoB AND fatorB
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (60) condition -> . exp op exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (53) conditions -> SI . expL ENTONCES statements endcondition
+    (56) expL -> . termoB
+    (57) expL -> . expL OR termoB
+    (58) termoB -> . fatorB
+    (59) termoB -> . termoB AND fatorB
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (63) condition -> . exp op exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
 
-    expL                           shift and go to state 27
-    termoB                         shift and go to state 28
-    fatorB                         shift and go to state 29
-    condition                      shift and go to state 30
-    exp                            shift and go to state 33
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
+    expL                           shift and go to state 29
+    termoB                         shift and go to state 30
+    fatorB                         shift and go to state 31
+    condition                      shift and go to state 32
+    exp                            shift and go to state 35
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
 
 state 18
 
-    (67) ciclos -> ENCUANTO . expL HACER statements .
-    (53) expL -> . termoB
-    (54) expL -> . expL OR termoB
-    (55) termoB -> . fatorB
-    (56) termoB -> . termoB AND fatorB
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (60) condition -> . exp op exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (70) ciclos -> ENCUANTO . expL HACER statements .
+    (56) expL -> . termoB
+    (57) expL -> . expL OR termoB
+    (58) termoB -> . fatorB
+    (59) termoB -> . termoB AND fatorB
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (63) condition -> . exp op exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
 
-    expL                           shift and go to state 39
-    termoB                         shift and go to state 28
-    fatorB                         shift and go to state 29
-    condition                      shift and go to state 30
-    exp                            shift and go to state 33
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
+    expL                           shift and go to state 41
+    termoB                         shift and go to state 30
+    fatorB                         shift and go to state 31
+    condition                      shift and go to state 32
+    exp                            shift and go to state 35
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
 
 state 19
 
-    (68) ciclos -> PARA . expL SIGUIENTE atrib .
-    (69) ciclos -> PARA . expL SIGUIENTE atrib HACER statements .
-    (53) expL -> . termoB
-    (54) expL -> . expL OR termoB
-    (55) termoB -> . fatorB
-    (56) termoB -> . termoB AND fatorB
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (60) condition -> . exp op exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (71) ciclos -> PARA . expL SIGUIENTE atrib .
+    (72) ciclos -> PARA . expL SIGUIENTE atrib HACER statements .
+    (56) expL -> . termoB
+    (57) expL -> . expL OR termoB
+    (58) termoB -> . fatorB
+    (59) termoB -> . termoB AND fatorB
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (63) condition -> . exp op exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
 
-    expL                           shift and go to state 40
-    termoB                         shift and go to state 28
-    fatorB                         shift and go to state 29
-    condition                      shift and go to state 30
-    exp                            shift and go to state 33
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
+    expL                           shift and go to state 42
+    termoB                         shift and go to state 30
+    fatorB                         shift and go to state 31
+    condition                      shift and go to state 32
+    exp                            shift and go to state 35
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
 
 state 20
 
     (7) declV -> VAR ids . : tipo
-    (9) ids -> ids . , ID
+    (12) ids -> ids . , ID
 
-    :               shift and go to state 41
-    ,               shift and go to state 42
+    :               shift and go to state 43
+    ,               shift and go to state 44
 
 
 state 21
 
-    (8) ids -> ID .
+    (8) declV -> VAR atribs . : tipo
+    (10) atribs -> atribs . , atrib
 
-    :               reduce using rule 8 (ids -> ID .)
-    ,               reduce using rule 8 (ids -> ID .)
+    :               shift and go to state 45
+    ,               shift and go to state 46
 
 
 state 22
 
-    (24) declF -> FUNCION ID . ( parametros ) : tipo declarations statements DEVUELVE return .
+    (11) ids -> ID .
+    (41) atrib -> ID . = exp
 
-    (               shift and go to state 43
+    :               reduce using rule 11 (ids -> ID .)
+    ,               reduce using rule 11 (ids -> ID .)
+    =               shift and go to state 28
 
 
 state 23
 
-    (13) declL -> LISTA ID . = lista
+    (9) atribs -> atrib .
 
-    =               shift and go to state 44
+    :               reduce using rule 9 (atribs -> atrib .)
+    ,               reduce using rule 9 (atribs -> atrib .)
 
 
 state 24
 
-    (34) statements -> statements stat .
+    (27) declF -> FUNCION ID . ( parametros ) : tipo declarations statements DEVUELVE return .
 
-    ID              reduce using rule 34 (statements -> statements stat .)
-    SI              reduce using rule 34 (statements -> statements stat .)
-    ENCUANTO        reduce using rule 34 (statements -> statements stat .)
-    PARA            reduce using rule 34 (statements -> statements stat .)
-    $end            reduce using rule 34 (statements -> statements stat .)
-    .               reduce using rule 34 (statements -> statements stat .)
-    CASO            reduce using rule 34 (statements -> statements stat .)
-    DEVUELVE        reduce using rule 34 (statements -> statements stat .)
+    (               shift and go to state 47
 
 
 state 25
 
-    (35) stat -> atrib ; .
+    (16) declL -> LISTA ID . = lista
 
-    ID              reduce using rule 35 (stat -> atrib ; .)
-    SI              reduce using rule 35 (stat -> atrib ; .)
-    ENCUANTO        reduce using rule 35 (stat -> atrib ; .)
-    PARA            reduce using rule 35 (stat -> atrib ; .)
-    $end            reduce using rule 35 (stat -> atrib ; .)
-    .               reduce using rule 35 (stat -> atrib ; .)
-    CASO            reduce using rule 35 (stat -> atrib ; .)
-    DEVUELVE        reduce using rule 35 (stat -> atrib ; .)
+    =               shift and go to state 48
 
 
 state 26
 
-    (38) atrib -> ID = . exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (37) statements -> statements stat .
 
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
+    ID              reduce using rule 37 (statements -> statements stat .)
+    SI              reduce using rule 37 (statements -> statements stat .)
+    ENCUANTO        reduce using rule 37 (statements -> statements stat .)
+    PARA            reduce using rule 37 (statements -> statements stat .)
+    $end            reduce using rule 37 (statements -> statements stat .)
+    .               reduce using rule 37 (statements -> statements stat .)
+    CASO            reduce using rule 37 (statements -> statements stat .)
+    DEVUELVE        reduce using rule 37 (statements -> statements stat .)
 
-    exp                            shift and go to state 45
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
 
 state 27
 
-    (50) conditions -> SI expL . ENTONCES statements endcondition
-    (54) expL -> expL . OR termoB
+    (38) stat -> atrib ; .
 
-    ENTONCES        shift and go to state 47
-    OR              shift and go to state 48
+    ID              reduce using rule 38 (stat -> atrib ; .)
+    SI              reduce using rule 38 (stat -> atrib ; .)
+    ENCUANTO        reduce using rule 38 (stat -> atrib ; .)
+    PARA            reduce using rule 38 (stat -> atrib ; .)
+    $end            reduce using rule 38 (stat -> atrib ; .)
+    .               reduce using rule 38 (stat -> atrib ; .)
+    CASO            reduce using rule 38 (stat -> atrib ; .)
+    DEVUELVE        reduce using rule 38 (stat -> atrib ; .)
 
 
 state 28
 
-    (53) expL -> termoB .
-    (56) termoB -> termoB . AND fatorB
+    (41) atrib -> ID = . exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
 
-    ENTONCES        reduce using rule 53 (expL -> termoB .)
-    OR              reduce using rule 53 (expL -> termoB .)
-    HACER           reduce using rule 53 (expL -> termoB .)
-    SIGUIENTE       reduce using rule 53 (expL -> termoB .)
-    )               reduce using rule 53 (expL -> termoB .)
-    AND             shift and go to state 49
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
 
+    exp                            shift and go to state 49
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
 
 state 29
 
-    (55) termoB -> fatorB .
+    (53) conditions -> SI expL . ENTONCES statements endcondition
+    (57) expL -> expL . OR termoB
 
-    AND             reduce using rule 55 (termoB -> fatorB .)
-    ENTONCES        reduce using rule 55 (termoB -> fatorB .)
-    OR              reduce using rule 55 (termoB -> fatorB .)
-    HACER           reduce using rule 55 (termoB -> fatorB .)
-    SIGUIENTE       reduce using rule 55 (termoB -> fatorB .)
-    )               reduce using rule 55 (termoB -> fatorB .)
+    ENTONCES        shift and go to state 51
+    OR              shift and go to state 52
 
 
 state 30
 
-    (57) fatorB -> condition .
+    (56) expL -> termoB .
+    (59) termoB -> termoB . AND fatorB
 
-    AND             reduce using rule 57 (fatorB -> condition .)
-    ENTONCES        reduce using rule 57 (fatorB -> condition .)
-    OR              reduce using rule 57 (fatorB -> condition .)
-    HACER           reduce using rule 57 (fatorB -> condition .)
-    SIGUIENTE       reduce using rule 57 (fatorB -> condition .)
-    )               reduce using rule 57 (fatorB -> condition .)
+    ENTONCES        reduce using rule 56 (expL -> termoB .)
+    OR              reduce using rule 56 (expL -> termoB .)
+    HACER           reduce using rule 56 (expL -> termoB .)
+    SIGUIENTE       reduce using rule 56 (expL -> termoB .)
+    )               reduce using rule 56 (expL -> termoB .)
+    AND             shift and go to state 53
 
 
 state 31
 
-    (58) fatorB -> BOOLEANO .
+    (58) termoB -> fatorB .
 
-    AND             reduce using rule 58 (fatorB -> BOOLEANO .)
-    ENTONCES        reduce using rule 58 (fatorB -> BOOLEANO .)
-    OR              reduce using rule 58 (fatorB -> BOOLEANO .)
-    HACER           reduce using rule 58 (fatorB -> BOOLEANO .)
-    SIGUIENTE       reduce using rule 58 (fatorB -> BOOLEANO .)
-    )               reduce using rule 58 (fatorB -> BOOLEANO .)
+    AND             reduce using rule 58 (termoB -> fatorB .)
+    ENTONCES        reduce using rule 58 (termoB -> fatorB .)
+    OR              reduce using rule 58 (termoB -> fatorB .)
+    HACER           reduce using rule 58 (termoB -> fatorB .)
+    SIGUIENTE       reduce using rule 58 (termoB -> fatorB .)
+    )               reduce using rule 58 (termoB -> fatorB .)
 
 
 state 32
 
-    (59) fatorB -> ( . expL )
-    (49) fator -> ( . exp )
-    (53) expL -> . termoB
-    (54) expL -> . expL OR termoB
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (55) termoB -> . fatorB
-    (56) termoB -> . termoB AND fatorB
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-    (60) condition -> . exp op exp
+    (60) fatorB -> condition .
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    AND             reduce using rule 60 (fatorB -> condition .)
+    ENTONCES        reduce using rule 60 (fatorB -> condition .)
+    OR              reduce using rule 60 (fatorB -> condition .)
+    HACER           reduce using rule 60 (fatorB -> condition .)
+    SIGUIENTE       reduce using rule 60 (fatorB -> condition .)
+    )               reduce using rule 60 (fatorB -> condition .)
 
-    expL                           shift and go to state 50
-    exp                            shift and go to state 51
-    termoB                         shift and go to state 28
-    termo                          shift and go to state 34
-    fatorB                         shift and go to state 29
-    fator                          shift and go to state 35
-    condition                      shift and go to state 30
 
 state 33
 
-    (60) condition -> exp . op exp
-    (39) exp -> exp . + termo
-    (40) exp -> exp . - termo
-    (61) op -> . >
-    (62) op -> . <
-    (63) op -> . IGUAL
-    (64) op -> . DIFERENTE
-    (65) op -> . > IGUAL
-    (66) op -> . < IGUAL
+    (61) fatorB -> BOOLEANO .
 
-    +               shift and go to state 53
-    -               shift and go to state 54
-    >               shift and go to state 55
-    <               shift and go to state 56
-    IGUAL           shift and go to state 57
-    DIFERENTE       shift and go to state 58
+    AND             reduce using rule 61 (fatorB -> BOOLEANO .)
+    ENTONCES        reduce using rule 61 (fatorB -> BOOLEANO .)
+    OR              reduce using rule 61 (fatorB -> BOOLEANO .)
+    HACER           reduce using rule 61 (fatorB -> BOOLEANO .)
+    SIGUIENTE       reduce using rule 61 (fatorB -> BOOLEANO .)
+    )               reduce using rule 61 (fatorB -> BOOLEANO .)
 
-    op                             shift and go to state 52
 
 state 34
 
-    (41) exp -> termo .
-    (42) termo -> termo . * fator
-    (43) termo -> termo . / fator
-    (44) termo -> termo . ^ fator
+    (62) fatorB -> ( . expL )
+    (52) fator -> ( . exp )
+    (56) expL -> . termoB
+    (57) expL -> . expL OR termoB
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (58) termoB -> . fatorB
+    (59) termoB -> . termoB AND fatorB
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+    (63) condition -> . exp op exp
 
-    +               reduce using rule 41 (exp -> termo .)
-    -               reduce using rule 41 (exp -> termo .)
-    >               reduce using rule 41 (exp -> termo .)
-    <               reduce using rule 41 (exp -> termo .)
-    IGUAL           reduce using rule 41 (exp -> termo .)
-    DIFERENTE       reduce using rule 41 (exp -> termo .)
-    ;               reduce using rule 41 (exp -> termo .)
-    .               reduce using rule 41 (exp -> termo .)
-    HACER           reduce using rule 41 (exp -> termo .)
-    )               reduce using rule 41 (exp -> termo .)
-    AND             reduce using rule 41 (exp -> termo .)
-    ENTONCES        reduce using rule 41 (exp -> termo .)
-    OR              reduce using rule 41 (exp -> termo .)
-    SIGUIENTE       reduce using rule 41 (exp -> termo .)
-    *               shift and go to state 59
-    /               shift and go to state 60
-    ^               shift and go to state 61
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
 
+    expL                           shift and go to state 54
+    exp                            shift and go to state 55
+    termoB                         shift and go to state 30
+    termo                          shift and go to state 36
+    fatorB                         shift and go to state 31
+    fator                          shift and go to state 37
+    condition                      shift and go to state 32
 
 state 35
 
-    (45) termo -> fator .
+    (63) condition -> exp . op exp
+    (42) exp -> exp . + termo
+    (43) exp -> exp . - termo
+    (64) op -> . >
+    (65) op -> . <
+    (66) op -> . IGUAL
+    (67) op -> . DIFERENTE
+    (68) op -> . > IGUAL
+    (69) op -> . < IGUAL
 
-    *               reduce using rule 45 (termo -> fator .)
-    /               reduce using rule 45 (termo -> fator .)
-    ^               reduce using rule 45 (termo -> fator .)
-    +               reduce using rule 45 (termo -> fator .)
-    -               reduce using rule 45 (termo -> fator .)
-    >               reduce using rule 45 (termo -> fator .)
-    <               reduce using rule 45 (termo -> fator .)
-    IGUAL           reduce using rule 45 (termo -> fator .)
-    DIFERENTE       reduce using rule 45 (termo -> fator .)
-    ;               reduce using rule 45 (termo -> fator .)
-    .               reduce using rule 45 (termo -> fator .)
-    HACER           reduce using rule 45 (termo -> fator .)
-    )               reduce using rule 45 (termo -> fator .)
-    AND             reduce using rule 45 (termo -> fator .)
-    ENTONCES        reduce using rule 45 (termo -> fator .)
-    OR              reduce using rule 45 (termo -> fator .)
-    SIGUIENTE       reduce using rule 45 (termo -> fator .)
+    +               shift and go to state 57
+    -               shift and go to state 58
+    >               shift and go to state 59
+    <               shift and go to state 60
+    IGUAL           shift and go to state 61
+    DIFERENTE       shift and go to state 62
 
+    op                             shift and go to state 56
 
 state 36
 
-    (46) fator -> INT .
+    (44) exp -> termo .
+    (45) termo -> termo . * fator
+    (46) termo -> termo . / fator
+    (47) termo -> termo . ^ fator
 
-    *               reduce using rule 46 (fator -> INT .)
-    /               reduce using rule 46 (fator -> INT .)
-    ^               reduce using rule 46 (fator -> INT .)
-    +               reduce using rule 46 (fator -> INT .)
-    -               reduce using rule 46 (fator -> INT .)
-    >               reduce using rule 46 (fator -> INT .)
-    <               reduce using rule 46 (fator -> INT .)
-    IGUAL           reduce using rule 46 (fator -> INT .)
-    DIFERENTE       reduce using rule 46 (fator -> INT .)
-    ;               reduce using rule 46 (fator -> INT .)
-    .               reduce using rule 46 (fator -> INT .)
-    HACER           reduce using rule 46 (fator -> INT .)
-    )               reduce using rule 46 (fator -> INT .)
-    AND             reduce using rule 46 (fator -> INT .)
-    ENTONCES        reduce using rule 46 (fator -> INT .)
-    OR              reduce using rule 46 (fator -> INT .)
-    SIGUIENTE       reduce using rule 46 (fator -> INT .)
+    +               reduce using rule 44 (exp -> termo .)
+    -               reduce using rule 44 (exp -> termo .)
+    >               reduce using rule 44 (exp -> termo .)
+    <               reduce using rule 44 (exp -> termo .)
+    IGUAL           reduce using rule 44 (exp -> termo .)
+    DIFERENTE       reduce using rule 44 (exp -> termo .)
+    ;               reduce using rule 44 (exp -> termo .)
+    :               reduce using rule 44 (exp -> termo .)
+    ,               reduce using rule 44 (exp -> termo .)
+    .               reduce using rule 44 (exp -> termo .)
+    HACER           reduce using rule 44 (exp -> termo .)
+    )               reduce using rule 44 (exp -> termo .)
+    AND             reduce using rule 44 (exp -> termo .)
+    ENTONCES        reduce using rule 44 (exp -> termo .)
+    OR              reduce using rule 44 (exp -> termo .)
+    SIGUIENTE       reduce using rule 44 (exp -> termo .)
+    *               shift and go to state 63
+    /               shift and go to state 64
+    ^               shift and go to state 65
 
 
 state 37
 
-    (47) fator -> FLOAT .
+    (48) termo -> fator .
 
-    *               reduce using rule 47 (fator -> FLOAT .)
-    /               reduce using rule 47 (fator -> FLOAT .)
-    ^               reduce using rule 47 (fator -> FLOAT .)
-    +               reduce using rule 47 (fator -> FLOAT .)
-    -               reduce using rule 47 (fator -> FLOAT .)
-    >               reduce using rule 47 (fator -> FLOAT .)
-    <               reduce using rule 47 (fator -> FLOAT .)
-    IGUAL           reduce using rule 47 (fator -> FLOAT .)
-    DIFERENTE       reduce using rule 47 (fator -> FLOAT .)
-    ;               reduce using rule 47 (fator -> FLOAT .)
-    .               reduce using rule 47 (fator -> FLOAT .)
-    HACER           reduce using rule 47 (fator -> FLOAT .)
-    )               reduce using rule 47 (fator -> FLOAT .)
-    AND             reduce using rule 47 (fator -> FLOAT .)
-    ENTONCES        reduce using rule 47 (fator -> FLOAT .)
-    OR              reduce using rule 47 (fator -> FLOAT .)
-    SIGUIENTE       reduce using rule 47 (fator -> FLOAT .)
+    *               reduce using rule 48 (termo -> fator .)
+    /               reduce using rule 48 (termo -> fator .)
+    ^               reduce using rule 48 (termo -> fator .)
+    +               reduce using rule 48 (termo -> fator .)
+    -               reduce using rule 48 (termo -> fator .)
+    >               reduce using rule 48 (termo -> fator .)
+    <               reduce using rule 48 (termo -> fator .)
+    IGUAL           reduce using rule 48 (termo -> fator .)
+    DIFERENTE       reduce using rule 48 (termo -> fator .)
+    ;               reduce using rule 48 (termo -> fator .)
+    :               reduce using rule 48 (termo -> fator .)
+    ,               reduce using rule 48 (termo -> fator .)
+    .               reduce using rule 48 (termo -> fator .)
+    HACER           reduce using rule 48 (termo -> fator .)
+    )               reduce using rule 48 (termo -> fator .)
+    AND             reduce using rule 48 (termo -> fator .)
+    ENTONCES        reduce using rule 48 (termo -> fator .)
+    OR              reduce using rule 48 (termo -> fator .)
+    SIGUIENTE       reduce using rule 48 (termo -> fator .)
 
 
 state 38
 
-    (48) fator -> ID .
+    (49) fator -> INT .
 
-    *               reduce using rule 48 (fator -> ID .)
-    /               reduce using rule 48 (fator -> ID .)
-    ^               reduce using rule 48 (fator -> ID .)
-    +               reduce using rule 48 (fator -> ID .)
-    -               reduce using rule 48 (fator -> ID .)
-    >               reduce using rule 48 (fator -> ID .)
-    <               reduce using rule 48 (fator -> ID .)
-    IGUAL           reduce using rule 48 (fator -> ID .)
-    DIFERENTE       reduce using rule 48 (fator -> ID .)
-    ;               reduce using rule 48 (fator -> ID .)
-    .               reduce using rule 48 (fator -> ID .)
-    HACER           reduce using rule 48 (fator -> ID .)
-    )               reduce using rule 48 (fator -> ID .)
-    AND             reduce using rule 48 (fator -> ID .)
-    ENTONCES        reduce using rule 48 (fator -> ID .)
-    OR              reduce using rule 48 (fator -> ID .)
-    SIGUIENTE       reduce using rule 48 (fator -> ID .)
+    *               reduce using rule 49 (fator -> INT .)
+    /               reduce using rule 49 (fator -> INT .)
+    ^               reduce using rule 49 (fator -> INT .)
+    +               reduce using rule 49 (fator -> INT .)
+    -               reduce using rule 49 (fator -> INT .)
+    >               reduce using rule 49 (fator -> INT .)
+    <               reduce using rule 49 (fator -> INT .)
+    IGUAL           reduce using rule 49 (fator -> INT .)
+    DIFERENTE       reduce using rule 49 (fator -> INT .)
+    ;               reduce using rule 49 (fator -> INT .)
+    :               reduce using rule 49 (fator -> INT .)
+    ,               reduce using rule 49 (fator -> INT .)
+    .               reduce using rule 49 (fator -> INT .)
+    HACER           reduce using rule 49 (fator -> INT .)
+    )               reduce using rule 49 (fator -> INT .)
+    AND             reduce using rule 49 (fator -> INT .)
+    ENTONCES        reduce using rule 49 (fator -> INT .)
+    OR              reduce using rule 49 (fator -> INT .)
+    SIGUIENTE       reduce using rule 49 (fator -> INT .)
 
 
 state 39
 
-    (67) ciclos -> ENCUANTO expL . HACER statements .
-    (54) expL -> expL . OR termoB
+    (50) fator -> FLOAT .
 
-    HACER           shift and go to state 62
-    OR              shift and go to state 48
+    *               reduce using rule 50 (fator -> FLOAT .)
+    /               reduce using rule 50 (fator -> FLOAT .)
+    ^               reduce using rule 50 (fator -> FLOAT .)
+    +               reduce using rule 50 (fator -> FLOAT .)
+    -               reduce using rule 50 (fator -> FLOAT .)
+    >               reduce using rule 50 (fator -> FLOAT .)
+    <               reduce using rule 50 (fator -> FLOAT .)
+    IGUAL           reduce using rule 50 (fator -> FLOAT .)
+    DIFERENTE       reduce using rule 50 (fator -> FLOAT .)
+    ;               reduce using rule 50 (fator -> FLOAT .)
+    :               reduce using rule 50 (fator -> FLOAT .)
+    ,               reduce using rule 50 (fator -> FLOAT .)
+    .               reduce using rule 50 (fator -> FLOAT .)
+    HACER           reduce using rule 50 (fator -> FLOAT .)
+    )               reduce using rule 50 (fator -> FLOAT .)
+    AND             reduce using rule 50 (fator -> FLOAT .)
+    ENTONCES        reduce using rule 50 (fator -> FLOAT .)
+    OR              reduce using rule 50 (fator -> FLOAT .)
+    SIGUIENTE       reduce using rule 50 (fator -> FLOAT .)
 
 
 state 40
 
-    (68) ciclos -> PARA expL . SIGUIENTE atrib .
-    (69) ciclos -> PARA expL . SIGUIENTE atrib HACER statements .
-    (54) expL -> expL . OR termoB
+    (51) fator -> ID .
 
-    SIGUIENTE       shift and go to state 63
-    OR              shift and go to state 48
+    *               reduce using rule 51 (fator -> ID .)
+    /               reduce using rule 51 (fator -> ID .)
+    ^               reduce using rule 51 (fator -> ID .)
+    +               reduce using rule 51 (fator -> ID .)
+    -               reduce using rule 51 (fator -> ID .)
+    >               reduce using rule 51 (fator -> ID .)
+    <               reduce using rule 51 (fator -> ID .)
+    IGUAL           reduce using rule 51 (fator -> ID .)
+    DIFERENTE       reduce using rule 51 (fator -> ID .)
+    ;               reduce using rule 51 (fator -> ID .)
+    :               reduce using rule 51 (fator -> ID .)
+    ,               reduce using rule 51 (fator -> ID .)
+    .               reduce using rule 51 (fator -> ID .)
+    HACER           reduce using rule 51 (fator -> ID .)
+    )               reduce using rule 51 (fator -> ID .)
+    AND             reduce using rule 51 (fator -> ID .)
+    ENTONCES        reduce using rule 51 (fator -> ID .)
+    OR              reduce using rule 51 (fator -> ID .)
+    SIGUIENTE       reduce using rule 51 (fator -> ID .)
 
 
 state 41
 
-    (7) declV -> VAR ids : . tipo
-    (10) tipo -> . ENTERO
-    (11) tipo -> . REAL
-    (12) tipo -> . BOOLEANO
+    (70) ciclos -> ENCUANTO expL . HACER statements .
+    (57) expL -> expL . OR termoB
 
-    ENTERO          shift and go to state 65
-    REAL            shift and go to state 66
-    BOOLEANO        shift and go to state 67
+    HACER           shift and go to state 66
+    OR              shift and go to state 52
 
-    tipo                           shift and go to state 64
 
 state 42
 
-    (9) ids -> ids , . ID
+    (71) ciclos -> PARA expL . SIGUIENTE atrib .
+    (72) ciclos -> PARA expL . SIGUIENTE atrib HACER statements .
+    (57) expL -> expL . OR termoB
 
-    ID              shift and go to state 68
+    SIGUIENTE       shift and go to state 67
+    OR              shift and go to state 52
 
 
 state 43
 
-    (24) declF -> FUNCION ID ( . parametros ) : tipo declarations statements DEVUELVE return .
-    (25) parametros -> .
-    (26) parametros -> . ID : tipo
-    (27) parametros -> . parametros , ID : tipo
+    (7) declV -> VAR ids : . tipo
+    (13) tipo -> . ENTERO
+    (14) tipo -> . REAL
+    (15) tipo -> . BOOLEANO
 
-    )               reduce using rule 25 (parametros -> .)
-    ,               reduce using rule 25 (parametros -> .)
-    ID              shift and go to state 69
+    ENTERO          shift and go to state 69
+    REAL            shift and go to state 70
+    BOOLEANO        shift and go to state 71
 
-    parametros                     shift and go to state 70
+    tipo                           shift and go to state 68
 
 state 44
 
-    (13) declL -> LISTA ID = . lista
-    (14) lista -> . [ ]
-    (15) lista -> . [ elementos ]
+    (12) ids -> ids , . ID
 
-    [               shift and go to state 72
+    ID              shift and go to state 72
 
-    lista                          shift and go to state 71
 
 state 45
 
-    (38) atrib -> ID = exp .
-    (39) exp -> exp . + termo
-    (40) exp -> exp . - termo
+    (8) declV -> VAR atribs : . tipo
+    (13) tipo -> . ENTERO
+    (14) tipo -> . REAL
+    (15) tipo -> . BOOLEANO
 
-    ;               reduce using rule 38 (atrib -> ID = exp .)
-    .               reduce using rule 38 (atrib -> ID = exp .)
-    HACER           reduce using rule 38 (atrib -> ID = exp .)
-    +               shift and go to state 53
-    -               shift and go to state 54
+    ENTERO          shift and go to state 69
+    REAL            shift and go to state 70
+    BOOLEANO        shift and go to state 71
 
+    tipo                           shift and go to state 73
 
 state 46
 
-    (49) fator -> ( . exp )
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (10) atribs -> atribs , . atrib
+    (41) atrib -> . ID = exp
 
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
+    ID              shift and go to state 16
 
-    exp                            shift and go to state 73
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
+    atrib                          shift and go to state 74
 
 state 47
 
-    (50) conditions -> SI expL ENTONCES . statements endcondition
-    (33) statements -> . stat
-    (34) statements -> . statements stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (27) declF -> FUNCION ID ( . parametros ) : tipo declarations statements DEVUELVE return .
+    (28) parametros -> .
+    (29) parametros -> . ID : tipo
+    (30) parametros -> . parametros , ID : tipo
 
-    ID              shift and go to state 16
-    SI              shift and go to state 17
-    ENCUANTO        shift and go to state 18
-    PARA            shift and go to state 19
+    )               reduce using rule 28 (parametros -> .)
+    ,               reduce using rule 28 (parametros -> .)
+    ID              shift and go to state 75
 
-    statements                     shift and go to state 74
-    stat                           shift and go to state 12
-    atrib                          shift and go to state 13
-    conditions                     shift and go to state 14
-    ciclos                         shift and go to state 15
+    parametros                     shift and go to state 76
 
 state 48
 
-    (54) expL -> expL OR . termoB
-    (55) termoB -> . fatorB
-    (56) termoB -> . termoB AND fatorB
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (60) condition -> . exp op exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (16) declL -> LISTA ID = . lista
+    (17) lista -> . [ ]
+    (18) lista -> . [ elementos ]
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    [               shift and go to state 78
 
-    termoB                         shift and go to state 75
-    fatorB                         shift and go to state 29
-    condition                      shift and go to state 30
-    exp                            shift and go to state 33
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
+    lista                          shift and go to state 77
 
 state 49
 
-    (56) termoB -> termoB AND . fatorB
-    (57) fatorB -> . condition
-    (58) fatorB -> . BOOLEANO
-    (59) fatorB -> . ( expL )
-    (60) condition -> . exp op exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
+    (41) atrib -> ID = exp .
+    (42) exp -> exp . + termo
+    (43) exp -> exp . - termo
 
-    BOOLEANO        shift and go to state 31
-    (               shift and go to state 32
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
+    ;               reduce using rule 41 (atrib -> ID = exp .)
+    :               reduce using rule 41 (atrib -> ID = exp .)
+    ,               reduce using rule 41 (atrib -> ID = exp .)
+    .               reduce using rule 41 (atrib -> ID = exp .)
+    HACER           reduce using rule 41 (atrib -> ID = exp .)
+    +               shift and go to state 57
+    -               shift and go to state 58
 
-    fatorB                         shift and go to state 76
-    condition                      shift and go to state 30
-    exp                            shift and go to state 33
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
 
 state 50
 
-    (59) fatorB -> ( expL . )
-    (54) expL -> expL . OR termoB
+    (52) fator -> ( . exp )
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
 
-    )               shift and go to state 77
-    OR              shift and go to state 48
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
 
+    exp                            shift and go to state 79
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
 
 state 51
 
-    (49) fator -> ( exp . )
-    (39) exp -> exp . + termo
-    (40) exp -> exp . - termo
-    (60) condition -> exp . op exp
-    (61) op -> . >
-    (62) op -> . <
-    (63) op -> . IGUAL
-    (64) op -> . DIFERENTE
-    (65) op -> . > IGUAL
-    (66) op -> . < IGUAL
-
-    )               shift and go to state 78
-    +               shift and go to state 53
-    -               shift and go to state 54
-    >               shift and go to state 55
-    <               shift and go to state 56
-    IGUAL           shift and go to state 57
-    DIFERENTE       shift and go to state 58
-
-    op                             shift and go to state 52
-
-state 52
-
-    (60) condition -> exp op . exp
-    (39) exp -> . exp + termo
-    (40) exp -> . exp - termo
-    (41) exp -> . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    exp                            shift and go to state 79
-    termo                          shift and go to state 34
-    fator                          shift and go to state 35
-
-state 53
-
-    (39) exp -> exp + . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    termo                          shift and go to state 80
-    fator                          shift and go to state 35
-
-state 54
-
-    (40) exp -> exp - . termo
-    (42) termo -> . termo * fator
-    (43) termo -> . termo / fator
-    (44) termo -> . termo ^ fator
-    (45) termo -> . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    termo                          shift and go to state 81
-    fator                          shift and go to state 35
-
-state 55
-
-    (61) op -> > .
-    (65) op -> > . IGUAL
-
-    INT             reduce using rule 61 (op -> > .)
-    FLOAT           reduce using rule 61 (op -> > .)
-    ID              reduce using rule 61 (op -> > .)
-    (               reduce using rule 61 (op -> > .)
-    IGUAL           shift and go to state 82
-
-
-state 56
-
-    (62) op -> < .
-    (66) op -> < . IGUAL
-
-    INT             reduce using rule 62 (op -> < .)
-    FLOAT           reduce using rule 62 (op -> < .)
-    ID              reduce using rule 62 (op -> < .)
-    (               reduce using rule 62 (op -> < .)
-    IGUAL           shift and go to state 83
-
-
-state 57
-
-    (63) op -> IGUAL .
-
-    INT             reduce using rule 63 (op -> IGUAL .)
-    FLOAT           reduce using rule 63 (op -> IGUAL .)
-    ID              reduce using rule 63 (op -> IGUAL .)
-    (               reduce using rule 63 (op -> IGUAL .)
-
-
-state 58
-
-    (64) op -> DIFERENTE .
-
-    INT             reduce using rule 64 (op -> DIFERENTE .)
-    FLOAT           reduce using rule 64 (op -> DIFERENTE .)
-    ID              reduce using rule 64 (op -> DIFERENTE .)
-    (               reduce using rule 64 (op -> DIFERENTE .)
-
-
-state 59
-
-    (42) termo -> termo * . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    fator                          shift and go to state 84
-
-state 60
-
-    (43) termo -> termo / . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    fator                          shift and go to state 85
-
-state 61
-
-    (44) termo -> termo ^ . fator
-    (46) fator -> . INT
-    (47) fator -> . FLOAT
-    (48) fator -> . ID
-    (49) fator -> . ( exp )
-
-    INT             shift and go to state 36
-    FLOAT           shift and go to state 37
-    ID              shift and go to state 38
-    (               shift and go to state 46
-
-    fator                          shift and go to state 86
-
-state 62
-
-    (67) ciclos -> ENCUANTO expL HACER . statements .
-    (33) statements -> . stat
-    (34) statements -> . statements stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (53) conditions -> SI expL ENTONCES . statements endcondition
+    (36) statements -> . stat
+    (37) statements -> . statements stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
     ID              shift and go to state 16
     SI              shift and go to state 17
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    statements                     shift and go to state 87
+    statements                     shift and go to state 80
     stat                           shift and go to state 12
     atrib                          shift and go to state 13
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
+state 52
+
+    (57) expL -> expL OR . termoB
+    (58) termoB -> . fatorB
+    (59) termoB -> . termoB AND fatorB
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (63) condition -> . exp op exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+
+    termoB                         shift and go to state 81
+    fatorB                         shift and go to state 31
+    condition                      shift and go to state 32
+    exp                            shift and go to state 35
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
+
+state 53
+
+    (59) termoB -> termoB AND . fatorB
+    (60) fatorB -> . condition
+    (61) fatorB -> . BOOLEANO
+    (62) fatorB -> . ( expL )
+    (63) condition -> . exp op exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    BOOLEANO        shift and go to state 33
+    (               shift and go to state 34
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+
+    fatorB                         shift and go to state 82
+    condition                      shift and go to state 32
+    exp                            shift and go to state 35
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
+
+state 54
+
+    (62) fatorB -> ( expL . )
+    (57) expL -> expL . OR termoB
+
+    )               shift and go to state 83
+    OR              shift and go to state 52
+
+
+state 55
+
+    (52) fator -> ( exp . )
+    (42) exp -> exp . + termo
+    (43) exp -> exp . - termo
+    (63) condition -> exp . op exp
+    (64) op -> . >
+    (65) op -> . <
+    (66) op -> . IGUAL
+    (67) op -> . DIFERENTE
+    (68) op -> . > IGUAL
+    (69) op -> . < IGUAL
+
+    )               shift and go to state 84
+    +               shift and go to state 57
+    -               shift and go to state 58
+    >               shift and go to state 59
+    <               shift and go to state 60
+    IGUAL           shift and go to state 61
+    DIFERENTE       shift and go to state 62
+
+    op                             shift and go to state 56
+
+state 56
+
+    (63) condition -> exp op . exp
+    (42) exp -> . exp + termo
+    (43) exp -> . exp - termo
+    (44) exp -> . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    exp                            shift and go to state 85
+    termo                          shift and go to state 36
+    fator                          shift and go to state 37
+
+state 57
+
+    (42) exp -> exp + . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    termo                          shift and go to state 86
+    fator                          shift and go to state 37
+
+state 58
+
+    (43) exp -> exp - . termo
+    (45) termo -> . termo * fator
+    (46) termo -> . termo / fator
+    (47) termo -> . termo ^ fator
+    (48) termo -> . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    termo                          shift and go to state 87
+    fator                          shift and go to state 37
+
+state 59
+
+    (64) op -> > .
+    (68) op -> > . IGUAL
+
+    INT             reduce using rule 64 (op -> > .)
+    FLOAT           reduce using rule 64 (op -> > .)
+    ID              reduce using rule 64 (op -> > .)
+    (               reduce using rule 64 (op -> > .)
+    IGUAL           shift and go to state 88
+
+
+state 60
+
+    (65) op -> < .
+    (69) op -> < . IGUAL
+
+    INT             reduce using rule 65 (op -> < .)
+    FLOAT           reduce using rule 65 (op -> < .)
+    ID              reduce using rule 65 (op -> < .)
+    (               reduce using rule 65 (op -> < .)
+    IGUAL           shift and go to state 89
+
+
+state 61
+
+    (66) op -> IGUAL .
+
+    INT             reduce using rule 66 (op -> IGUAL .)
+    FLOAT           reduce using rule 66 (op -> IGUAL .)
+    ID              reduce using rule 66 (op -> IGUAL .)
+    (               reduce using rule 66 (op -> IGUAL .)
+
+
+state 62
+
+    (67) op -> DIFERENTE .
+
+    INT             reduce using rule 67 (op -> DIFERENTE .)
+    FLOAT           reduce using rule 67 (op -> DIFERENTE .)
+    ID              reduce using rule 67 (op -> DIFERENTE .)
+    (               reduce using rule 67 (op -> DIFERENTE .)
+
+
 state 63
 
-    (68) ciclos -> PARA expL SIGUIENTE . atrib .
-    (69) ciclos -> PARA expL SIGUIENTE . atrib HACER statements .
-    (38) atrib -> . ID = exp
+    (45) termo -> termo * . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    fator                          shift and go to state 90
+
+state 64
+
+    (46) termo -> termo / . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    fator                          shift and go to state 91
+
+state 65
+
+    (47) termo -> termo ^ . fator
+    (49) fator -> . INT
+    (50) fator -> . FLOAT
+    (51) fator -> . ID
+    (52) fator -> . ( exp )
+
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    ID              shift and go to state 40
+    (               shift and go to state 50
+
+    fator                          shift and go to state 92
+
+state 66
+
+    (70) ciclos -> ENCUANTO expL HACER . statements .
+    (36) statements -> . stat
+    (37) statements -> . statements stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+
+    ID              shift and go to state 16
+    SI              shift and go to state 17
+    ENCUANTO        shift and go to state 18
+    PARA            shift and go to state 19
+
+    statements                     shift and go to state 93
+    stat                           shift and go to state 12
+    atrib                          shift and go to state 13
+    conditions                     shift and go to state 14
+    ciclos                         shift and go to state 15
+
+state 67
+
+    (71) ciclos -> PARA expL SIGUIENTE . atrib .
+    (72) ciclos -> PARA expL SIGUIENTE . atrib HACER statements .
+    (41) atrib -> . ID = exp
 
     ID              shift and go to state 16
 
-    atrib                          shift and go to state 88
+    atrib                          shift and go to state 94
 
-state 64
+state 68
 
     (7) declV -> VAR ids : tipo .
 
@@ -1255,814 +1320,849 @@ state 64
     PARA            reduce using rule 7 (declV -> VAR ids : tipo .)
 
 
-state 65
-
-    (10) tipo -> ENTERO .
-
-    VAR             reduce using rule 10 (tipo -> ENTERO .)
-    FUNCION         reduce using rule 10 (tipo -> ENTERO .)
-    LISTA           reduce using rule 10 (tipo -> ENTERO .)
-    ID              reduce using rule 10 (tipo -> ENTERO .)
-    SI              reduce using rule 10 (tipo -> ENTERO .)
-    ENCUANTO        reduce using rule 10 (tipo -> ENTERO .)
-    PARA            reduce using rule 10 (tipo -> ENTERO .)
-    )               reduce using rule 10 (tipo -> ENTERO .)
-    ,               reduce using rule 10 (tipo -> ENTERO .)
-
-
-state 66
-
-    (11) tipo -> REAL .
-
-    VAR             reduce using rule 11 (tipo -> REAL .)
-    FUNCION         reduce using rule 11 (tipo -> REAL .)
-    LISTA           reduce using rule 11 (tipo -> REAL .)
-    ID              reduce using rule 11 (tipo -> REAL .)
-    SI              reduce using rule 11 (tipo -> REAL .)
-    ENCUANTO        reduce using rule 11 (tipo -> REAL .)
-    PARA            reduce using rule 11 (tipo -> REAL .)
-    )               reduce using rule 11 (tipo -> REAL .)
-    ,               reduce using rule 11 (tipo -> REAL .)
-
-
-state 67
-
-    (12) tipo -> BOOLEANO .
-
-    VAR             reduce using rule 12 (tipo -> BOOLEANO .)
-    FUNCION         reduce using rule 12 (tipo -> BOOLEANO .)
-    LISTA           reduce using rule 12 (tipo -> BOOLEANO .)
-    ID              reduce using rule 12 (tipo -> BOOLEANO .)
-    SI              reduce using rule 12 (tipo -> BOOLEANO .)
-    ENCUANTO        reduce using rule 12 (tipo -> BOOLEANO .)
-    PARA            reduce using rule 12 (tipo -> BOOLEANO .)
-    )               reduce using rule 12 (tipo -> BOOLEANO .)
-    ,               reduce using rule 12 (tipo -> BOOLEANO .)
-
-
-state 68
-
-    (9) ids -> ids , ID .
-
-    :               reduce using rule 9 (ids -> ids , ID .)
-    ,               reduce using rule 9 (ids -> ids , ID .)
-
-
 state 69
 
-    (26) parametros -> ID . : tipo
+    (13) tipo -> ENTERO .
 
-    :               shift and go to state 89
+    VAR             reduce using rule 13 (tipo -> ENTERO .)
+    FUNCION         reduce using rule 13 (tipo -> ENTERO .)
+    LISTA           reduce using rule 13 (tipo -> ENTERO .)
+    ID              reduce using rule 13 (tipo -> ENTERO .)
+    SI              reduce using rule 13 (tipo -> ENTERO .)
+    ENCUANTO        reduce using rule 13 (tipo -> ENTERO .)
+    PARA            reduce using rule 13 (tipo -> ENTERO .)
+    )               reduce using rule 13 (tipo -> ENTERO .)
+    ,               reduce using rule 13 (tipo -> ENTERO .)
 
 
 state 70
 
-    (24) declF -> FUNCION ID ( parametros . ) : tipo declarations statements DEVUELVE return .
-    (27) parametros -> parametros . , ID : tipo
+    (14) tipo -> REAL .
 
-    )               shift and go to state 90
-    ,               shift and go to state 91
+    VAR             reduce using rule 14 (tipo -> REAL .)
+    FUNCION         reduce using rule 14 (tipo -> REAL .)
+    LISTA           reduce using rule 14 (tipo -> REAL .)
+    ID              reduce using rule 14 (tipo -> REAL .)
+    SI              reduce using rule 14 (tipo -> REAL .)
+    ENCUANTO        reduce using rule 14 (tipo -> REAL .)
+    PARA            reduce using rule 14 (tipo -> REAL .)
+    )               reduce using rule 14 (tipo -> REAL .)
+    ,               reduce using rule 14 (tipo -> REAL .)
 
 
 state 71
 
-    (13) declL -> LISTA ID = lista .
+    (15) tipo -> BOOLEANO .
 
-    VAR             reduce using rule 13 (declL -> LISTA ID = lista .)
-    FUNCION         reduce using rule 13 (declL -> LISTA ID = lista .)
-    LISTA           reduce using rule 13 (declL -> LISTA ID = lista .)
-    ID              reduce using rule 13 (declL -> LISTA ID = lista .)
-    SI              reduce using rule 13 (declL -> LISTA ID = lista .)
-    ENCUANTO        reduce using rule 13 (declL -> LISTA ID = lista .)
-    PARA            reduce using rule 13 (declL -> LISTA ID = lista .)
+    VAR             reduce using rule 15 (tipo -> BOOLEANO .)
+    FUNCION         reduce using rule 15 (tipo -> BOOLEANO .)
+    LISTA           reduce using rule 15 (tipo -> BOOLEANO .)
+    ID              reduce using rule 15 (tipo -> BOOLEANO .)
+    SI              reduce using rule 15 (tipo -> BOOLEANO .)
+    ENCUANTO        reduce using rule 15 (tipo -> BOOLEANO .)
+    PARA            reduce using rule 15 (tipo -> BOOLEANO .)
+    )               reduce using rule 15 (tipo -> BOOLEANO .)
+    ,               reduce using rule 15 (tipo -> BOOLEANO .)
 
 
 state 72
 
-    (14) lista -> [ . ]
-    (15) lista -> [ . elementos ]
-    (16) elementos -> . elemento
-    (17) elementos -> . elementos , elemento
-    (18) elemento -> . INT
-    (19) elemento -> . FLOAT
-    (20) elemento -> . BOOLEANO
-    (21) elemento -> . STRING
-    (22) elemento -> . ID
-    (23) elemento -> . lista
-    (14) lista -> . [ ]
-    (15) lista -> . [ elementos ]
+    (12) ids -> ids , ID .
 
-    ]               shift and go to state 92
-    INT             shift and go to state 95
-    FLOAT           shift and go to state 96
-    BOOLEANO        shift and go to state 97
-    STRING          shift and go to state 98
-    ID              shift and go to state 99
-    [               shift and go to state 72
+    :               reduce using rule 12 (ids -> ids , ID .)
+    ,               reduce using rule 12 (ids -> ids , ID .)
 
-    elementos                      shift and go to state 93
-    elemento                       shift and go to state 94
-    lista                          shift and go to state 100
 
 state 73
 
-    (49) fator -> ( exp . )
-    (39) exp -> exp . + termo
-    (40) exp -> exp . - termo
+    (8) declV -> VAR atribs : tipo .
 
-    )               shift and go to state 78
-    +               shift and go to state 53
-    -               shift and go to state 54
+    VAR             reduce using rule 8 (declV -> VAR atribs : tipo .)
+    FUNCION         reduce using rule 8 (declV -> VAR atribs : tipo .)
+    LISTA           reduce using rule 8 (declV -> VAR atribs : tipo .)
+    ID              reduce using rule 8 (declV -> VAR atribs : tipo .)
+    SI              reduce using rule 8 (declV -> VAR atribs : tipo .)
+    ENCUANTO        reduce using rule 8 (declV -> VAR atribs : tipo .)
+    PARA            reduce using rule 8 (declV -> VAR atribs : tipo .)
 
 
 state 74
 
-    (50) conditions -> SI expL ENTONCES statements . endcondition
-    (34) statements -> statements . stat
-    (51) endcondition -> . .
-    (52) endcondition -> . CASO CONTRARIO statements .
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (10) atribs -> atribs , atrib .
 
-    .               shift and go to state 102
-    CASO            shift and go to state 103
-    ID              shift and go to state 16
-    SI              shift and go to state 17
-    ENCUANTO        shift and go to state 18
-    PARA            shift and go to state 19
+    :               reduce using rule 10 (atribs -> atribs , atrib .)
+    ,               reduce using rule 10 (atribs -> atribs , atrib .)
 
-    endcondition                   shift and go to state 101
-    stat                           shift and go to state 24
-    atrib                          shift and go to state 13
-    conditions                     shift and go to state 14
-    ciclos                         shift and go to state 15
 
 state 75
 
-    (54) expL -> expL OR termoB .
-    (56) termoB -> termoB . AND fatorB
+    (29) parametros -> ID . : tipo
 
-    ENTONCES        reduce using rule 54 (expL -> expL OR termoB .)
-    OR              reduce using rule 54 (expL -> expL OR termoB .)
-    HACER           reduce using rule 54 (expL -> expL OR termoB .)
-    SIGUIENTE       reduce using rule 54 (expL -> expL OR termoB .)
-    )               reduce using rule 54 (expL -> expL OR termoB .)
-    AND             shift and go to state 49
+    :               shift and go to state 95
 
 
 state 76
 
-    (56) termoB -> termoB AND fatorB .
+    (27) declF -> FUNCION ID ( parametros . ) : tipo declarations statements DEVUELVE return .
+    (30) parametros -> parametros . , ID : tipo
 
-    AND             reduce using rule 56 (termoB -> termoB AND fatorB .)
-    ENTONCES        reduce using rule 56 (termoB -> termoB AND fatorB .)
-    OR              reduce using rule 56 (termoB -> termoB AND fatorB .)
-    HACER           reduce using rule 56 (termoB -> termoB AND fatorB .)
-    SIGUIENTE       reduce using rule 56 (termoB -> termoB AND fatorB .)
-    )               reduce using rule 56 (termoB -> termoB AND fatorB .)
+    )               shift and go to state 96
+    ,               shift and go to state 97
 
 
 state 77
 
-    (59) fatorB -> ( expL ) .
+    (16) declL -> LISTA ID = lista .
 
-    AND             reduce using rule 59 (fatorB -> ( expL ) .)
-    ENTONCES        reduce using rule 59 (fatorB -> ( expL ) .)
-    OR              reduce using rule 59 (fatorB -> ( expL ) .)
-    HACER           reduce using rule 59 (fatorB -> ( expL ) .)
-    SIGUIENTE       reduce using rule 59 (fatorB -> ( expL ) .)
-    )               reduce using rule 59 (fatorB -> ( expL ) .)
+    VAR             reduce using rule 16 (declL -> LISTA ID = lista .)
+    FUNCION         reduce using rule 16 (declL -> LISTA ID = lista .)
+    LISTA           reduce using rule 16 (declL -> LISTA ID = lista .)
+    ID              reduce using rule 16 (declL -> LISTA ID = lista .)
+    SI              reduce using rule 16 (declL -> LISTA ID = lista .)
+    ENCUANTO        reduce using rule 16 (declL -> LISTA ID = lista .)
+    PARA            reduce using rule 16 (declL -> LISTA ID = lista .)
 
 
 state 78
 
-    (49) fator -> ( exp ) .
+    (17) lista -> [ . ]
+    (18) lista -> [ . elementos ]
+    (19) elementos -> . elemento
+    (20) elementos -> . elementos , elemento
+    (21) elemento -> . INT
+    (22) elemento -> . FLOAT
+    (23) elemento -> . BOOLEANO
+    (24) elemento -> . STRING
+    (25) elemento -> . ID
+    (26) elemento -> . lista
+    (17) lista -> . [ ]
+    (18) lista -> . [ elementos ]
 
-    *               reduce using rule 49 (fator -> ( exp ) .)
-    /               reduce using rule 49 (fator -> ( exp ) .)
-    ^               reduce using rule 49 (fator -> ( exp ) .)
-    +               reduce using rule 49 (fator -> ( exp ) .)
-    -               reduce using rule 49 (fator -> ( exp ) .)
-    >               reduce using rule 49 (fator -> ( exp ) .)
-    <               reduce using rule 49 (fator -> ( exp ) .)
-    IGUAL           reduce using rule 49 (fator -> ( exp ) .)
-    DIFERENTE       reduce using rule 49 (fator -> ( exp ) .)
-    ;               reduce using rule 49 (fator -> ( exp ) .)
-    .               reduce using rule 49 (fator -> ( exp ) .)
-    HACER           reduce using rule 49 (fator -> ( exp ) .)
-    )               reduce using rule 49 (fator -> ( exp ) .)
-    AND             reduce using rule 49 (fator -> ( exp ) .)
-    ENTONCES        reduce using rule 49 (fator -> ( exp ) .)
-    OR              reduce using rule 49 (fator -> ( exp ) .)
-    SIGUIENTE       reduce using rule 49 (fator -> ( exp ) .)
+    ]               shift and go to state 98
+    INT             shift and go to state 101
+    FLOAT           shift and go to state 102
+    BOOLEANO        shift and go to state 103
+    STRING          shift and go to state 104
+    ID              shift and go to state 105
+    [               shift and go to state 78
 
+    elementos                      shift and go to state 99
+    elemento                       shift and go to state 100
+    lista                          shift and go to state 106
 
 state 79
 
-    (60) condition -> exp op exp .
-    (39) exp -> exp . + termo
-    (40) exp -> exp . - termo
+    (52) fator -> ( exp . )
+    (42) exp -> exp . + termo
+    (43) exp -> exp . - termo
 
-    AND             reduce using rule 60 (condition -> exp op exp .)
-    ENTONCES        reduce using rule 60 (condition -> exp op exp .)
-    OR              reduce using rule 60 (condition -> exp op exp .)
-    HACER           reduce using rule 60 (condition -> exp op exp .)
-    SIGUIENTE       reduce using rule 60 (condition -> exp op exp .)
-    )               reduce using rule 60 (condition -> exp op exp .)
-    +               shift and go to state 53
-    -               shift and go to state 54
+    )               shift and go to state 84
+    +               shift and go to state 57
+    -               shift and go to state 58
 
 
 state 80
 
-    (39) exp -> exp + termo .
-    (42) termo -> termo . * fator
-    (43) termo -> termo . / fator
-    (44) termo -> termo . ^ fator
+    (53) conditions -> SI expL ENTONCES statements . endcondition
+    (37) statements -> statements . stat
+    (54) endcondition -> . .
+    (55) endcondition -> . CASO CONTRARIO statements .
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
-    +               reduce using rule 39 (exp -> exp + termo .)
-    -               reduce using rule 39 (exp -> exp + termo .)
-    >               reduce using rule 39 (exp -> exp + termo .)
-    <               reduce using rule 39 (exp -> exp + termo .)
-    IGUAL           reduce using rule 39 (exp -> exp + termo .)
-    DIFERENTE       reduce using rule 39 (exp -> exp + termo .)
-    ;               reduce using rule 39 (exp -> exp + termo .)
-    .               reduce using rule 39 (exp -> exp + termo .)
-    HACER           reduce using rule 39 (exp -> exp + termo .)
-    )               reduce using rule 39 (exp -> exp + termo .)
-    AND             reduce using rule 39 (exp -> exp + termo .)
-    ENTONCES        reduce using rule 39 (exp -> exp + termo .)
-    OR              reduce using rule 39 (exp -> exp + termo .)
-    SIGUIENTE       reduce using rule 39 (exp -> exp + termo .)
-    *               shift and go to state 59
-    /               shift and go to state 60
-    ^               shift and go to state 61
+    .               shift and go to state 108
+    CASO            shift and go to state 109
+    ID              shift and go to state 16
+    SI              shift and go to state 17
+    ENCUANTO        shift and go to state 18
+    PARA            shift and go to state 19
 
+    endcondition                   shift and go to state 107
+    stat                           shift and go to state 26
+    atrib                          shift and go to state 13
+    conditions                     shift and go to state 14
+    ciclos                         shift and go to state 15
 
 state 81
 
-    (40) exp -> exp - termo .
-    (42) termo -> termo . * fator
-    (43) termo -> termo . / fator
-    (44) termo -> termo . ^ fator
+    (57) expL -> expL OR termoB .
+    (59) termoB -> termoB . AND fatorB
 
-    +               reduce using rule 40 (exp -> exp - termo .)
-    -               reduce using rule 40 (exp -> exp - termo .)
-    >               reduce using rule 40 (exp -> exp - termo .)
-    <               reduce using rule 40 (exp -> exp - termo .)
-    IGUAL           reduce using rule 40 (exp -> exp - termo .)
-    DIFERENTE       reduce using rule 40 (exp -> exp - termo .)
-    ;               reduce using rule 40 (exp -> exp - termo .)
-    .               reduce using rule 40 (exp -> exp - termo .)
-    HACER           reduce using rule 40 (exp -> exp - termo .)
-    )               reduce using rule 40 (exp -> exp - termo .)
-    AND             reduce using rule 40 (exp -> exp - termo .)
-    ENTONCES        reduce using rule 40 (exp -> exp - termo .)
-    OR              reduce using rule 40 (exp -> exp - termo .)
-    SIGUIENTE       reduce using rule 40 (exp -> exp - termo .)
-    *               shift and go to state 59
-    /               shift and go to state 60
-    ^               shift and go to state 61
+    ENTONCES        reduce using rule 57 (expL -> expL OR termoB .)
+    OR              reduce using rule 57 (expL -> expL OR termoB .)
+    HACER           reduce using rule 57 (expL -> expL OR termoB .)
+    SIGUIENTE       reduce using rule 57 (expL -> expL OR termoB .)
+    )               reduce using rule 57 (expL -> expL OR termoB .)
+    AND             shift and go to state 53
 
 
 state 82
 
-    (65) op -> > IGUAL .
+    (59) termoB -> termoB AND fatorB .
 
-    INT             reduce using rule 65 (op -> > IGUAL .)
-    FLOAT           reduce using rule 65 (op -> > IGUAL .)
-    ID              reduce using rule 65 (op -> > IGUAL .)
-    (               reduce using rule 65 (op -> > IGUAL .)
+    AND             reduce using rule 59 (termoB -> termoB AND fatorB .)
+    ENTONCES        reduce using rule 59 (termoB -> termoB AND fatorB .)
+    OR              reduce using rule 59 (termoB -> termoB AND fatorB .)
+    HACER           reduce using rule 59 (termoB -> termoB AND fatorB .)
+    SIGUIENTE       reduce using rule 59 (termoB -> termoB AND fatorB .)
+    )               reduce using rule 59 (termoB -> termoB AND fatorB .)
 
 
 state 83
 
-    (66) op -> < IGUAL .
+    (62) fatorB -> ( expL ) .
 
-    INT             reduce using rule 66 (op -> < IGUAL .)
-    FLOAT           reduce using rule 66 (op -> < IGUAL .)
-    ID              reduce using rule 66 (op -> < IGUAL .)
-    (               reduce using rule 66 (op -> < IGUAL .)
+    AND             reduce using rule 62 (fatorB -> ( expL ) .)
+    ENTONCES        reduce using rule 62 (fatorB -> ( expL ) .)
+    OR              reduce using rule 62 (fatorB -> ( expL ) .)
+    HACER           reduce using rule 62 (fatorB -> ( expL ) .)
+    SIGUIENTE       reduce using rule 62 (fatorB -> ( expL ) .)
+    )               reduce using rule 62 (fatorB -> ( expL ) .)
 
 
 state 84
 
-    (42) termo -> termo * fator .
+    (52) fator -> ( exp ) .
 
-    *               reduce using rule 42 (termo -> termo * fator .)
-    /               reduce using rule 42 (termo -> termo * fator .)
-    ^               reduce using rule 42 (termo -> termo * fator .)
-    +               reduce using rule 42 (termo -> termo * fator .)
-    -               reduce using rule 42 (termo -> termo * fator .)
-    >               reduce using rule 42 (termo -> termo * fator .)
-    <               reduce using rule 42 (termo -> termo * fator .)
-    IGUAL           reduce using rule 42 (termo -> termo * fator .)
-    DIFERENTE       reduce using rule 42 (termo -> termo * fator .)
-    ;               reduce using rule 42 (termo -> termo * fator .)
-    .               reduce using rule 42 (termo -> termo * fator .)
-    HACER           reduce using rule 42 (termo -> termo * fator .)
-    )               reduce using rule 42 (termo -> termo * fator .)
-    AND             reduce using rule 42 (termo -> termo * fator .)
-    ENTONCES        reduce using rule 42 (termo -> termo * fator .)
-    OR              reduce using rule 42 (termo -> termo * fator .)
-    SIGUIENTE       reduce using rule 42 (termo -> termo * fator .)
+    *               reduce using rule 52 (fator -> ( exp ) .)
+    /               reduce using rule 52 (fator -> ( exp ) .)
+    ^               reduce using rule 52 (fator -> ( exp ) .)
+    +               reduce using rule 52 (fator -> ( exp ) .)
+    -               reduce using rule 52 (fator -> ( exp ) .)
+    >               reduce using rule 52 (fator -> ( exp ) .)
+    <               reduce using rule 52 (fator -> ( exp ) .)
+    IGUAL           reduce using rule 52 (fator -> ( exp ) .)
+    DIFERENTE       reduce using rule 52 (fator -> ( exp ) .)
+    ;               reduce using rule 52 (fator -> ( exp ) .)
+    :               reduce using rule 52 (fator -> ( exp ) .)
+    ,               reduce using rule 52 (fator -> ( exp ) .)
+    .               reduce using rule 52 (fator -> ( exp ) .)
+    HACER           reduce using rule 52 (fator -> ( exp ) .)
+    )               reduce using rule 52 (fator -> ( exp ) .)
+    AND             reduce using rule 52 (fator -> ( exp ) .)
+    ENTONCES        reduce using rule 52 (fator -> ( exp ) .)
+    OR              reduce using rule 52 (fator -> ( exp ) .)
+    SIGUIENTE       reduce using rule 52 (fator -> ( exp ) .)
 
 
 state 85
 
-    (43) termo -> termo / fator .
+    (63) condition -> exp op exp .
+    (42) exp -> exp . + termo
+    (43) exp -> exp . - termo
 
-    *               reduce using rule 43 (termo -> termo / fator .)
-    /               reduce using rule 43 (termo -> termo / fator .)
-    ^               reduce using rule 43 (termo -> termo / fator .)
-    +               reduce using rule 43 (termo -> termo / fator .)
-    -               reduce using rule 43 (termo -> termo / fator .)
-    >               reduce using rule 43 (termo -> termo / fator .)
-    <               reduce using rule 43 (termo -> termo / fator .)
-    IGUAL           reduce using rule 43 (termo -> termo / fator .)
-    DIFERENTE       reduce using rule 43 (termo -> termo / fator .)
-    ;               reduce using rule 43 (termo -> termo / fator .)
-    .               reduce using rule 43 (termo -> termo / fator .)
-    HACER           reduce using rule 43 (termo -> termo / fator .)
-    )               reduce using rule 43 (termo -> termo / fator .)
-    AND             reduce using rule 43 (termo -> termo / fator .)
-    ENTONCES        reduce using rule 43 (termo -> termo / fator .)
-    OR              reduce using rule 43 (termo -> termo / fator .)
-    SIGUIENTE       reduce using rule 43 (termo -> termo / fator .)
+    AND             reduce using rule 63 (condition -> exp op exp .)
+    ENTONCES        reduce using rule 63 (condition -> exp op exp .)
+    OR              reduce using rule 63 (condition -> exp op exp .)
+    HACER           reduce using rule 63 (condition -> exp op exp .)
+    SIGUIENTE       reduce using rule 63 (condition -> exp op exp .)
+    )               reduce using rule 63 (condition -> exp op exp .)
+    +               shift and go to state 57
+    -               shift and go to state 58
 
 
 state 86
 
-    (44) termo -> termo ^ fator .
+    (42) exp -> exp + termo .
+    (45) termo -> termo . * fator
+    (46) termo -> termo . / fator
+    (47) termo -> termo . ^ fator
 
-    *               reduce using rule 44 (termo -> termo ^ fator .)
-    /               reduce using rule 44 (termo -> termo ^ fator .)
-    ^               reduce using rule 44 (termo -> termo ^ fator .)
-    +               reduce using rule 44 (termo -> termo ^ fator .)
-    -               reduce using rule 44 (termo -> termo ^ fator .)
-    >               reduce using rule 44 (termo -> termo ^ fator .)
-    <               reduce using rule 44 (termo -> termo ^ fator .)
-    IGUAL           reduce using rule 44 (termo -> termo ^ fator .)
-    DIFERENTE       reduce using rule 44 (termo -> termo ^ fator .)
-    ;               reduce using rule 44 (termo -> termo ^ fator .)
-    .               reduce using rule 44 (termo -> termo ^ fator .)
-    HACER           reduce using rule 44 (termo -> termo ^ fator .)
-    )               reduce using rule 44 (termo -> termo ^ fator .)
-    AND             reduce using rule 44 (termo -> termo ^ fator .)
-    ENTONCES        reduce using rule 44 (termo -> termo ^ fator .)
-    OR              reduce using rule 44 (termo -> termo ^ fator .)
-    SIGUIENTE       reduce using rule 44 (termo -> termo ^ fator .)
+    +               reduce using rule 42 (exp -> exp + termo .)
+    -               reduce using rule 42 (exp -> exp + termo .)
+    >               reduce using rule 42 (exp -> exp + termo .)
+    <               reduce using rule 42 (exp -> exp + termo .)
+    IGUAL           reduce using rule 42 (exp -> exp + termo .)
+    DIFERENTE       reduce using rule 42 (exp -> exp + termo .)
+    ;               reduce using rule 42 (exp -> exp + termo .)
+    :               reduce using rule 42 (exp -> exp + termo .)
+    ,               reduce using rule 42 (exp -> exp + termo .)
+    .               reduce using rule 42 (exp -> exp + termo .)
+    HACER           reduce using rule 42 (exp -> exp + termo .)
+    )               reduce using rule 42 (exp -> exp + termo .)
+    AND             reduce using rule 42 (exp -> exp + termo .)
+    ENTONCES        reduce using rule 42 (exp -> exp + termo .)
+    OR              reduce using rule 42 (exp -> exp + termo .)
+    SIGUIENTE       reduce using rule 42 (exp -> exp + termo .)
+    *               shift and go to state 63
+    /               shift and go to state 64
+    ^               shift and go to state 65
 
 
 state 87
 
-    (67) ciclos -> ENCUANTO expL HACER statements . .
-    (34) statements -> statements . stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (43) exp -> exp - termo .
+    (45) termo -> termo . * fator
+    (46) termo -> termo . / fator
+    (47) termo -> termo . ^ fator
 
-    .               shift and go to state 104
-    ID              shift and go to state 16
-    SI              shift and go to state 17
-    ENCUANTO        shift and go to state 18
-    PARA            shift and go to state 19
+    +               reduce using rule 43 (exp -> exp - termo .)
+    -               reduce using rule 43 (exp -> exp - termo .)
+    >               reduce using rule 43 (exp -> exp - termo .)
+    <               reduce using rule 43 (exp -> exp - termo .)
+    IGUAL           reduce using rule 43 (exp -> exp - termo .)
+    DIFERENTE       reduce using rule 43 (exp -> exp - termo .)
+    ;               reduce using rule 43 (exp -> exp - termo .)
+    :               reduce using rule 43 (exp -> exp - termo .)
+    ,               reduce using rule 43 (exp -> exp - termo .)
+    .               reduce using rule 43 (exp -> exp - termo .)
+    HACER           reduce using rule 43 (exp -> exp - termo .)
+    )               reduce using rule 43 (exp -> exp - termo .)
+    AND             reduce using rule 43 (exp -> exp - termo .)
+    ENTONCES        reduce using rule 43 (exp -> exp - termo .)
+    OR              reduce using rule 43 (exp -> exp - termo .)
+    SIGUIENTE       reduce using rule 43 (exp -> exp - termo .)
+    *               shift and go to state 63
+    /               shift and go to state 64
+    ^               shift and go to state 65
 
-    stat                           shift and go to state 24
-    atrib                          shift and go to state 13
-    conditions                     shift and go to state 14
-    ciclos                         shift and go to state 15
 
 state 88
 
-    (68) ciclos -> PARA expL SIGUIENTE atrib . .
-    (69) ciclos -> PARA expL SIGUIENTE atrib . HACER statements .
+    (68) op -> > IGUAL .
 
-    .               shift and go to state 105
-    HACER           shift and go to state 106
+    INT             reduce using rule 68 (op -> > IGUAL .)
+    FLOAT           reduce using rule 68 (op -> > IGUAL .)
+    ID              reduce using rule 68 (op -> > IGUAL .)
+    (               reduce using rule 68 (op -> > IGUAL .)
 
 
 state 89
 
-    (26) parametros -> ID : . tipo
-    (10) tipo -> . ENTERO
-    (11) tipo -> . REAL
-    (12) tipo -> . BOOLEANO
+    (69) op -> < IGUAL .
 
-    ENTERO          shift and go to state 65
-    REAL            shift and go to state 66
-    BOOLEANO        shift and go to state 67
+    INT             reduce using rule 69 (op -> < IGUAL .)
+    FLOAT           reduce using rule 69 (op -> < IGUAL .)
+    ID              reduce using rule 69 (op -> < IGUAL .)
+    (               reduce using rule 69 (op -> < IGUAL .)
 
-    tipo                           shift and go to state 107
 
 state 90
 
-    (24) declF -> FUNCION ID ( parametros ) . : tipo declarations statements DEVUELVE return .
+    (45) termo -> termo * fator .
 
-    :               shift and go to state 108
+    *               reduce using rule 45 (termo -> termo * fator .)
+    /               reduce using rule 45 (termo -> termo * fator .)
+    ^               reduce using rule 45 (termo -> termo * fator .)
+    +               reduce using rule 45 (termo -> termo * fator .)
+    -               reduce using rule 45 (termo -> termo * fator .)
+    >               reduce using rule 45 (termo -> termo * fator .)
+    <               reduce using rule 45 (termo -> termo * fator .)
+    IGUAL           reduce using rule 45 (termo -> termo * fator .)
+    DIFERENTE       reduce using rule 45 (termo -> termo * fator .)
+    ;               reduce using rule 45 (termo -> termo * fator .)
+    :               reduce using rule 45 (termo -> termo * fator .)
+    ,               reduce using rule 45 (termo -> termo * fator .)
+    .               reduce using rule 45 (termo -> termo * fator .)
+    HACER           reduce using rule 45 (termo -> termo * fator .)
+    )               reduce using rule 45 (termo -> termo * fator .)
+    AND             reduce using rule 45 (termo -> termo * fator .)
+    ENTONCES        reduce using rule 45 (termo -> termo * fator .)
+    OR              reduce using rule 45 (termo -> termo * fator .)
+    SIGUIENTE       reduce using rule 45 (termo -> termo * fator .)
 
 
 state 91
 
-    (27) parametros -> parametros , . ID : tipo
+    (46) termo -> termo / fator .
 
-    ID              shift and go to state 109
+    *               reduce using rule 46 (termo -> termo / fator .)
+    /               reduce using rule 46 (termo -> termo / fator .)
+    ^               reduce using rule 46 (termo -> termo / fator .)
+    +               reduce using rule 46 (termo -> termo / fator .)
+    -               reduce using rule 46 (termo -> termo / fator .)
+    >               reduce using rule 46 (termo -> termo / fator .)
+    <               reduce using rule 46 (termo -> termo / fator .)
+    IGUAL           reduce using rule 46 (termo -> termo / fator .)
+    DIFERENTE       reduce using rule 46 (termo -> termo / fator .)
+    ;               reduce using rule 46 (termo -> termo / fator .)
+    :               reduce using rule 46 (termo -> termo / fator .)
+    ,               reduce using rule 46 (termo -> termo / fator .)
+    .               reduce using rule 46 (termo -> termo / fator .)
+    HACER           reduce using rule 46 (termo -> termo / fator .)
+    )               reduce using rule 46 (termo -> termo / fator .)
+    AND             reduce using rule 46 (termo -> termo / fator .)
+    ENTONCES        reduce using rule 46 (termo -> termo / fator .)
+    OR              reduce using rule 46 (termo -> termo / fator .)
+    SIGUIENTE       reduce using rule 46 (termo -> termo / fator .)
 
 
 state 92
 
-    (14) lista -> [ ] .
+    (47) termo -> termo ^ fator .
 
-    VAR             reduce using rule 14 (lista -> [ ] .)
-    FUNCION         reduce using rule 14 (lista -> [ ] .)
-    LISTA           reduce using rule 14 (lista -> [ ] .)
-    ID              reduce using rule 14 (lista -> [ ] .)
-    SI              reduce using rule 14 (lista -> [ ] .)
-    ENCUANTO        reduce using rule 14 (lista -> [ ] .)
-    PARA            reduce using rule 14 (lista -> [ ] .)
-    ]               reduce using rule 14 (lista -> [ ] .)
-    ,               reduce using rule 14 (lista -> [ ] .)
+    *               reduce using rule 47 (termo -> termo ^ fator .)
+    /               reduce using rule 47 (termo -> termo ^ fator .)
+    ^               reduce using rule 47 (termo -> termo ^ fator .)
+    +               reduce using rule 47 (termo -> termo ^ fator .)
+    -               reduce using rule 47 (termo -> termo ^ fator .)
+    >               reduce using rule 47 (termo -> termo ^ fator .)
+    <               reduce using rule 47 (termo -> termo ^ fator .)
+    IGUAL           reduce using rule 47 (termo -> termo ^ fator .)
+    DIFERENTE       reduce using rule 47 (termo -> termo ^ fator .)
+    ;               reduce using rule 47 (termo -> termo ^ fator .)
+    :               reduce using rule 47 (termo -> termo ^ fator .)
+    ,               reduce using rule 47 (termo -> termo ^ fator .)
+    .               reduce using rule 47 (termo -> termo ^ fator .)
+    HACER           reduce using rule 47 (termo -> termo ^ fator .)
+    )               reduce using rule 47 (termo -> termo ^ fator .)
+    AND             reduce using rule 47 (termo -> termo ^ fator .)
+    ENTONCES        reduce using rule 47 (termo -> termo ^ fator .)
+    OR              reduce using rule 47 (termo -> termo ^ fator .)
+    SIGUIENTE       reduce using rule 47 (termo -> termo ^ fator .)
 
 
 state 93
 
-    (15) lista -> [ elementos . ]
-    (17) elementos -> elementos . , elemento
+    (70) ciclos -> ENCUANTO expL HACER statements . .
+    (37) statements -> statements . stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
-    ]               shift and go to state 110
-    ,               shift and go to state 111
+    .               shift and go to state 110
+    ID              shift and go to state 16
+    SI              shift and go to state 17
+    ENCUANTO        shift and go to state 18
+    PARA            shift and go to state 19
 
+    stat                           shift and go to state 26
+    atrib                          shift and go to state 13
+    conditions                     shift and go to state 14
+    ciclos                         shift and go to state 15
 
 state 94
 
-    (16) elementos -> elemento .
+    (71) ciclos -> PARA expL SIGUIENTE atrib . .
+    (72) ciclos -> PARA expL SIGUIENTE atrib . HACER statements .
 
-    ]               reduce using rule 16 (elementos -> elemento .)
-    ,               reduce using rule 16 (elementos -> elemento .)
+    .               shift and go to state 111
+    HACER           shift and go to state 112
 
 
 state 95
 
-    (18) elemento -> INT .
+    (29) parametros -> ID : . tipo
+    (13) tipo -> . ENTERO
+    (14) tipo -> . REAL
+    (15) tipo -> . BOOLEANO
 
-    ]               reduce using rule 18 (elemento -> INT .)
-    ,               reduce using rule 18 (elemento -> INT .)
+    ENTERO          shift and go to state 69
+    REAL            shift and go to state 70
+    BOOLEANO        shift and go to state 71
 
+    tipo                           shift and go to state 113
 
 state 96
 
-    (19) elemento -> FLOAT .
+    (27) declF -> FUNCION ID ( parametros ) . : tipo declarations statements DEVUELVE return .
 
-    ]               reduce using rule 19 (elemento -> FLOAT .)
-    ,               reduce using rule 19 (elemento -> FLOAT .)
+    :               shift and go to state 114
 
 
 state 97
 
-    (20) elemento -> BOOLEANO .
+    (30) parametros -> parametros , . ID : tipo
 
-    ]               reduce using rule 20 (elemento -> BOOLEANO .)
-    ,               reduce using rule 20 (elemento -> BOOLEANO .)
+    ID              shift and go to state 115
 
 
 state 98
 
-    (21) elemento -> STRING .
+    (17) lista -> [ ] .
 
-    ]               reduce using rule 21 (elemento -> STRING .)
-    ,               reduce using rule 21 (elemento -> STRING .)
+    VAR             reduce using rule 17 (lista -> [ ] .)
+    FUNCION         reduce using rule 17 (lista -> [ ] .)
+    LISTA           reduce using rule 17 (lista -> [ ] .)
+    ID              reduce using rule 17 (lista -> [ ] .)
+    SI              reduce using rule 17 (lista -> [ ] .)
+    ENCUANTO        reduce using rule 17 (lista -> [ ] .)
+    PARA            reduce using rule 17 (lista -> [ ] .)
+    ]               reduce using rule 17 (lista -> [ ] .)
+    ,               reduce using rule 17 (lista -> [ ] .)
 
 
 state 99
 
-    (22) elemento -> ID .
+    (18) lista -> [ elementos . ]
+    (20) elementos -> elementos . , elemento
 
-    ]               reduce using rule 22 (elemento -> ID .)
-    ,               reduce using rule 22 (elemento -> ID .)
+    ]               shift and go to state 116
+    ,               shift and go to state 117
 
 
 state 100
 
-    (23) elemento -> lista .
+    (19) elementos -> elemento .
 
-    ]               reduce using rule 23 (elemento -> lista .)
-    ,               reduce using rule 23 (elemento -> lista .)
+    ]               reduce using rule 19 (elementos -> elemento .)
+    ,               reduce using rule 19 (elementos -> elemento .)
 
 
 state 101
 
-    (50) conditions -> SI expL ENTONCES statements endcondition .
+    (21) elemento -> INT .
 
-    ID              reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    SI              reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    ENCUANTO        reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    PARA            reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    $end            reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    .               reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    CASO            reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
-    DEVUELVE        reduce using rule 50 (conditions -> SI expL ENTONCES statements endcondition .)
+    ]               reduce using rule 21 (elemento -> INT .)
+    ,               reduce using rule 21 (elemento -> INT .)
 
 
 state 102
 
-    (51) endcondition -> . .
+    (22) elemento -> FLOAT .
 
-    ID              reduce using rule 51 (endcondition -> . .)
-    SI              reduce using rule 51 (endcondition -> . .)
-    ENCUANTO        reduce using rule 51 (endcondition -> . .)
-    PARA            reduce using rule 51 (endcondition -> . .)
-    $end            reduce using rule 51 (endcondition -> . .)
-    .               reduce using rule 51 (endcondition -> . .)
-    CASO            reduce using rule 51 (endcondition -> . .)
-    DEVUELVE        reduce using rule 51 (endcondition -> . .)
+    ]               reduce using rule 22 (elemento -> FLOAT .)
+    ,               reduce using rule 22 (elemento -> FLOAT .)
 
 
 state 103
 
-    (52) endcondition -> CASO . CONTRARIO statements .
+    (23) elemento -> BOOLEANO .
 
-    CONTRARIO       shift and go to state 112
+    ]               reduce using rule 23 (elemento -> BOOLEANO .)
+    ,               reduce using rule 23 (elemento -> BOOLEANO .)
 
 
 state 104
 
-    (67) ciclos -> ENCUANTO expL HACER statements . .
+    (24) elemento -> STRING .
 
-    ID              reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    SI              reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    ENCUANTO        reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    PARA            reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    $end            reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    .               reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    CASO            reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
-    DEVUELVE        reduce using rule 67 (ciclos -> ENCUANTO expL HACER statements . .)
+    ]               reduce using rule 24 (elemento -> STRING .)
+    ,               reduce using rule 24 (elemento -> STRING .)
 
 
 state 105
 
-    (68) ciclos -> PARA expL SIGUIENTE atrib . .
+    (25) elemento -> ID .
 
-    ID              reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    SI              reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    ENCUANTO        reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    PARA            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    $end            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    .               reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    CASO            reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
-    DEVUELVE        reduce using rule 68 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    ]               reduce using rule 25 (elemento -> ID .)
+    ,               reduce using rule 25 (elemento -> ID .)
 
 
 state 106
 
-    (69) ciclos -> PARA expL SIGUIENTE atrib HACER . statements .
-    (33) statements -> . stat
-    (34) statements -> . statements stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (26) elemento -> lista .
 
-    ID              shift and go to state 16
-    SI              shift and go to state 17
-    ENCUANTO        shift and go to state 18
-    PARA            shift and go to state 19
+    ]               reduce using rule 26 (elemento -> lista .)
+    ,               reduce using rule 26 (elemento -> lista .)
 
-    atrib                          shift and go to state 13
-    statements                     shift and go to state 113
-    stat                           shift and go to state 12
-    conditions                     shift and go to state 14
-    ciclos                         shift and go to state 15
 
 state 107
 
-    (26) parametros -> ID : tipo .
+    (53) conditions -> SI expL ENTONCES statements endcondition .
 
-    )               reduce using rule 26 (parametros -> ID : tipo .)
-    ,               reduce using rule 26 (parametros -> ID : tipo .)
+    ID              reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    SI              reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    ENCUANTO        reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    PARA            reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    $end            reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    .               reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    CASO            reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
+    DEVUELVE        reduce using rule 53 (conditions -> SI expL ENTONCES statements endcondition .)
 
 
 state 108
 
-    (24) declF -> FUNCION ID ( parametros ) : . tipo declarations statements DEVUELVE return .
-    (10) tipo -> . ENTERO
-    (11) tipo -> . REAL
-    (12) tipo -> . BOOLEANO
+    (54) endcondition -> . .
 
-    ENTERO          shift and go to state 65
-    REAL            shift and go to state 66
-    BOOLEANO        shift and go to state 67
+    ID              reduce using rule 54 (endcondition -> . .)
+    SI              reduce using rule 54 (endcondition -> . .)
+    ENCUANTO        reduce using rule 54 (endcondition -> . .)
+    PARA            reduce using rule 54 (endcondition -> . .)
+    $end            reduce using rule 54 (endcondition -> . .)
+    .               reduce using rule 54 (endcondition -> . .)
+    CASO            reduce using rule 54 (endcondition -> . .)
+    DEVUELVE        reduce using rule 54 (endcondition -> . .)
 
-    tipo                           shift and go to state 114
 
 state 109
 
-    (27) parametros -> parametros , ID . : tipo
+    (55) endcondition -> CASO . CONTRARIO statements .
 
-    :               shift and go to state 115
+    CONTRARIO       shift and go to state 118
 
 
 state 110
 
-    (15) lista -> [ elementos ] .
+    (70) ciclos -> ENCUANTO expL HACER statements . .
 
-    VAR             reduce using rule 15 (lista -> [ elementos ] .)
-    FUNCION         reduce using rule 15 (lista -> [ elementos ] .)
-    LISTA           reduce using rule 15 (lista -> [ elementos ] .)
-    ID              reduce using rule 15 (lista -> [ elementos ] .)
-    SI              reduce using rule 15 (lista -> [ elementos ] .)
-    ENCUANTO        reduce using rule 15 (lista -> [ elementos ] .)
-    PARA            reduce using rule 15 (lista -> [ elementos ] .)
-    ]               reduce using rule 15 (lista -> [ elementos ] .)
-    ,               reduce using rule 15 (lista -> [ elementos ] .)
+    ID              reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    SI              reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    ENCUANTO        reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    PARA            reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    $end            reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    .               reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    CASO            reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
+    DEVUELVE        reduce using rule 70 (ciclos -> ENCUANTO expL HACER statements . .)
 
 
 state 111
 
-    (17) elementos -> elementos , . elemento
-    (18) elemento -> . INT
-    (19) elemento -> . FLOAT
-    (20) elemento -> . BOOLEANO
-    (21) elemento -> . STRING
-    (22) elemento -> . ID
-    (23) elemento -> . lista
-    (14) lista -> . [ ]
-    (15) lista -> . [ elementos ]
+    (71) ciclos -> PARA expL SIGUIENTE atrib . .
 
-    INT             shift and go to state 95
-    FLOAT           shift and go to state 96
-    BOOLEANO        shift and go to state 97
-    STRING          shift and go to state 98
-    ID              shift and go to state 99
-    [               shift and go to state 72
+    ID              reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    SI              reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    ENCUANTO        reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    PARA            reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    $end            reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    .               reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    CASO            reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
+    DEVUELVE        reduce using rule 71 (ciclos -> PARA expL SIGUIENTE atrib . .)
 
-    elemento                       shift and go to state 116
-    lista                          shift and go to state 100
 
 state 112
 
-    (52) endcondition -> CASO CONTRARIO . statements .
-    (33) statements -> . stat
-    (34) statements -> . statements stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (72) ciclos -> PARA expL SIGUIENTE atrib HACER . statements .
+    (36) statements -> . stat
+    (37) statements -> . statements stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
     ID              shift and go to state 16
     SI              shift and go to state 17
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    statements                     shift and go to state 117
-    stat                           shift and go to state 12
     atrib                          shift and go to state 13
+    statements                     shift and go to state 119
+    stat                           shift and go to state 12
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
 state 113
 
-    (69) ciclos -> PARA expL SIGUIENTE atrib HACER statements . .
-    (34) statements -> statements . stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (29) parametros -> ID : tipo .
 
-    .               shift and go to state 118
+    )               reduce using rule 29 (parametros -> ID : tipo .)
+    ,               reduce using rule 29 (parametros -> ID : tipo .)
+
+
+state 114
+
+    (27) declF -> FUNCION ID ( parametros ) : . tipo declarations statements DEVUELVE return .
+    (13) tipo -> . ENTERO
+    (14) tipo -> . REAL
+    (15) tipo -> . BOOLEANO
+
+    ENTERO          shift and go to state 69
+    REAL            shift and go to state 70
+    BOOLEANO        shift and go to state 71
+
+    tipo                           shift and go to state 120
+
+state 115
+
+    (30) parametros -> parametros , ID . : tipo
+
+    :               shift and go to state 121
+
+
+state 116
+
+    (18) lista -> [ elementos ] .
+
+    VAR             reduce using rule 18 (lista -> [ elementos ] .)
+    FUNCION         reduce using rule 18 (lista -> [ elementos ] .)
+    LISTA           reduce using rule 18 (lista -> [ elementos ] .)
+    ID              reduce using rule 18 (lista -> [ elementos ] .)
+    SI              reduce using rule 18 (lista -> [ elementos ] .)
+    ENCUANTO        reduce using rule 18 (lista -> [ elementos ] .)
+    PARA            reduce using rule 18 (lista -> [ elementos ] .)
+    ]               reduce using rule 18 (lista -> [ elementos ] .)
+    ,               reduce using rule 18 (lista -> [ elementos ] .)
+
+
+state 117
+
+    (20) elementos -> elementos , . elemento
+    (21) elemento -> . INT
+    (22) elemento -> . FLOAT
+    (23) elemento -> . BOOLEANO
+    (24) elemento -> . STRING
+    (25) elemento -> . ID
+    (26) elemento -> . lista
+    (17) lista -> . [ ]
+    (18) lista -> . [ elementos ]
+
+    INT             shift and go to state 101
+    FLOAT           shift and go to state 102
+    BOOLEANO        shift and go to state 103
+    STRING          shift and go to state 104
+    ID              shift and go to state 105
+    [               shift and go to state 78
+
+    elemento                       shift and go to state 122
+    lista                          shift and go to state 106
+
+state 118
+
+    (55) endcondition -> CASO CONTRARIO . statements .
+    (36) statements -> . stat
+    (37) statements -> . statements stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+
+    ID              shift and go to state 16
+    SI              shift and go to state 17
+    ENCUANTO        shift and go to state 18
+    PARA            shift and go to state 19
+
+    statements                     shift and go to state 123
+    stat                           shift and go to state 12
+    atrib                          shift and go to state 13
+    conditions                     shift and go to state 14
+    ciclos                         shift and go to state 15
+
+state 119
+
+    (72) ciclos -> PARA expL SIGUIENTE atrib HACER statements . .
+    (37) statements -> statements . stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+
+    .               shift and go to state 124
     ID              shift and go to state 16
     SI              shift and go to state 17
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
     atrib                          shift and go to state 13
-    stat                           shift and go to state 24
+    stat                           shift and go to state 26
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
-state 114
+state 120
 
-    (24) declF -> FUNCION ID ( parametros ) : tipo . declarations statements DEVUELVE return .
+    (27) declF -> FUNCION ID ( parametros ) : tipo . declarations statements DEVUELVE return .
     (2) declarations -> . decl
     (3) declarations -> . declarations decl
     (4) decl -> . declV
     (5) decl -> . declF
     (6) decl -> . declL
     (7) declV -> . VAR ids : tipo
-    (24) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
-    (13) declL -> . LISTA ID = lista
+    (8) declV -> . VAR atribs : tipo
+    (27) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
+    (16) declL -> . LISTA ID = lista
 
     VAR             shift and go to state 7
     FUNCION         shift and go to state 8
     LISTA           shift and go to state 9
 
-    declarations                   shift and go to state 119
+    declarations                   shift and go to state 125
     decl                           shift and go to state 3
     declV                          shift and go to state 4
     declF                          shift and go to state 5
     declL                          shift and go to state 6
 
-state 115
+state 121
 
-    (27) parametros -> parametros , ID : . tipo
-    (10) tipo -> . ENTERO
-    (11) tipo -> . REAL
-    (12) tipo -> . BOOLEANO
+    (30) parametros -> parametros , ID : . tipo
+    (13) tipo -> . ENTERO
+    (14) tipo -> . REAL
+    (15) tipo -> . BOOLEANO
 
-    ENTERO          shift and go to state 65
-    REAL            shift and go to state 66
-    BOOLEANO        shift and go to state 67
+    ENTERO          shift and go to state 69
+    REAL            shift and go to state 70
+    BOOLEANO        shift and go to state 71
 
-    tipo                           shift and go to state 120
+    tipo                           shift and go to state 126
 
-state 116
+state 122
 
-    (17) elementos -> elementos , elemento .
+    (20) elementos -> elementos , elemento .
 
-    ]               reduce using rule 17 (elementos -> elementos , elemento .)
-    ,               reduce using rule 17 (elementos -> elementos , elemento .)
+    ]               reduce using rule 20 (elementos -> elementos , elemento .)
+    ,               reduce using rule 20 (elementos -> elementos , elemento .)
 
 
-state 117
+state 123
 
-    (52) endcondition -> CASO CONTRARIO statements . .
-    (34) statements -> statements . stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (55) endcondition -> CASO CONTRARIO statements . .
+    (37) statements -> statements . stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
-    .               shift and go to state 121
+    .               shift and go to state 127
     ID              shift and go to state 16
     SI              shift and go to state 17
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    stat                           shift and go to state 24
+    stat                           shift and go to state 26
     atrib                          shift and go to state 13
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
-state 118
+state 124
 
-    (69) ciclos -> PARA expL SIGUIENTE atrib HACER statements . .
+    (72) ciclos -> PARA expL SIGUIENTE atrib HACER statements . .
 
-    ID              reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    SI              reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    ENCUANTO        reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    PARA            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    $end            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    .               reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    CASO            reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
-    DEVUELVE        reduce using rule 69 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    ID              reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    SI              reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    ENCUANTO        reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    PARA            reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    $end            reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    .               reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    CASO            reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
+    DEVUELVE        reduce using rule 72 (ciclos -> PARA expL SIGUIENTE atrib HACER statements . .)
 
 
-state 119
+state 125
 
-    (24) declF -> FUNCION ID ( parametros ) : tipo declarations . statements DEVUELVE return .
+    (27) declF -> FUNCION ID ( parametros ) : tipo declarations . statements DEVUELVE return .
     (3) declarations -> declarations . decl
-    (33) statements -> . stat
-    (34) statements -> . statements stat
+    (36) statements -> . stat
+    (37) statements -> . statements stat
     (4) decl -> . declV
     (5) decl -> . declF
     (6) decl -> . declL
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
     (7) declV -> . VAR ids : tipo
-    (24) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
-    (13) declL -> . LISTA ID = lista
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (8) declV -> . VAR atribs : tipo
+    (27) declF -> . FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return .
+    (16) declL -> . LISTA ID = lista
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
 
     VAR             shift and go to state 7
     FUNCION         shift and go to state 8
@@ -2072,7 +2172,7 @@ state 119
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    statements                     shift and go to state 122
+    statements                     shift and go to state 128
     decl                           shift and go to state 11
     stat                           shift and go to state 12
     declV                          shift and go to state 4
@@ -2082,120 +2182,120 @@ state 119
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
-state 120
+state 126
 
-    (27) parametros -> parametros , ID : tipo .
+    (30) parametros -> parametros , ID : tipo .
 
-    )               reduce using rule 27 (parametros -> parametros , ID : tipo .)
-    ,               reduce using rule 27 (parametros -> parametros , ID : tipo .)
-
-
-state 121
-
-    (52) endcondition -> CASO CONTRARIO statements . .
-
-    ID              reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    SI              reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    ENCUANTO        reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    PARA            reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    $end            reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    .               reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    CASO            reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
-    DEVUELVE        reduce using rule 52 (endcondition -> CASO CONTRARIO statements . .)
+    )               reduce using rule 30 (parametros -> parametros , ID : tipo .)
+    ,               reduce using rule 30 (parametros -> parametros , ID : tipo .)
 
 
-state 122
+state 127
 
-    (24) declF -> FUNCION ID ( parametros ) : tipo declarations statements . DEVUELVE return .
-    (34) statements -> statements . stat
-    (35) stat -> . atrib ;
-    (36) stat -> . conditions
-    (37) stat -> . ciclos
-    (38) atrib -> . ID = exp
-    (50) conditions -> . SI expL ENTONCES statements endcondition
-    (67) ciclos -> . ENCUANTO expL HACER statements .
-    (68) ciclos -> . PARA expL SIGUIENTE atrib .
-    (69) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+    (55) endcondition -> CASO CONTRARIO statements . .
 
-    DEVUELVE        shift and go to state 123
+    ID              reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    SI              reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    ENCUANTO        reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    PARA            reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    $end            reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    .               reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    CASO            reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+    DEVUELVE        reduce using rule 55 (endcondition -> CASO CONTRARIO statements . .)
+
+
+state 128
+
+    (27) declF -> FUNCION ID ( parametros ) : tipo declarations statements . DEVUELVE return .
+    (37) statements -> statements . stat
+    (38) stat -> . atrib ;
+    (39) stat -> . conditions
+    (40) stat -> . ciclos
+    (41) atrib -> . ID = exp
+    (53) conditions -> . SI expL ENTONCES statements endcondition
+    (70) ciclos -> . ENCUANTO expL HACER statements .
+    (71) ciclos -> . PARA expL SIGUIENTE atrib .
+    (72) ciclos -> . PARA expL SIGUIENTE atrib HACER statements .
+
+    DEVUELVE        shift and go to state 129
     ID              shift and go to state 16
     SI              shift and go to state 17
     ENCUANTO        shift and go to state 18
     PARA            shift and go to state 19
 
-    stat                           shift and go to state 24
+    stat                           shift and go to state 26
     atrib                          shift and go to state 13
     conditions                     shift and go to state 14
     ciclos                         shift and go to state 15
 
-state 123
-
-    (24) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE . return .
-    (28) return -> . INT
-    (29) return -> . ID
-    (30) return -> . FLOAT
-    (31) return -> . VERDADERO
-    (32) return -> . FALSO
-
-    INT             shift and go to state 126
-    ID              shift and go to state 124
-    FLOAT           shift and go to state 127
-    VERDADERO       shift and go to state 128
-    FALSO           shift and go to state 129
-
-    return                         shift and go to state 125
-
-state 124
-
-    (29) return -> ID .
-
-    .               reduce using rule 29 (return -> ID .)
-
-
-state 125
-
-    (24) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .
-
-    .               shift and go to state 130
-
-
-state 126
-
-    (28) return -> INT .
-
-    .               reduce using rule 28 (return -> INT .)
-
-
-state 127
-
-    (30) return -> FLOAT .
-
-    .               reduce using rule 30 (return -> FLOAT .)
-
-
-state 128
-
-    (31) return -> VERDADERO .
-
-    .               reduce using rule 31 (return -> VERDADERO .)
-
-
 state 129
 
-    (32) return -> FALSO .
+    (27) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE . return .
+    (31) return -> . INT
+    (32) return -> . ID
+    (33) return -> . FLOAT
+    (34) return -> . VERDADERO
+    (35) return -> . FALSO
 
-    .               reduce using rule 32 (return -> FALSO .)
+    INT             shift and go to state 132
+    ID              shift and go to state 130
+    FLOAT           shift and go to state 133
+    VERDADERO       shift and go to state 134
+    FALSO           shift and go to state 135
 
+    return                         shift and go to state 131
 
 state 130
 
-    (24) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .
+    (32) return -> ID .
 
-    VAR             reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    FUNCION         reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    LISTA           reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    ID              reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    SI              reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    ENCUANTO        reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
-    PARA            reduce using rule 24 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    .               reduce using rule 32 (return -> ID .)
+
+
+state 131
+
+    (27) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .
+
+    .               shift and go to state 136
+
+
+state 132
+
+    (31) return -> INT .
+
+    .               reduce using rule 31 (return -> INT .)
+
+
+state 133
+
+    (33) return -> FLOAT .
+
+    .               reduce using rule 33 (return -> FLOAT .)
+
+
+state 134
+
+    (34) return -> VERDADERO .
+
+    .               reduce using rule 34 (return -> VERDADERO .)
+
+
+state 135
+
+    (35) return -> FALSO .
+
+    .               reduce using rule 35 (return -> FALSO .)
+
+
+state 136
+
+    (27) declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .
+
+    VAR             reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    FUNCION         reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    LISTA           reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    ID              reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    SI              reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    ENCUANTO        reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
+    PARA            reduce using rule 27 (declF -> FUNCION ID ( parametros ) : tipo declarations statements DEVUELVE return . .)
 

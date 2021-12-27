@@ -1,4 +1,4 @@
-variable l1,l2,l3,l4: real
+variable l1 = 0,l2 = 0,l3 = 1,l4 = 5: real
 variable res: entero
 
 funcion valida(a1:entero,a2:entero,a3:entero,a4:entero) : entero
