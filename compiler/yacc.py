@@ -38,27 +38,24 @@ def p_decl_L(p):
 #----------------- Variable declarations ----------------------------
 
 def p_declV(p):
-    "declV : VAR ids ':' tipo"
+    "declV : VAR vari ':' tipo"
     for var in p.parser.declarations:
         var.set_tipo(p[4])
 
-def p_declV_atrib(p):
-    "declV : VAR atribs ':' tipo"
-    for var in p.parser.declarations:
-        var.set_tipo(p[4])
+def p_vari_atrib(p):
+    "vari : atrib"
+    #p.parser.declarations.append(DECLARATION(p[1]))
 
-def p_atribs_1(p):
-    "atribs : atrib"
-
-def p_atribs_mult(p):
-    "atribs : atribs ',' atrib"
-
-def p_ids_1(p):
-    "ids : ID"
+def p_vari_id(p):
+    "vari : ID"
     p.parser.declarations.append(DECLARATION(p[1]))
 
-def p_ids_mult(p):
-    "ids : ids ',' ID"
+def p_vari_atribs(p):
+    "vari : vari ',' atrib"
+    #p.parser.declarations.append(DECLARATION(p[3]))
+
+def p_vari_ids(p):
+    "vari : vari ',' ID"
     p.parser.declarations.append(DECLARATION(p[3]))
 
 def p_tipo_int(p):
@@ -71,6 +68,10 @@ def p_tipo_REAL(p):
 
 def p_tipo_BOOL(p):
     "tipo : BOOLEANO"
+    p[0] = p[1]
+
+def p_tipo_STRING(p):
+    "tipo : STR"
     p[0] = p[1]
 
 #------------------------------------------------------
@@ -195,7 +196,20 @@ def p_stat_conditions(p):
 def p_stat_ciclos(p):
     "stat : ciclos"
 
+def p_stat_read_and_write(p):
+    "stat : readwrite"
+
+
 #-----------------ATRIBUIÇÕES-------------------------
+
+def p_atrib_string(p):
+    "atrib : ID '=' STRING"
+
+def p_atrib_true(p):
+    "atrib : ID '=' VERDADERO"
+
+def p_atrib_false(p):
+    "atrib : ID '=' FALSO"
 
 def p_atrib(p):
     "atrib : ID '=' exp"
@@ -312,6 +326,19 @@ def p_ciclos_for_1(p):
 
 def p_ciclos_for_mult(p):
     "ciclos : PARA expL SIGUIENTE atrib HACER statements '.'"
+
+#----------------------------------------
+
+#----------Read and Write---------------
+
+def p_read_and_write_r(p):
+    "readwrite : ESCRIBIR '(' ID ')' ';'"
+
+def p_read_and_write_r_string(p):
+    "readwrite : ESCRIBIR '(' STRING ')' ';'"
+
+def p_read_and_write_w(p):
+    "readwrite : ID '=' LEER '(' STRING ')' ';'"
 
 def p_error(p):
     print("Syntax error!",p)

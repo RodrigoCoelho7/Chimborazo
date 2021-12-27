@@ -1,14 +1,18 @@
 import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
-          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","ESCRIBE","VERDADERO","FALSO","CASO","CONTRARIO",
-          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR"]
+          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
+          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR"]
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";"]
 
 def find_column(input, token):
     line_start = input.rfind('\n', 0, token.lexpos) + 1
     return (token.lexpos - line_start) + 1
+
+def t_STR(t):
+    r'\bstring\b'
+    return t
 
 def t_LEER(t):
     r'\blee\b'
@@ -96,10 +100,6 @@ def t_RESTO(t):
 
 def t_ENTONCES(t):
     r'\bentonces\b'
-    return t
-
-def t_ESCRIBE(t):
-    r'\bescribe\b'
     return t
 
 def t_VERDADERO(t):

@@ -1,5 +1,5 @@
-variable l1 = 0,l2 = 0,l3 = 1,l4 = 5: real
-variable res: entero
+variable l1,l2 = 0,l3 = 0,l4 = 0: real
+variable res: string
 
 funcion valida(a1:entero,a2:entero,a3:entero,a4:entero) : entero
     variable res:real
@@ -9,4 +9,5 @@ funcion valida(a1:entero,a2:entero,a3:entero,a4:entero) : entero
         res = 1;.
     devuelve 5.
 
-res = 2 * 4;
+res = "ola";
+escribe(res);
