@@ -1,9 +1,9 @@
 
-
 class DECLARATION:
-    def __init__(self,ID,TIPO=None):
+    def __init__(self,ID,TIPO=None,memory=-1):
         self.ID = ID
         self.TIPO = TIPO
+        self.memory = memory
     
     def set_tipo(self,TIPO):
         self.TIPO = TIPO
@@ -12,14 +12,31 @@ class PROGRAM:
     def __init__(self):
         self.declarations = {}
         self.statements = {}
+        self.GP = 0
     
     def add_variable(self,VAR):
         if VAR.ID in list(self.declarations.keys()):
+            print(list(self.declarations.keys()))
             self.error(VAR.ID+' Ya fue definida')
         self.declarations[VAR.ID] = VAR
     
+    def get_Variable_by_memory(self,P):
+        for key in self.declarations.keys():
+            if self.declarations[key].memory == P:
+                return key
+        return None
+    
     def error(self,message):
         print('Semantic Error: '+message)
+    
+    def add_condition(self,code,ID):
+        self.statements[ID] = code
+    
+    def statements_code(self):
+        code = ''
+        for key in self.statements.keys():
+            code += f'\n{key}: NOP\n{self.statements[key]}'
+        return code
 
 
 class FUNCTION(PROGRAM):

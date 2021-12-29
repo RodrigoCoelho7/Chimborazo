@@ -1,11 +1,12 @@
 import ply.yacc as yacc
 from Lex import tokens
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
+from libs.functions import allocate_memory,F,operator,ID_generator,write_f
 
 
 def p_prg(p):
     "prg : declarations statements"
-    parser.code += 'STOP'
+    p.parser.code += p[1] + p[2] + '\tSTOP\n' + p.parser.program.statements_code()
 
 #-------------- Declarations ------------------------------
 
@@ -14,14 +15,22 @@ def p_declarations_1(p):
     if not p.parser.flag_function:
         for decl in p.parser.declarations:
             p.parser.program.add_variable(decl)
+        tipo = decl.TIPO
+        N = len(p.parser.declarations)
+        p.parser.code = allocate_memory(N,tipo) + p.parser.code
         p.parser.declarations = []
+        p[0] = p[1]
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
     if not p.parser.flag_function:
         for decl in p.parser.declarations:
             p.parser.program.add_variable(decl)
+        tipo = decl.TIPO
+        N = len(p.parser.declarations)
+        p.parser.code = allocate_memory(N,tipo) + p.parser.code
         p.parser.declarations = []
+        p[0] = p[1] + p[2]
 
 def p_decl_V(p):
     "decl : declV"
@@ -41,22 +50,27 @@ def p_declV(p):
     "declV : VAR vari ':' tipo"
     for var in p.parser.declarations:
         var.set_tipo(p[4])
+    p[0] = p[2]
 
 def p_vari_atrib(p):
-    "vari : atrib"
-    #p.parser.declarations.append(DECLARATION(p[1]))
+    "vari : atribD"
+    p[0] = p[1]
 
 def p_vari_id(p):
     "vari : ID"
-    p.parser.declarations.append(DECLARATION(p[1]))
+    p[0] = ''
+    p.parser.declarations.append(DECLARATION(p[1],memory=p.parser.program.GP))
+    p.parser.program.GP += 1
 
 def p_vari_atribs(p):
-    "vari : vari ',' atrib"
-    #p.parser.declarations.append(DECLARATION(p[3]))
+    "vari : vari ',' atribD"
+    p[0] = p[1] + p[3]
 
 def p_vari_ids(p):
     "vari : vari ',' ID"
-    p.parser.declarations.append(DECLARATION(p[3]))
+    p.parser.declarations.append(DECLARATION(p[3],memory=p.parser.program.GP))
+    p[0] = p[1]+''
+    p.parser.program.GP += 1
 
 def p_tipo_int(p):
     "tipo : ENTERO"
@@ -74,13 +88,36 @@ def p_tipo_STRING(p):
     "tipo : STR"
     p[0] = p[1]
 
+def p_atribD_string(p):
+    "atribD : ID '=' STRING"
+    p.parser.declarations.append(DECLARATION(p[1],memory=p.parser.program.GP))
+    p.parser.program.GP += 1
+
+def p_atribD_true(p):
+    "atribD : ID '=' VERDADERO"
+    p.parser.declarations.append(DECLARATION(p[1],memory=p.parser.program.GP))
+    p[0] = f'\tPUSHI 1\n\tSTOREG {p.parser.program.GP}\n'
+    p.parser.program.GP += 1
+
+def p_atribD_false(p):
+    "atribD : ID '=' FALSO"
+    p.parser.declarations.append(DECLARATION(p[1],memory=p.parser.program.GP))
+    p[0] = f'\tPUSHI 0\n\tSTOREG {p.parser.program.GP}\n'
+    p.parser.program.GP += 1
+
+def p_atribD(p):
+    "atribD : ID '=' exp"
+    p.parser.declarations.append(DECLARATION(p[1],memory=p.parser.program.GP))
+    p[0] = p[3] + f'\tSTOREG {p.parser.program.GP}\n'
+    p.parser.program.GP += 1
+
 #------------------------------------------------------
 
 #-----------------List Declarations --------------------------
 
 def p_declL(p):
     "declL : LISTA ID '=' lista"
-    p.parser.declarations.append(DECLARATION(p[4],"lista"))
+    p.parser.declarations.append(DECLARATION(p[4],TIPO="lista"))
     p[0] = p[1] + ' ' + p[2] + p[3] + p[4]
     print(p[0])
 
@@ -183,45 +220,54 @@ def p_return_FALSE(p):
 
 def p_statements_1(p):
     "statements : stat"
+    p[0] = p[1]
 
 def p_statements_mult(p):
     "statements : statements stat"
+    p[0] = p[1] + p[2]
 
 def p_stat_atrib(p):
     "stat : atrib ';'"
+    p[0] = p[1]
 
 def p_stat_conditions(p):
     "stat : conditions"
+    p[0] = p[1]
 
 def p_stat_ciclos(p):
     "stat : ciclos"
+    p[0] = p[1]
 
 def p_stat_read_and_write(p):
     "stat : readwrite"
+    p[0] = p[1]
 
 
 #-----------------ATRIBUIÇÕES-------------------------
 
 def p_atrib_string(p):
     "atrib : ID '=' STRING"
+    p[0] = f'\tPUSHS {p[3]}\n\tSTOREG {p.parser.program.declarations[p[1]].memory}\n'
 
 def p_atrib_true(p):
     "atrib : ID '=' VERDADERO"
+    p[0] = f'\tPUSHI 1\n\tSTOREG {p.parser.program.declarations[p[1]].memory}\n'
 
 def p_atrib_false(p):
     "atrib : ID '=' FALSO"
+    p[0] = f'\tPUSHI 0\n\tSTOREG {p.parser.program.declarations[p[1]].memory}\n'
 
 def p_atrib(p):
     "atrib : ID '=' exp"
-    p[0] = p[3]
+    p[0] = f'{p[3]}\tSTOREG {p.parser.program.declarations[p[1]].memory}\n'
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
-    p[0] = p[1] + p[3]
+    p[0] = f'{p[1]}{p[3]}\t{F(p[1],p[3],p.parser.program)}ADD\n'
 
 def p_exp_sub(p):
     "exp : exp '-' termo"
-    p[0] = p[1] - p[3]
+    p[0] = f'{p[1]}{p[3]}\t{F(p[1],p[3],p.parser.program)}SUB\n'
 
 def p_exp_termo(p):
     "exp : termo"
@@ -229,11 +275,11 @@ def p_exp_termo(p):
 
 def p_termo_mul(p):
     "termo : termo '*' fator"
-    p[0] = p[1] * p[3]
+    p[0] = f'{p[1]}{p[3]}\t{F(p[1],p[3],p.parser.program)}MUL\n'
 
 def p_termo_div(p):
     "termo : termo '/' fator"
-    p[0] = p[1] / p[3]
+    p[0] = f'{p[1]}{p[3]}\t{F(p[1],p[3],p.parser.program)}DIV\n'
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
@@ -245,15 +291,15 @@ def p_termo_fator(p):
 
 def p_fator_INT(p):
     "fator : INT"
-    p[0] = p[1]
+    p[0] = f'\tPUSHI {p[1]}\n'
 
 def p_fator_FLOAT(p):
     "fator : FLOAT"
-    p[0] = p[1]
+    p[0] = f'\tPUSHF {p[1]}\n'
 
 def p_fator_ID(p):
     "fator : ID"
-    p[0] = p[1]
+    p[0] = f'\tPUSHG {p.parser.program.declarations[p[1]].memory}\n'
 
 def p_fator_exp(p):
     "fator : '(' exp ')'"
@@ -265,67 +311,96 @@ def p_fator_exp(p):
 
 def p_conditions_si(p):
     "conditions : SI expL ENTONCES statements endcondition"
+    if 'COND' in p[5]:
+        p[0] = f'{p[2]}\tJZ {p[5]}\n{p[4]}\nEND{p[5]}: NOP\n'
+    else:
+        p[0] = f'{p[2]}\tJZ {p[5]}\n{p[4]}\n{p[5]}: NOP\n'
 
 def p_endcpndition(p):
     "endcondition : '.'"
+    ID = ID_generator()
+    p[0] = ID
 
 def p_conditions_si_no(p):
     "endcondition : CASO CONTRARIO statements '.'"
+    ID = 'COND'+ID_generator()
+    p.parser.program.add_condition(p[3]+f'\tJUMP END{ID}\n',ID)
+    p[0] = ID
 
 def p_expL_1(p):
     "expL : termoB"
+    p[0] = p[1]
 
 def p_expL_mult(p):
     "expL : expL OR termoB"
+    p[0] = f'{p[1]}{p[3]}\tADD\n\tPUSHI 1\n\tSUPEQ\n'
 
 def p_termoB_1(p):
     "termoB : fatorB"
+    p[0] = p[1]
 
 def p_termoB_mult(p):
     "termoB : termoB AND fatorB"
+    p[0] = f'{p[1]}{p[3]}\tADD\n\tPUSHI 2\n\tEQUAL\n'
 
 def p_fatorB_condition(p):
     "fatorB : condition"
+    p[0] = p[1]
 
-def p_fatorB_BOOL(p):
-    "fatorB : BOOLEANO"
+def p_fatorB_VERDADERO(p):
+    "fatorB : VERDADERO"
+    p[0] = '\tPUSHI 1\n'
+
+def p_fatorB_FALSE(p):
+    "fatorB : FALSO"
+    p[0] = '\tPUSHI 0\n'
 
 def p_fatorB_expL(p):
     "fatorB : '(' expL ')'"
+    p[0] = p[1]
 
 def p_condition(p):
     "condition : exp op exp"
+    p[0] = f'{p[1]}{p[3]}{operator(p[2],p[1],p[3],p.parser.program)}'
 
 def p_op_maior(p):
     "op : '>'"
+    p[0] = p[1]
 
 def p_op_menor(p):
     "op : '<'"
+    p[0] = p[1]
 
 def p_op_IGUAL(p):
     "op : IGUAL"
+    p[0] = '='
 
 def p_op_DIFERENTE(p):
     "op : DIFERENTE"
+    p[0] = '!='
 
 def p_op_maiorIGUAL(p):
     "op : '>' IGUAL"
+    p[0] = '>='
 
 def p_op_menorIGUAL(p):
     "op : '<' IGUAL"
+    p[0] = '<='
 
 #---------------------------------------
 
 #------------Ciclos---------------------
 
 def p_ciclos_while(p):
-    " ciclos : ENCUANTO expL HACER statements '.'"
+    "ciclos : ENCUANTO expL HACER statements '.'"
 
 def p_ciclos_for_1(p):
     "ciclos : PARA expL SIGUIENTE atrib '.'"
 
 def p_ciclos_for_mult(p):
     "ciclos : PARA expL SIGUIENTE atrib HACER statements '.'"
+    ID = ID_generator()
+    p[0] = f'FOR{ID}: NOP\n{p[2]}\tJZ ENDFOR{ID}\n{p[6]}{p[4]}\tJUMP FOR{ID}\nENDFOR{ID}: NOP\n'
 
 #----------------------------------------
 
@@ -333,9 +408,11 @@ def p_ciclos_for_mult(p):
 
 def p_read_and_write_r(p):
     "readwrite : ESCRIBIR '(' ID ')' ';'"
+    p[0] = f'\tPUSHG {p.parser.program.declarations[p[3]].memory}\n\t{write_f(p.parser.program.declarations[p[3]].TIPO)}\n'
 
 def p_read_and_write_r_string(p):
     "readwrite : ESCRIBIR '(' STRING ')' ';'"
+    p[0] = f'\tPUSHS {p[3]}\n\tWRITES\n'
 
 def p_read_and_write_w(p):
     "readwrite : ID '=' LEER '(' STRING ')' ';'"
@@ -354,9 +431,10 @@ parser.success = True
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"cuadrado.txt","r")
+file = open(path+"teste.txt","r")
 content = file.read()
 
 parser.parse(content)
 if parser.success == True:
     print("Parsing completed")
+    print(parser.code)
