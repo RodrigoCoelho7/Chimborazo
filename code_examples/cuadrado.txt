@@ -1,5 +1,6 @@
-variable l1,l2 = 1,l3 = 1,l4 = 1: entero
-variable res = Falso: booleano
+variable l1,l2 = 2,l3 = 3,l4 = 4: real
+variable res = 7: entero
+variable l5 = 10 : real
 
 l1 = l2;
 

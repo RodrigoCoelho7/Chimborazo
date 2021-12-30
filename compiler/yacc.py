@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from Lex import tokens
+import re
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
 from libs.functions import allocate_memory,F,operator,ID_generator,write_f
 
@@ -19,7 +20,11 @@ def p_declarations_1(p):
         N = len(p.parser.declarations)
         p.parser.code = allocate_memory(N,tipo) + p.parser.code
         p.parser.declarations = []
+        if tipo == "real":
+            p[1] = re.sub(r'PUSHI','PUSHF',p[1])
+            p[1] = re.sub(r'(PUSHF [0-9]+)',r'\1.0',p[1])
         p[0] = p[1]
+
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
@@ -30,6 +35,9 @@ def p_declarations_mult(p):
         N = len(p.parser.declarations)
         p.parser.code = allocate_memory(N,tipo) + p.parser.code
         p.parser.declarations = []
+        if tipo == "real":
+            p[2] = re.sub(r'PUSHI','PUSHF',p[2])
+            p[2] = re.sub(r'(PUSHF [0-9]+)',r'\1.0',p[2])
         p[0] = p[1] + p[2]
 
 def p_decl_V(p):
@@ -79,6 +87,7 @@ def p_tipo_int(p):
 def p_tipo_REAL(p):
     "tipo : REAL"
     p[0] = p[1]
+    p.parser.cast = False
 
 def p_tipo_BOOL(p):
     "tipo : BOOLEANO"
@@ -240,6 +249,10 @@ def p_stat_ciclos(p):
 
 def p_stat_read_and_write(p):
     "stat : readwrite"
+    p[0] = p[1]
+
+def p_stat_cast(p):
+    "stat : cast ';'"
     p[0] = p[1]
 
 
@@ -417,6 +430,31 @@ def p_read_and_write_r_string(p):
 def p_read_and_write_w(p):
     "readwrite : ID '=' LEER '(' STRING ')' ';'"
 
+#---------------------------------------------
+
+#----------------------CAST--------------------
+
+def p_cast_exp(p):
+    "cast : tipocast '(' exp ')'"
+    p[0] =  p[3] + p[1]
+
+def p_cast_string(p):
+    "cast : tipocast '(' STRING ')'"
+    p[0] = p[3] + p[1]
+
+def p_tipocast_float(p):
+    "tipocast : REAL"
+    p[0] = p[1]
+
+def p_tipocast_int(p):
+    "tipocast : ENTERO"
+    p[0] = p[1]
+
+def p_tipocast_string(p):
+    "tipocast : STR"
+    p[0] = p[1]
+
+
 def p_error(p):
     print("Syntax error!",p)
     parser.success = False
@@ -428,10 +466,11 @@ parser.declarations = []
 parser.parameters = []
 parser.comp_lista = 0
 parser.success = True
+parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"teste.txt","r")
+file = open(path+"cuadrado.txt","r")
 content = file.read()
 
 parser.parse(content)
