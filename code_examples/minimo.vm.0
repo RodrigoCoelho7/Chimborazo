@@ -1,41 +1,48 @@
-        PUSHN 4
+        PUSHF 0.0
+        PUSHF 0.0
+        PUSHN 2
 START
-        PUSHI 0
+        PUSHI 1
         STOREG 1
-        PUSHI 0
-        STOREG 2
         PUSHS "N: "
         WRITES
         READ
         ATOI
         STOREG 0
-
-FOR79UC50: NOP
-        PUSHG 2
-        PUSHG 0
-        INF
-        JZ ENDFOR79UC50
         PUSHS "val: "
         WRITES
         READ
-        ATOI
-        STOREG 3
-        PUSHG 3
-        PUSHG 1
-        SUP
-        JZ 79WG50
-        PUSHG 3
-        STOREG 1
-
-79WG50: NOP
+        ATOF
+        STOREG 2
         PUSHG 2
+        STOREG 3
+
+FOR95ZX50: NOP
+        PUSHG 1
+        PUSHG 0
+        INF
+        JZ ENDFOR95ZX50
+        PUSHS "val: "
+        WRITES
+        READ
+        ATOF
+        STOREG 2
+        PUSHG 2
+        PUSHG 3
+        FINF
+        JZ C94FQ90
+        PUSHG 2
+        STOREG 3
+
+C94FQ90: NOP
+        PUSHG 1
         PUSHI 1
         ADD
-        STOREG 2
-        JUMP FOR79UC50
+        STOREG 1
+        JUMP FOR95ZX50
 
-ENDFOR79UC50: NOP
-        PUSHG 1
-        WRITEI
+ENDFOR95ZX50: NOP
+        PUSHG 3
+        WRITEF
         STOP
 
