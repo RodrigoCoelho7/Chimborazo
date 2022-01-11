@@ -68,13 +68,15 @@ class PROGRAM:
 class FUNCTION(PROGRAM):
     def __init__(self):
         super().__init__()
+        self.params = {}
+        self.num_param = 0
         self.count_pointer()
         get_store = property(doc='(!) Disallowed inherited')
         count_pointer = property(doc='(!) Disallowed inherited')
         add_memory = property(doc='(!) Disallowed inherited')
     
     def clean(self):
-        return '\tPOP\n'*abs(self.GP+1)
+        return f'\tPOP {abs(self.GP+1)}\n'
 
     def get_store(self,decl=None):
         if decl is None:
@@ -96,13 +98,13 @@ class FUNCTION(PROGRAM):
             if RETURN[0] != self.TIPO:
                 print(f'El tipo {RETURN[0].upper()} devuleto por la funcion no corresponde al definido anteriormente {self.TIPO.upper()}')
                 exit()
-        self.add_memory('\tPUSHN 1\n')
         self.RETURN = RETURN
     
     def set_paramns(self,PARAMS):
         for param in PARAMS:
             self.add_variable(param)
-        self.add_memory(f'\tPUSHN {len(PARAMS)}\n')
+            self.params[param.ID] = param.TIPO
+        self.num_param = len(list(self.params.keys()))
 
     def set_tipo(self,TIPO):
         self.TIPO = TIPO

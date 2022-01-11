@@ -20,6 +20,8 @@ def cast(exp1,exp2):
         return [f'{exp1[0]}\tITOF\n{exp2[0]}\tF','real']
     if exp1[1] == 'entero' and exp2[1] == 'entero':
         return [f'{exp1[0]}{exp2[0]}\t','entero']
+    if exp1[1] == 'booleano' and exp2[1] == 'booleano':
+        return [f'{exp1[0]}{exp2[0]}\t','booleano']
     return None
 
 def F(exp1,exp2,program):
@@ -35,10 +37,13 @@ def F(exp1,exp2,program):
     return ''
 
 def operator(op,exp1,exp2):
-    f = cast(exp1,exp2)[0]
+    c = cast(exp1,exp2)
+    f = c[0]
     if op == '=':
+        f = c[0] if c[1] == 'real' else c[0] + ' '
         return f'{f[:-1]}EQUAL\n'
     if op == '!=':
+        f = c[0] + ' ' if c[1] == 'real' else c[0]
         return f'{f[:-1]}EQUAL\tNOT\n'
     if op == '<':
         return f'{f}INF\n'
@@ -51,7 +56,7 @@ def operator(op,exp1,exp2):
     
 def ID_generator():
     np.random.shuffle(CHARS)
-    time_code = str(time_ns())[10:17]
+    time_code = str(time_ns())[11:18]
     ID = time_code[:2]+CHARS[int(time_code[3])]+CHARS[int(time_code[4])]+time_code[5:]
     return ID
 

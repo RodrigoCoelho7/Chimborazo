@@ -190,7 +190,7 @@ def p_declF_parametros(p):
     f.set_tipo(p[7])
     f.set_Return(p[11][1])
     f.valida_tipo()
-    p.parser.program.add_function(p[8][0]+p[9]+p[11][0]+f'\tSTOREL {f.GP}\n',p[2])
+    p.parser.program.add_function(p[8][0]+p[9]+p[11][0]+f'\tSTOREL {f.GP}\n\tRETURN\n',p[2])
     p.parser.flag_function = True
     p[0] = ['',[f]]
     
@@ -215,7 +215,7 @@ def p_parametros_mult(p):
     if p.parser.save_program is None:
         p.parser.save_program = p.parser.program
         p.parser.program = FUNCTION()
-    p.parser.program.set_paramns(p[1][1]+[DECLARATION(p[1],TIPO=p[3],memory=p.parser.program.GP)])
+    p.parser.program.set_paramns([DECLARATION(p[3],TIPO=p[5],memory=p.parser.program.GP)])
     p.parser.program.count_pointer()
     p[0] = ''
 
@@ -336,6 +336,14 @@ def p_fator_INT(p):
     "fator : INT"
     p[0] = [f'\tPUSHI {p[1]}\n','entero']
 
+def p_fator_VERDADERO(p):
+    "fator : VERDADERO"
+    p[0] = [f'\tPUSHI 1\n','booleano']
+
+def p_fator_FALSO(p):
+    "fator : FALSO"
+    p[0] = [f'\tPUSHI 0\n','booleano']
+
 def p_fator_FLOAT(p):
     "fator : FLOAT"
     p[0] = [f'\tPUSHF {p[1]}\n','real']
@@ -343,6 +351,24 @@ def p_fator_FLOAT(p):
 def p_fator_ID(p):
     "fator : ID"
     p[0] = [f'\tPUSHG {p.parser.program.declarations[p[1]].memory}\n',p.parser.program.declarations[p[1]].TIPO]
+
+def p_fator_FUNC(p):
+    "fator : ID '(' content_params ')' "
+    aux = p.parser.program.declarations[p[1]]
+    if type(aux) is FUNCTION:
+        params = p[3]
+        if len(params[1]) == aux.num_param:
+            correct = True
+            for i,tipo in enumerate(aux.params.values()):
+                correct = correct and tipo == params[1][i]
+            if correct:
+                p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tNOP\n{aux.clean()}',p.parser.program.declarations[p[1]].TIPO]
+            else:
+                print(f'Error: Los parametros fornecidos no tienen el mismo tipo que el esperado. {params[1]}, {list(aux.params.values())}')
+                exit()
+        else:
+            print(f'Error: El numero de parametros que la funcion recive no es el esperado, {len(params[1])}, {aux.num_param}')
+            exit()
 
 def p_fator_exp(p):
     "fator : '(' exp ')'"
@@ -356,6 +382,21 @@ def p_fator_read(p):
     "fator : read"
     p[0] = p[1]
 
+def p_content_paramns_0(p):
+    "content_params : "
+    p[0] = ['',[]]
+
+def p_content_paramns_0(p):
+    "content_params : list_params"
+    p[0] = p[1]
+
+def p_params_function_1(p):
+    "list_params : exp"
+    p[0] = [p[1][0],[p[1][1]]]
+
+def p_params_function_mult(p):
+    "list_params : list_params ',' exp"
+    p[0] = [p[3][0]+p[1][0],p[1][1]+[p[3][1]]]
 #------------------------------------------------------
 
 #----------------Conditions----------------------------
