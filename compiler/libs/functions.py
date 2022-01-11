@@ -8,7 +8,20 @@ def allocate_memory(N,TIPO):
     if TIPO == 'real':
         return f'\tPUSHF 0.0\n'*N
     return f'\tPUSHN {N}\n'
-    
+
+def cast(exp1,exp2):
+    if exp1[1] == 'real' and exp2[1] == 'real':
+        return [f'{exp1[0]}{exp2[0]}\tF','real']
+    if exp1[1] == 'real' and exp2[1] == 'entero':
+        print(f'Warning: El tipo de las expresiones no coincide {exp1[1]} {exp2[1]}')
+        return [f'{exp1[0]}{exp2[0]}\tITOF\n\tF','real']
+    if exp1[1] == 'entero' and exp2[1] == 'real':
+        print(f'Warning: El tipo de las expresiones no coincide {exp1[1]} {exp2[1]}')
+        return [f'{exp1[0]}\tITOF\n{exp2[0]}\tF','real']
+    if exp1[1] == 'entero' and exp2[1] == 'entero':
+        return [f'{exp1[0]}{exp2[0]}\t','entero']
+    return None
+
 def F(exp1,exp2,program):
     if 'PUSHF' in exp1 + exp2:
         return 'F'
@@ -21,20 +34,20 @@ def F(exp1,exp2,program):
                     return 'F'
     return ''
 
-def operator(op,exp1,exp2,program):
-    f = F(exp1,exp2,program)
+def operator(op,exp1,exp2):
+    f = cast(exp1,exp2)[0]
     if op == '=':
-        return f'\tEQUAL\n'
+        return f'{f[:-1]}EQUAL\n'
     if op == '!=':
-        return f'\tEQUAL\tNOT\n'
+        return f'{f[:-1]}EQUAL\tNOT\n'
     if op == '<':
-        return f'\t{f}INF\n'
+        return f'{f}INF\n'
     if op == '>':
-        return f'\t{f}SUP\n'
+        return f'{f}SUP\n'
     if op == '<=':
-        return f'\t{f}INFEQ\n'
+        return f'{f}INFEQ\n'
     if op == '>=':
-        return f'\t{f}SUPFEQ\n'
+        return f'{f}SUPFEQ\n'
     
 def ID_generator():
     np.random.shuffle(CHARS)
@@ -51,3 +64,16 @@ def write_f(tipo):
         return 'WRITEI'
     if tipo == 'booleano':
         return 'WRITEI'
+
+def make_cast(exp,tipo):
+    if tipo == 'string' and exp[1] != 'string':
+        fr = 'I' if exp[1] == 'entero' or exp[1] == 'booleano' else 'F'
+        return f'{exp[0]}\tSTR{fr}\n'
+    if tipo == 'real' and exp[1] != 'real':
+        fr = 'I' if exp[1] == 'entero' or exp[1] == 'booleano' else 'A'
+        return f'{exp[0]}\t{fr}TOF\n'
+    if tipo == 'entero' and exp[1] != 'entero' and exp[1] != 'booleano':
+        fr = 'F' if exp[1] == 'real' else 'A'
+        return f'{exp[0]}\t{fr}TOI\n'
+    return f'{exp[0]}'
+    
