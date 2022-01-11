@@ -1,0 +1,30 @@
+        PUSHN 1        PUSHN 1        PUSHF 0.0
+        PUSHF 0.0
+        PUSHF 0.0
+        PUSHF 0.0
+START
+        PUSHI 0
+        STOREG 5
+        PUSHS "L1: "
+        WRITES
+        READ
+        STOREG 4
+        PUSHS "L2: "
+        WRITES
+        READ
+        ATOF
+        STOREG 1
+        PUSHS "L3: "
+        WRITES
+        READ
+        ATOF
+        STOREG 2
+        PUSHS "L4: "
+        WRITES
+        READ
+        ATOF
+        STOREG 3
+        PUSHG 4
+        ATOF
+        STOREG 0
+        STOP

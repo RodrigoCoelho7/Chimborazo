@@ -1,15 +1,24 @@
-variable l1,l2 = 2,l3 = 3,l4 = 4: real
-variable res = 7: entero
-variable l5 = 10 : real
+variable l1,l2,l3,l4: real
+variable aux:string
+variable res: booleano
 
-l1 = l2;
+funcion test(a:real,b:real,c:real,d:real): booleano
+    variable res:booleano
+    si a igual b Y b igual c Y c igual d entonces
+        res = Verdadero;
+    caso contrario
+        res = Falso;.
+    devuelve res.
 
-si l1 igual l2 Y l2 igual l3 Y l3 igual l4 entonces
-    res = Verdadero;
+aux = lee("L1: ");
+l2 = real(lee("L2: "));
+l3 = real(lee("L3: "));
+l4 = real(lee("L4: "));
+l1 = real(aux);
+
+res = test(l1,l2,l3,l4);
+
+si res igual Verdadero entonces
+    escribe("CUADRADO");
 caso contrario
-    res = Falso;.
-
-si res igual 1 entonces
-    escribe("IGUALES");
-caso contrario
-    escribe("DIFERENTES");.
+    escribe("NO ES CUADRADO");.

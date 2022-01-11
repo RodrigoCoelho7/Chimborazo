@@ -190,7 +190,7 @@ def p_declF_parametros(p):
     f.set_tipo(p[7])
     f.set_Return(p[11][1])
     f.valida_tipo()
-    p.parser.program.add_function(p[8][0]+p[9]+p[11][0]+f'\tSTOREL {f.GP}\n\tRETURN\n',p[2])
+    p.parser.program.add_function(p[8][0]+p[9]+p[11][0]+f'\tSTOREL {f.GP}\n\tRETURN\n' + f.statements_code(),p[2])
     p.parser.flag_function = True
     p[0] = ['',[f]]
     
@@ -350,7 +350,7 @@ def p_fator_FLOAT(p):
 
 def p_fator_ID(p):
     "fator : ID"
-    p[0] = [f'\tPUSHG {p.parser.program.declarations[p[1]].memory}\n',p.parser.program.declarations[p[1]].TIPO]
+    p[0] = [p.parser.program.get_push(p[1]),p.parser.program.declarations[p[1]].TIPO]
 
 def p_fator_FUNC(p):
     "fator : ID '(' content_params ')' "
@@ -362,7 +362,7 @@ def p_fator_FUNC(p):
             for i,tipo in enumerate(aux.params.values()):
                 correct = correct and tipo == params[1][i]
             if correct:
-                p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tNOP\n{aux.clean()}',p.parser.program.declarations[p[1]].TIPO]
+                p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tCALL\n\tNOP\n{aux.clean()}',p.parser.program.declarations[p[1]].TIPO]
             else:
                 print(f'Error: Los parametros fornecidos no tienen el mismo tipo que el esperado. {params[1]}, {list(aux.params.values())}')
                 exit()
@@ -505,7 +505,7 @@ def p_ciclos_for_mult(p):
 
 def p_write_r(p):
     "write : ESCRIBIR '(' ID ')' ';'"
-    p[0] = f'\tPUSHG {p.parser.program.declarations[p[3]].memory}\n\t{write_f(p.parser.program.declarations[p[3]].TIPO)}\n'
+    p[0] = f'{p.parser.program.get_push(p[3])}\t{write_f(p.parser.program.declarations[p[3]].TIPO)}\n'
 
 def p_write_r_string(p):
     "write : ESCRIBIR '(' STRING ')' ';'"

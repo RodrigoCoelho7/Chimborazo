@@ -26,6 +26,9 @@ class PROGRAM:
         self.memory = ''
         self.GP = 0
     
+    def get_push(self,decl):
+        return f'\tPUSHG {self.declarations[decl].memory}\n'
+    
     def get_store(self,decl=None):
         if decl is None:
             return f'\tSTOREG {self.GP}\n'
@@ -74,9 +77,13 @@ class FUNCTION(PROGRAM):
         get_store = property(doc='(!) Disallowed inherited')
         count_pointer = property(doc='(!) Disallowed inherited')
         add_memory = property(doc='(!) Disallowed inherited')
+        get_push = property(doc='(!) Disallowed inherited')
     
     def clean(self):
         return f'\tPOP {abs(self.GP+1)}\n'
+
+    def get_push(self,decl):
+        return f'\tPUSHL {self.declarations[decl].memory}\n'
 
     def get_store(self,decl=None):
         if decl is None:
