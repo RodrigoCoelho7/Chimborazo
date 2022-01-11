@@ -1,0 +1,11 @@
+variable N,max = 0,count = 0,val : entero
+
+N = entero(lee("N: "));
+
+para count<N siguiente count = count +1 hacer
+    val = entero(lee("val: "));
+    si val > max entonces
+        max = val;..
+
+escribe(max);
+

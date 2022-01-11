@@ -1,0 +1,13 @@
+variable res : entero
+
+funcion potencia() : real
+    variable base, expoente,resultado : entero
+    base = entero(lee("base: "));
+    expoente = entero(lee("expoente: "));
+    resultado = base ^ expoente;
+    devuelve resultado.
+
+res = potencia();
+escribe(res)
+
+    

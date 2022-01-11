@@ -1,0 +1,41 @@
+        PUSHN 4
+START
+        PUSHI 0
+        STOREG 1
+        PUSHI 0
+        STOREG 2
+        PUSHS "N: "
+        WRITES
+        READ
+        ATOI
+        STOREG 0
+
+FOR79UC50: NOP
+        PUSHG 2
+        PUSHG 0
+        INF
+        JZ ENDFOR79UC50
+        PUSHS "val: "
+        WRITES
+        READ
+        ATOI
+        STOREG 3
+        PUSHG 3
+        PUSHG 1
+        SUP
+        JZ 79WG50
+        PUSHG 3
+        STOREG 1
+
+79WG50: NOP
+        PUSHG 2
+        PUSHI 1
+        ADD
+        STOREG 2
+        JUMP FOR79UC50
+
+ENDFOR79UC50: NOP
+        PUSHG 1
+        WRITEI
+        STOP
+
