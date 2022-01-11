@@ -406,12 +406,12 @@ def p_conditions_si(p):
     if 'COND' in p[5]:
         p[0] = f'{p[2]}\tJZ {p[5]}\n{p[4]}\nEND{p[5]}: NOP\n'
     else:
-        p[0] = f'{p[2]}\tJZ {p[5]}\n{p[4]}\nC{p[5]}: NOP\n'
+        p[0] = f'{p[2]}\tJZ {p[5]}\n{p[4]}\n{p[5]}: NOP\n'
 
 def p_endcpndition(p):
     "endcondition : '.'"
     ID = ID_generator()
-    p[0] = ID
+    p[0] = 'C'+ID
 
 def p_conditions_si_no(p):
     "endcondition : CASO CONTRARIO statements '.'"
