@@ -327,6 +327,18 @@ def p_termo_div(p):
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
+    if p[3][1] != 'entero':
+        print('ERROR: Potencia solamente definida para exponente entero')
+        exit()
+    if p[1][1] != 'entero' and p[1][1] != 'real':
+        print('ERROR: Potencia solamente definida para base entera o real')
+        exit()
+    c = '' if p[1][1] == 'entero' else 'F'
+        
+    pot = f'WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -1\n\tPUSHL -1\n\t{c}MUL\n\tSTOREL -1\n\tJUMP WHILEPOTENCIA\n\
+ENDWHILEPOTENCIA: NOP\n\tPUSHL -1\n\tSTOREL -3\n\tRETURN\n'
+    p.parser.program.add_function(pot,'SYSPOTENCIA')
+    p[0] = [f'\tPUSHN 1\n{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
 
 def p_termo_fator(p):
     "termo : fator"
@@ -555,7 +567,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"minimo.txt","r")
+file = open(path+"funcion_potencia.txt","r")
 content = file.read()
 
 parser.parse(content)

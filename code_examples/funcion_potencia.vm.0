@@ -1,0 +1,30 @@
+        PUSHF 0.0
+START
+        PUSHN 1
+        PUSHI 1
+        PUSHI 2
+        PUSHA SYSPOTENCIA
+        CALL
+        NOP
+        POP 2
+        ITOF
+        STOREG 0
+        PUSHG 0
+        WRITEF
+        STOP
+
+SYSPOTENCIA: NOP
+WHILEPOTENCIA: NOP
+        PUSHL -2
+        PUSHI 1
+        SUP
+        JZ ENDWHILEPOTENCIA
+        PUSHL -1
+        PUSHL -1
+        MUL
+        STOREL -1
+        JUMP WHILEPOTENCIA
+ENDWHILEPOTENCIA: NOP
+        PUSHL -1
+        STOREL -3
+        RETURN

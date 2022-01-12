@@ -1,0 +1,4 @@
+variable res:real
+
+res = 2^1;
+escribe(res);
