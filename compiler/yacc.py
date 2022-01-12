@@ -603,7 +603,7 @@ def p_write_end(p):
 
 def p_read_w(p):
     "read : LEER '(' exp ')'"
-    p[0] = [f'{p[3][0]}\{write_f(p[3][1])}\n\tREAD\n','string']
+    p[0] = [f'{p[3][0]}\t{write_f(p[3][1])}\n\tREAD\n','string']
 
 #---------------------------------------------
 
