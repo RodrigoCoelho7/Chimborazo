@@ -307,12 +307,23 @@ def p_atrib(p):
 def p_exp_soma(p):
     "exp : exp '+' termo"
     code = cast(p[1],p[3])
-    p[0] = [f'{code[0]}ADD\n',code[1]]
+    if code is not None:
+        if code[1] == 'string':
+            p[0] = [f'{code[0]}CONCAT\n',code[1]]
+        else:
+            p[0] = [f'{code[0]}ADD\n',code[1]]
+    else:
+        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
+        exit()
 
 def p_exp_sub(p):
     "exp : exp '-' termo"
     code = cast(p[1],p[3])
-    p[0] = [f'{code[0]}SUB\n',code[1]]
+    if code is not None and code[1] != 'string':
+        p[0] = [f'{code[0]}SUB\n',code[1]]
+    else:
+        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
+        exit()
 
 def p_exp_termo(p):
     "exp : termo"
@@ -321,17 +332,29 @@ def p_exp_termo(p):
 def p_termo_mul(p):
     "termo : termo '*' fator"
     code = cast(p[1],p[3])
-    p[0] = [f'{code[0]}MUL\n',code[1]]
+    if code is not None and code[1] != 'string':
+        p[0] = [f'{code[0]}MUL\n',code[1]]
+    else:
+        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
+        exit()
 
 def p_termo_div(p):
     "termo : termo '/' fator"
     code = cast(p[1],p[3])
-    p[0] = [f'{code[0]}DIV\n',code[1]]
+    if code is not None and code[1] != 'string':
+        p[0] = [f'{code[0]}DIV\n',code[1]]
+    else:
+        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
+        exit()
 
 def p_termo_resto(p):
     "termo : termo RESTO fator"
     code = cast(p[1],p[3])
-    p[0] = [f'{code[0]}MOD\n',code[1]]
+    if code is not None and code[1] != 'string':
+        p[0] = [f'{code[0]}MOD\n',code[1]]
+    else:
+        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
+        exit()
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
@@ -368,6 +391,10 @@ def p_fator_FALSO(p):
 def p_fator_FLOAT(p):
     "fator : FLOAT"
     p[0] = [f'\tPUSHF {p[1]}\n','real']
+
+def p_fator_STRING(p):
+    "fator : STRING"
+    p[0] = [f'\tPUSHS {p[1]}\n','string']
 
 def p_fator_ID(p):
     "fator : ID"
