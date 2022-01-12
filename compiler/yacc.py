@@ -564,12 +564,8 @@ def p_ciclos_for_mult(p):
 #----------Read and Write---------------
 
 def p_write_r(p):
-    "write : ESCRIBIR '(' ID ')' ';'"
-    p[0] = f'{p.parser.program.get_push(p[3])}\t{write_f(p.parser.program.declarations[p[3]].TIPO)}\n'
-
-def p_write_r_string(p):
-    "write : ESCRIBIR '(' STRING ')' ';'"
-    p[0] = f'\tPUSHS {p[3]}\n\tWRITES\n'
+    "write : ESCRIBIR '(' exp ')' ';'"
+    p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n'
 
 def p_read_w(p):
     "read : LEER '(' STRING ')'"
@@ -620,7 +616,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"impares.txt","r")
+file = open(path+"cuadrado.txt","r")
 content = file.read()
 
 parser.parse(content)
