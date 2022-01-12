@@ -1,0 +1,13 @@
+variable val,count = 0,min,max,i : entero
+
+min = entero(lee("min: "));
+max = entero(lee("max: "));
+
+i = min;
+
+para i<max siguiente i = i +1 hacer
+    si i resto 2 diferente 0 entonces
+        count = count +1;
+        escribe(i);..
+
+escribe(count);

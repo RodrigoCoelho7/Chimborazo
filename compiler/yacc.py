@@ -328,6 +328,11 @@ def p_termo_div(p):
     code = cast(p[1],p[3])
     p[0] = [f'{code[0]}DIV\n',code[1]]
 
+def p_termo_resto(p):
+    "termo : termo RESTO fator"
+    code = cast(p[1],p[3])
+    p[0] = [f'{code[0]}MOD\n',code[1]]
+
 def p_termo_pot(p):
     "termo : termo '^' fator"
     if p[3][1] != 'entero':
@@ -588,7 +593,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"potencia.txt","r")
+file = open(path+"impares.txt","r")
 content = file.read()
 
 parser.parse(content)
