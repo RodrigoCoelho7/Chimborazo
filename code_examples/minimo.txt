@@ -1,11 +1,14 @@
-variable N,max = 0,count = 0,val : entero
+variable N,count = 1 : entero
+variable val,min : real
 
 N = entero(lee("N: "));
+val = real(lee("val: "));
+min = val;
 
 para count<N siguiente count = count +1 hacer
-    val = entero(lee("val: "));
-    si val > max entonces
-        max = val;..
+    val = real(lee("val: "));
+    si val < min entonces
+        min = val;..
 
-escribe(max);
+escribe(min);
 
