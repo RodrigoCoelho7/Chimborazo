@@ -402,7 +402,7 @@ def p_content_paramns_0(p):
     "content_params : "
     p[0] = ['',[]]
 
-def p_content_paramns_0(p):
+def p_content_paramns_1(p):
     "content_params : list_params"
     p[0] = p[1]
 
@@ -576,7 +576,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"cuadrado.txt","r")
+file = open(path+"potencia.txt","r")
 content = file.read()
 
 parser.parse(content)

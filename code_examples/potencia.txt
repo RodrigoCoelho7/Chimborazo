@@ -1,13 +1,18 @@
 variable res : entero
 
-funcion potencia() : real
+funcion aux (base : entero, expoente : entero) : entero
+    variable res : entero
+    res = base ^expoente;
+    devuelve res.
+
+funcion potencia() : entero
     variable base, expoente,resultado : entero
     base = entero(lee("base: "));
     expoente = entero(lee("expoente: "));
-    resultado = base ^ expoente;
+    resultado = aux(base,expoente);
     devuelve resultado.
 
-res = potencia();
-escribe(res)
+res = aux();
+escribe(res);
 
     

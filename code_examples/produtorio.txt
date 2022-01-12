@@ -1,5 +1,5 @@
-variable N : entero
-variable res = 1,count = 0, val : real
+variable N,count = 0 : entero
+variable res = 1, val : real
 
 N = entero(lee("N: "));
 
