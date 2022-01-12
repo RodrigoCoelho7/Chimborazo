@@ -46,12 +46,6 @@ class PROGRAM:
             self.error(f'La variable {VAR.ID} ya fue definida')
         self.declarations[VAR.ID] = VAR
     
-    def get_Variable_by_memory(self,P):
-        for key in self.declarations.keys():
-            if self.declarations[key].memory == P:
-                return key
-        return None
-    
     def error(self,message):
         print('Semantic Error: '+message)
         self.success = False

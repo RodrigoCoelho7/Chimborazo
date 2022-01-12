@@ -1,6 +1,5 @@
 variable l1,l2,l3,l4: real
 variable aux:string
-variable res: booleano
 
 funcion test(a:real,b:real,c:real,d:real): booleano
     variable res:booleano
@@ -16,9 +15,7 @@ l3 = real(lee("L3: "));
 l4 = real(lee("L4: "));
 l1 = real(aux);
 
-res = test(l1,l2,l3,l4);
-
-si res igual Verdadero entonces
+si test(l1,l2,l3,l4) igual Verdadero entonces
     escribe("ES CUADRADO DE LADO: "+string(l1)+",",fin:l2);
 caso contrario
     escribe("NO ES CUADRADO");.
