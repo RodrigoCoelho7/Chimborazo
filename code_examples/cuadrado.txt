@@ -16,6 +16,6 @@ l4 = real(lee("L4: "));
 l1 = real(aux);
 
 si test(l1,l2,l3,l4) igual Verdadero entonces
-    escribe("ES CUADRADO DE LADO: "+string(l1)+",",fin:l2);
+    escribe("ES CUADRADO DE LADO: "+string(l1));
 caso contrario
     escribe("NO ES CUADRADO");.
