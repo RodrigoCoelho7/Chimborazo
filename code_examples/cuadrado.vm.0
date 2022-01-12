@@ -1,4 +1,5 @@
-PUSHF 0.0        PUSHF 0.0
+        PUSHF 0.0
+        PUSHF 0.0
         PUSHF 0.0
         PUSHF 0.0
         PUSHN 1
@@ -41,24 +42,46 @@ START
         PUSHG 5
         PUSHI 1
         EQUAL
-        JZ COND13FS60
+        JZ COND34ZR20
         PUSHS "ES CUADRADO DE LADO: "
         PUSHG 0
         STRF
         CONCAT
         WRITES
 
-ENDCOND12DG20: NOP
+ENDCOND34ZR20: NOP
+        STOP
+
+test: NOP
+        PUSHL -2
+        EQUAL
+        PUSHL -2
+        PUSHL -3
+        EQUAL
+        ADD
+        PUSHI 2
+        EQUAL
+        PUSHL -3
+        PUSHL -4
+        EQUAL
+        ADD
+        PUSHI 2
+        EQUAL
+        JZ COND32ZZ90
+        PUSHI 1
+        STOREL -5
+
+ENDCOND32ZZ90: NOP
         PUSHL -5
         STOREL -6
         RETURN
 
-COND12DG20: NOP
+COND32ZZ90: NOP
         PUSHI 0
         STOREL -5
-        JUMP ENDCOND12DG20
+        JUMP ENDCOND32ZZ90
 
-COND13FS60: NOP
+COND34ZR20: NOP
         PUSHS "NO ES CUADRADO"
         WRITES
-        JUMP ENDCOND13FS60
+        JUMP ENDCOND34ZR20
