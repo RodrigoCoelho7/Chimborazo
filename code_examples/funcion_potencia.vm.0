@@ -26,6 +26,7 @@ WHILEPOTENCIA: NOP
         PUSHL -2
         PUSHI 1
         SUB
+        STOREL -2
         JUMP WHILEPOTENCIA
 ENDWHILEPOTENCIA: NOP
         PUSHL -1

@@ -335,7 +335,8 @@ def p_termo_pot(p):
         exit()
     c = '' if p[1][1] == 'entero' else 'F'
         
-    pot = f'WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -1\n\tPUSHL -1\n\t{c}MUL\n\tSTOREL -1\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tJUMP WHILEPOTENCIA\n\
+    pot = f'WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -1\n\
+\tPUSHL -1\n\t{c}MUL\n\tSTOREL -1\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tSTOREL -2\n\tJUMP WHILEPOTENCIA\n\
 ENDWHILEPOTENCIA: NOP\n\tPUSHL -1\n\tSTOREL -3\n\tRETURN\n'
     p.parser.program.add_function(pot,'SYSPOTENCIA')
     p[0] = [f'\tPUSHN 1\n{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
