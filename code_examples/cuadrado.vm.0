@@ -2,7 +2,8 @@
         PUSHF 0.0
         PUSHF 0.0
         PUSHF 0.0
-        PUSHN 1        PUSHN 1
+        PUSHN 1
+        PUSHN 1
 START
         PUSHS "L1: "
         WRITES
@@ -41,14 +42,16 @@ START
         PUSHG 5
         PUSHI 1
         EQUAL
-        JZ COND72MM10
-        PUSHS "ES CUADRADO DE LADO: "
+        JZ COND12UT20
         PUSHG 0
         STRF
+        PUSHS "ES CUADRADO DE LADO: "
         CONCAT
         WRITES
+        PUSHS "\n"
+        WRITES
 
-ENDCOND72MM10: NOP
+ENDCOND12UT20: NOP
         STOP
 
 test: NOP
@@ -67,16 +70,23 @@ test: NOP
         ADD
         PUSHI 2
         EQUAL
-        JZ COND70RP70
+        JZ COND11QN30
         PUSHI 1
         STOREL -5
 
-ENDCOND70RP70: NOP
+ENDCOND11QN30: NOP
         PUSHL -5
         STOREL -6
         RETURN
 
-COND70RP70: NOP
+COND11QN30: NOP
         PUSHI 0
         STOREL -5
-        JUMP ENDCOND70RP70
+        JUMP ENDCOND11QN30
+
+COND12UT20: NOP
+        PUSHS "NO ES CUADRADO"
+        WRITES
+        PUSHS "\n"
+        WRITES
+        JUMP ENDCOND12UT20
