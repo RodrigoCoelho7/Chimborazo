@@ -309,7 +309,7 @@ def p_exp_soma(p):
     code = cast(p[1],p[3])
     if code is not None:
         if code[1] == 'string':
-            p[0] = [f'{code[1]}CONCAT\n',code[0]]
+            p[0] = [f'{code[0]}CONCAT\n',code[1]]
         else:
             p[0] = [f'{code[0]}ADD\n',code[1]]
     else:
@@ -566,6 +566,10 @@ def p_ciclos_for_mult(p):
 def p_write_r(p):
     "write : ESCRIBIR '(' exp ')' ';'"
     p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n\tPUSHS "\\n"\n\tWRITES\n'
+
+def p_write_end(p):
+    "write : ESCRIBIR '(' exp ',' FIM ':' exp ')' ';'"
+    p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n{p[7][0]}\t{write_f(p[7][1])}\n'
 
 def p_read_w(p):
     "read : LEER '(' STRING ')'"

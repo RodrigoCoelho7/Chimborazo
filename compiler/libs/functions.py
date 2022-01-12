@@ -23,7 +23,7 @@ def cast(exp1,exp2):
     if exp1[1] == 'booleano' and exp2[1] == 'booleano':
         return [f'{exp1[0]}{exp2[0]}\t','booleano']
     if exp1[1] == 'string' and exp2[1] == 'string':
-        return [f'{exp1[0]}{exp2[0]}\t','string']
+        return [f'{exp2[0]}{exp1[0]}\t','string']
     return None
 
 def F(exp1,exp2,program):
