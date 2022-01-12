@@ -3,7 +3,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     ENTER
-    NADA
 
 Grammar
 
@@ -143,7 +142,6 @@ IGUAL                : 86 88 89
 INT                  : 25 35 58
 LEER                 : 94
 LISTA                : 20
-NADA                 : 
 OR                   : 76
 PARA                 : 91 92
 REAL                 : 13 97
