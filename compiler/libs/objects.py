@@ -1,4 +1,3 @@
-import re
 
 class DECLARATION:
     def __init__(self,ID,TOKEN=None,TIPO=None,memory=-1):
@@ -43,7 +42,7 @@ class PROGRAM:
 
     def add_variable(self,VAR):
         if VAR.ID in list(self.declarations.keys()):
-            self.error(f' La variable {VAR.ID} ya fue definida')
+            self.error(f'La variable {VAR.ID} ya fue definida')
         self.declarations[VAR.ID] = VAR
     
     def get_Variable_by_memory(self,P):
@@ -117,8 +116,8 @@ class FUNCTION(PROGRAM):
         if self.RETURN[0] == 'ID':
             if self.RETURN[1] in list(self.declarations.keys()):
                 if self.declarations[self.RETURN[1]].TIPO != self.TIPO:
-                    print(f'El tipo {self.declarations[self.RETURN[1]].TIPO.upper()} devuleto por la funcion no corresponde al definido anteriormente {self.TIPO.upper()}')
+                    self.error(f'El tipo {self.declarations[self.RETURN[1]].TIPO.upper()} devuleto por la funcion no corresponde al definido anteriormente {self.TIPO.upper()}')
                     exit()
             else:
-                print(f'No existe el ID {self.RETURN[1]}',list(self.declarations.keys()))
+                self.error(f'No existe el ID {self.RETURN[1]}')
                 exit()
