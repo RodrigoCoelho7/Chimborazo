@@ -565,7 +565,7 @@ def p_ciclos_for_mult(p):
 
 def p_write_r(p):
     "write : ESCRIBIR '(' exp ')' ';'"
-    p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n\tPUSHS "\n"\tWRITES\n'
+    p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n\tPUSHS "\\n"\tWRITES\n'
 
 def p_read_w(p):
     "read : LEER '(' STRING ')'"
