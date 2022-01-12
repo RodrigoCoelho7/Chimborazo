@@ -24,6 +24,7 @@ class PROGRAM:
         self.statements = {}
         self.memory = ''
         self.GP = 0
+        self.success = True
     
     def get_push(self,decl):
         return f'\tPUSHG {self.declarations[decl].memory}\n'
@@ -53,6 +54,7 @@ class PROGRAM:
     
     def error(self,message):
         print('Semantic Error: '+message)
+        self.success = False
     
     def add_condition(self,code,ID):
         self.statements[ID] = code
@@ -100,7 +102,7 @@ class FUNCTION(PROGRAM):
         if RETURN[0] != 'ID':
             if RETURN[0] != self.TIPO:
                 self.error(f'El tipo {RETURN[0].upper()} devuleto por la funcion {self.ID} no corresponde al definido anteriormente {self.TIPO.upper()}')
-                exit()
+                
         self.RETURN = RETURN
     
     def set_paramns(self,PARAMS):
@@ -117,7 +119,7 @@ class FUNCTION(PROGRAM):
             if self.RETURN[1] in list(self.declarations.keys()):
                 if self.declarations[self.RETURN[1]].TIPO != self.TIPO:
                     self.error(f'El tipo {self.declarations[self.RETURN[1]].TIPO.upper()} devuleto por la funcion no corresponde al definido anteriormente {self.TIPO.upper()}')
-                    exit()
+                    
             else:
                 self.error(f'No existe el ID {self.RETURN[1]}')
-                exit()
+                

@@ -43,6 +43,7 @@ def p_decl_V(p):
 
 def p_decl_F(p):
     "decl : declF"
+    p.parser.program.success = p[1][1][0].success and p.parser.program.success
     p[0] = p[1]
 
 def p_decl_L(p):
@@ -66,7 +67,7 @@ def p_declV(p):
             p[2][0] = re.sub(r'PUSHI ([0-9]+)',r'PUSHF \1.0',p[2][0])
         p[0] = p[2]
     else:
-        print('Error con el tipo en las atribuciones')
+        print('Semantic Error con el tipo en las atribuciones')
 
 def p_vari_atrib(p):
     "vari : atribD"
@@ -275,23 +276,25 @@ def p_atrib_string(p):
     if 'string' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHS {p[3]}\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'ERROR: El tipo recibido: string, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        print(f'Semantic Error: El tipo recibido: string, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
     
 def p_atrib_true(p):
     "atrib : ID '=' VERDADERO"
     if 'booleano' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHI 1\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'ERROR: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
-        exit()
+        print(f'Semantic Error: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        p[0] = ''
+        p.parser.success = False
 
 def p_atrib_false(p):
     "atrib : ID '=' FALSO"
     if 'booleano' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHI 0\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'ERROR: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
-        exit()
+        print(f'Semantic Error: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        p[0] = ''
+        p.parser.success = False
 
 def p_atrib(p):
     "atrib : ID '=' exp"
@@ -301,8 +304,9 @@ def p_atrib(p):
         print(f'Warning: El tipo de las expresiones: {p[3][1]} no coincide con el de la variable: {p.parser.program.declarations[p[1]].TIPO }, esperado para {p[1]}. lin {p.lexer.lineno}')
         p[0] = f'{p[3][0]}\tITOF\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'ERROR: El tipo recibido: {p[3][1]}, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
-        exit()
+        print(f'Semantic Error: El tipo recibido: {p[3][1]}, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        p[0] = ''
+        p.parser.success = False
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
@@ -313,8 +317,9 @@ def p_exp_soma(p):
         else:
             p[0] = [f'{code[0]}ADD\n',code[1]]
     else:
-        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
-        exit()
+        print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_exp_sub(p):
     "exp : exp '-' termo"
@@ -322,8 +327,9 @@ def p_exp_sub(p):
     if code is not None and code[1] != 'string':
         p[0] = [f'{code[0]}SUB\n',code[1]]
     else:
-        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
-        exit()
+        print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_exp_termo(p):
     "exp : termo"
@@ -335,8 +341,9 @@ def p_termo_mul(p):
     if code is not None and code[1] != 'string':
         p[0] = [f'{code[0]}MUL\n',code[1]]
     else:
-        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
-        exit()
+        print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_termo_div(p):
     "termo : termo '/' fator"
@@ -344,8 +351,9 @@ def p_termo_div(p):
     if code is not None and code[1] != 'string':
         p[0] = [f'{code[0]}DIV\n',code[1]]
     else:
-        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
-        exit()
+        print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_termo_resto(p):
     "termo : termo RESTO fator"
@@ -353,24 +361,28 @@ def p_termo_resto(p):
     if code is not None and code[1] != 'string':
         p[0] = [f'{code[0]}MOD\n',code[1]]
     else:
-        print(f'Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}')
-        exit()
+        print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
     if p[3][1] != 'entero':
-        print(f'ERROR: Potencia solamente definida para exponente entero, lin {p.lexer.lineno}')
-        exit()
-    if p[1][1] != 'entero' and p[1][1] != 'real':
-        print(f'ERROR: Potencia solamente definida para base entera o real, lin {p.lexer.lineno}')
-        exit()
-    c = '' if p[1][1] == 'entero' else 'F'
-        
-    pot = f'WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 0\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -3\n\
-\tPUSHL -1\n\t{c}MUL\n\tSTOREL -3\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tSTOREL -2\n\tJUMP WHILEPOTENCIA\n\
-ENDWHILEPOTENCIA: NOP\n\tRETURN\n'
-    p.parser.program.add_function(pot,'SYSPOTENCIA')
-    p[0] = [f'\tPUSHI 1\n{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
+        print(f'Semantic Error: Potencia solamente definida para exponente entero, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
+    elif p[1][1] != 'entero' and p[1][1] != 'real':
+        print(f'Semantic Error: Potencia solamente definida para base entera o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
+    else:
+        c = '' if p[1][1] == 'entero' else 'F'
+            
+        pot = f'  WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 0\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -3\n\
+    \tPUSHL -1\n\t{c}MUL\n\tSTOREL -3\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tSTOREL -2\n\tJUMP WHILEPOTENCIA\n\
+  ENDWHILEPOTENCIA: NOP\n\tRETURN\n'
+        p.parser.program.add_function(pot,'SYSPOTENCIA')
+        p[0] = [f'\tPUSHI 1\n{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
 
 def p_termo_fator(p):
     "termo : fator"
@@ -402,6 +414,7 @@ def p_fator_ID(p):
 
 def p_fator_FUNC(p):
     "fator : ID '(' content_params ')' "
+    aux = None
     if p[1] in list(p.parser.program.declarations.keys()):
         aux = p.parser.program.declarations[p[1]]
         pr = p.parser.program
@@ -410,25 +423,42 @@ def p_fator_FUNC(p):
             aux = p.parser.save_program.declarations[p[1]]
             pr = p.parser.save_program
         else:
-            print(f'Error: La funcion {p[1]} no fue definida')
-            exit()
+            print(f'Semantic Error: La funcion {p[1]} no fue definida')
+            p[0] = ['','Sin Tipo']
+            p.parser.success = False
     else:
-            print(f'Error: La funcion {p[1]} no fue definida')
-            exit()
-    if type(aux) is FUNCTION:
+            print(f'Semantic Error: La funcion {p[1]} no fue definida')
+            p[0] = ['','Sin Tipo']
+            p.parser.success = False
+    if aux is not None and type(aux) is FUNCTION:
         params = p[3]
         if len(params[1]) == aux.num_param:
             correct = True
             for i,tipo in enumerate(aux.params.values()):
+                if tipo == 'real' and params[1][i] == 'entero':
+                    params[0][aux.num_param-1-i] += '\tITOF\n'
+                    print(f'Warning: El tipo de las expresiones: {params[1][i]} no coincide con el de la variable: {tipo}, esperado para el parametro {list(aux.params.keys())[i]} de la funcion {aux.ID}. lin {p.lexer.lineno}')
+                    params[1][i] = 'real'
                 correct = correct and tipo == params[1][i]
+            s = ''
+            for par in params[0]:
+                s += par
+            params[0] = s
             if correct:
                 p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tCALL\n\tNOP\n{aux.clean()}',pr.declarations[p[1]].TIPO]
             else:
-                print(f'Error: Los parametros fornecidos: {params[1]}, no tienen el mismo tipo que el esperado: {list(aux.params.values())}')
-                exit()
+                print(f'Semantic Error: Los parametros fornecidos: {params[1]}, no tienen el mismo tipo que el esperado: {list(aux.params.values())}. lin {p.lexer.lineno}')
+                p[0] = ['','Sin Tipo']
+                p.parser.success = False
         else:
-            print(f'Error: El numero de parametros: {len(params[1])}, que la funcion recive no es el esperado: {aux.num_param}')
-            exit()
+            print(f'Semantic Error: El numero de parametros: {len(params[1])}, que la funcion recive no es el esperado: {aux.num_param}. lin {p.lexer.lineno}')
+            p[0] = ['','Sin Tipo']
+            p.parser.success = False
+    else:
+        if aux is not None:
+            print(f'Semantic Error: El ID {p[1]} no es una funcion')
+            p[0] = ['','Sin Tipo']
+            p.parser.success = False
 
 def p_fator_exp(p):
     "fator : '(' exp ')'"
@@ -444,7 +474,7 @@ def p_fator_read(p):
 
 def p_content_paramns_0(p):
     "content_params : "
-    p[0] = ['',[]]
+    p[0] = [[''],[]]
 
 def p_content_paramns_1(p):
     "content_params : list_params"
@@ -452,11 +482,11 @@ def p_content_paramns_1(p):
 
 def p_params_function_1(p):
     "list_params : exp"
-    p[0] = [p[1][0],[p[1][1]]]
+    p[0] = [[p[1][0]],[p[1][1]]]
 
 def p_params_function_mult(p):
     "list_params : list_params ',' exp"
-    p[0] = [p[3][0]+p[1][0],p[1][1]+[p[3][1]]]
+    p[0] = [[p[3][0]]+p[1][0],p[1][1]+[p[3][1]]]
 #------------------------------------------------------
 
 #----------------Conditions----------------------------
@@ -624,6 +654,8 @@ file = open(path+"potencia.txt","r")
 content = file.read()
 
 parser.parse(content)
-if parser.success == True:
+if parser.success and parser.program.success:
     print("Parsing completed")
     print(parser.code)
+else:
+    print("Error, no fue posible compilar")
