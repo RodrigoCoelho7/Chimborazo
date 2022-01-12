@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL","NADA"
+tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
           "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM"]
 
@@ -72,10 +72,6 @@ def t_DIFERENTE(t):
 
 def t_IGUAL(t):
     r'\bigual\b'
-    return t
-
-def t_NADA(t):
-    r'\bnada\b'
     return t
 
 def t_HACER(t):

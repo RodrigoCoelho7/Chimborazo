@@ -620,7 +620,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"cuadrado.txt","r")
+file = open(path+"potencia.txt","r")
 content = file.read()
 
 parser.parse(content)
