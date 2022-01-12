@@ -1,17 +1,28 @@
-        PUSHF 0.0
+        PUSHN 1
 START
         PUSHN 1
-        PUSHI 1
-        PUSHI 2
+        PUSHN 3
+        PUSHA potencia
+        CALL
+        NOP
+        POP 3
+        STOREG 0
+        PUSHG 0
+        WRITEI
+        STOP
+
+aux: NOP
+        PUSHN 1
+        PUSHL -2
+        PUSHL -1
         PUSHA SYSPOTENCIA
         CALL
         NOP
         POP 2
-        ITOF
-        STOREG 0
-        PUSHG 0
-        WRITEF
-        STOP
+        STOREL -3
+        PUSHL -3
+        STOREL -4
+        RETURN
 
 SYSPOTENCIA: NOP
 WHILEPOTENCIA: NOP
@@ -31,4 +42,28 @@ WHILEPOTENCIA: NOP
 ENDWHILEPOTENCIA: NOP
         PUSHL -1
         STOREL -3
+        RETURN
+
+potencia: NOP
+        PUSHS "base: "
+        WRITES
+        READ
+        ATOI
+        STOREL -1
+        PUSHS "expoente: "
+        WRITES
+        READ
+        ATOI
+        STOREL -2
+        PUSHN 1
+        PUSHN 1
+        PUSHL -2
+        PUSHL -1
+        PUSHA aux
+        CALL
+        NOP
+        POP 3
+        STOREL -3
+        PUSHL -3
+        STOREL -4
         RETURN

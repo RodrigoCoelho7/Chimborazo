@@ -12,7 +12,7 @@ funcion potencia() : entero
     resultado = aux(base,expoente);
     devuelve resultado.
 
-res = aux();
+res = potencia();
 escribe(res);
 
     

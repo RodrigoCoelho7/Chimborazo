@@ -370,7 +370,19 @@ def p_fator_ID(p):
 
 def p_fator_FUNC(p):
     "fator : ID '(' content_params ')' "
-    aux = p.parser.program.declarations[p[1]]
+    if p[1] in list(p.parser.program.declarations.keys()):
+        aux = p.parser.program.declarations[p[1]]
+        pr = p.parser.program
+    elif p.parser.save_program is not None:
+        if p[1] in list(p.parser.save_program.declarations.keys()):
+            aux = p.parser.save_program.declarations[p[1]]
+            pr = p.parser.save_program
+        else:
+            print(f'Error: La funcion {p[1]} no fue definida')
+            exit()
+    else:
+            print(f'Error: La funcion {p[1]} no fue definida')
+            exit()
     if type(aux) is FUNCTION:
         params = p[3]
         if len(params[1]) == aux.num_param:
@@ -378,12 +390,12 @@ def p_fator_FUNC(p):
             for i,tipo in enumerate(aux.params.values()):
                 correct = correct and tipo == params[1][i]
             if correct:
-                p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tCALL\n\tNOP\n{aux.clean()}',p.parser.program.declarations[p[1]].TIPO]
+                p[0] = [f'\tPUSHN 1\n{aux.memory}{params[0]}\tPUSHA {aux.ID}\n\tCALL\n\tNOP\n{aux.clean()}',pr.declarations[p[1]].TIPO]
             else:
-                print(f'Error: Los parametros fornecidos no tienen el mismo tipo que el esperado. {params[1]}, {list(aux.params.values())}')
+                print(f'Error: Los parametros fornecidos: {params[1]}, no tienen el mismo tipo que el esperado: {list(aux.params.values())}')
                 exit()
         else:
-            print(f'Error: El numero de parametros que la funcion recive no es el esperado, {len(params[1])}, {aux.num_param}')
+            print(f'Error: El numero de parametros: {len(params[1])}, que la funcion recive no es el esperado: {aux.num_param}')
             exit()
 
 def p_fator_exp(p):

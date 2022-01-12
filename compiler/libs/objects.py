@@ -43,7 +43,7 @@ class PROGRAM:
 
     def add_variable(self,VAR):
         if VAR.ID in list(self.declarations.keys()):
-            self.error(VAR.ID+' Ya fue definida')
+            self.error(f' La variable {VAR.ID} ya fue definida')
         self.declarations[VAR.ID] = VAR
     
     def get_Variable_by_memory(self,P):
@@ -100,7 +100,7 @@ class FUNCTION(PROGRAM):
     def set_Return(self,RETURN):
         if RETURN[0] != 'ID':
             if RETURN[0] != self.TIPO:
-                print(f'El tipo {RETURN[0].upper()} devuleto por la funcion no corresponde al definido anteriormente {self.TIPO.upper()}')
+                self.error(f'El tipo {RETURN[0].upper()} devuleto por la funcion {self.ID} no corresponde al definido anteriormente {self.TIPO.upper()}')
                 exit()
         self.RETURN = RETURN
     
