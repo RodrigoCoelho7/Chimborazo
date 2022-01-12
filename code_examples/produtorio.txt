@@ -4,7 +4,7 @@ variable res = 1, val : real
 N = entero(lee("N: "));
 
 para count<N siguiente count = count +1 hacer
-    val = real(lee("val: "));
+    val = real(lee("val "+string(count+1)+": "));
     res = res * val;.
 
 escribe(res);

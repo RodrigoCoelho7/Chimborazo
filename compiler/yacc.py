@@ -602,8 +602,8 @@ def p_write_end(p):
     p[0] = f'{p[3][0]}\t{write_f(p[3][1])}\n{p[7][0]}\t{write_f(p[7][1])}\n'
 
 def p_read_w(p):
-    "read : LEER '(' STRING ')'"
-    p[0] = [f'\tPUSHS {p[3]}\n\tWRITES\n\tREAD\n','string']
+    "read : LEER '(' exp ')'"
+    p[0] = [f'{p[3][0]}\{write_f(p[3][1])}\n\tREAD\n','string']
 
 #---------------------------------------------
 
@@ -650,12 +650,14 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"cuadrado.txt","r")
+file = open(path+"produtorio.txt","r")
 content = file.read()
 
 parser.parse(content)
 if parser.success and parser.program.success:
+    f = open(path+'produtorio.vm','w')
     print("Parsing completed")
-    print(parser.code)
+    print(parser.code,file=f)
+    f.close()
 else:
     print("Error, no fue posible compilar")
