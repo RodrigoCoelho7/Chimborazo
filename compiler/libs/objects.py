@@ -37,9 +37,9 @@ class PROGRAM:
     
     def count_pointer(self):
         self.GP += 1
-    
+
     def add_memory(self,memory):
-        self.memory = memory + self.memory
+        self.memory = self.memory + memory
 
     def add_variable(self,VAR):
         if VAR.ID in list(self.declarations.keys()):
@@ -76,7 +76,6 @@ class FUNCTION(PROGRAM):
         self.count_pointer()
         get_store = property(doc='(!) Disallowed inherited')
         count_pointer = property(doc='(!) Disallowed inherited')
-        add_memory = property(doc='(!) Disallowed inherited')
         get_push = property(doc='(!) Disallowed inherited')
     
     def clean(self):
@@ -94,8 +93,6 @@ class FUNCTION(PROGRAM):
     def count_pointer(self):
         self.GP -= 1
     
-    def add_memory(self,memory):
-        self.memory = self.memory + memory
     
     def set_ID(self,ID):
         self.ID = ID

@@ -6,9 +6,9 @@ tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFEREN
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";"]
 
-def find_column(input, token):
-    line_start = input.rfind('\n', 0, token.lexpos) + 1
-    return (token.lexpos - line_start) + 1
+def find_column(input, pos):
+    line_start = input.rfind('\n', 0, pos) + 1
+    return (pos - line_start) + 1
 
 def t_STR(t):
     r'\bstring\b'
@@ -138,7 +138,7 @@ def t_ENTER(t):
 
 
 def t_error(t):
-    print("Caracter ilegal!",t.value[0])
+    print(f"Caracter ilegal: {t.value[0]} en la posicion: lin {t.lineno} col {find_column(t.lexer.lexdata,t.lexpos)}")
     t.lexer.skip(1)
 
 t_ignore = " \t"
@@ -155,10 +155,3 @@ if __name__ == '__main__':
     while tok:
         print(tok)
         tok = lexer.token()
-
-
-#import sys
-#for line in sys.stdin:
-#    lexer.input(line)
-#    for tok in lexer:
-#        print(tok)

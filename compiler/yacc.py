@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from Lex import tokens
+from Lex import tokens, find_column
 import re
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
 from libs.functions import allocate_memory,operator,ID_generator,write_f,cast,make_cast
@@ -275,30 +275,33 @@ def p_atrib_string(p):
     if 'string' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHS {p[3]}\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'Error de tipo verifique a expresion: {p[1]} es {p.parser.program.declarations[p[1]].TIPO} y string')
+        print(f'ERROR: El tipo recibido: string, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
     
 def p_atrib_true(p):
     "atrib : ID '=' VERDADERO"
     if 'booleano' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHI 1\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'Error de tipo verifique a expresion: {p[1]} es {p.parser.program.declarations[p[1]].TIPO} y booleano')
+        print(f'ERROR: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        exit()
 
 def p_atrib_false(p):
     "atrib : ID '=' FALSO"
     if 'booleano' == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'\tPUSHI 0\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'Error de tipo verifique a expresion: {p[1]} es {p.parser.program.declarations[p[1]].TIPO} y booleano')
+        print(f'ERROR: El tipo recibido: booleano, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+        exit()
+
 def p_atrib(p):
     "atrib : ID '=' exp"
     if p[3][1] == p.parser.program.declarations[p[1]].TIPO:
         p[0] = f'{p[3][0]}{p.parser.program.get_store(p[1])}'
-    elif p[3][1] == 'entero' and p.parser.program.declarations[p[1]].TIPO:
-        print(f'Warning: El tipo de las expresiones no coincide con el de la variable')
+    elif p[3][1] == 'entero' and p.parser.program.declarations[p[1]].TIPO == 'real':
+        print(f'Warning: El tipo de las expresiones: {p[3][1]} no coincide con el de la variable: {p.parser.program.declarations[p[1]].TIPO }, esperado para {p[1]}. lin {p.lexer.lineno}')
         p[0] = f'{p[3][0]}\tITOF\n{p.parser.program.get_store(p[1])}'
     else:
-        print(f'Error de tipo verifique a expresion: {p[1]} es {p.parser.program.declarations[p[1]].TIPO} y {p[3][1]}')
+        print(f'ERROR: El tipo recibido: {p[3][1]}, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
         exit()
 
 def p_exp_soma(p):
@@ -328,10 +331,10 @@ def p_termo_div(p):
 def p_termo_pot(p):
     "termo : termo '^' fator"
     if p[3][1] != 'entero':
-        print('ERROR: Potencia solamente definida para exponente entero')
+        print(f'ERROR: Potencia solamente definida para exponente entero, lin {p.lexer.lineno}')
         exit()
     if p[1][1] != 'entero' and p[1][1] != 'real':
-        print('ERROR: Potencia solamente definida para base entera o real')
+        print(f'ERROR: Potencia solamente definida para base entera o real, lin {p.lexer.lineno}')
         exit()
     c = '' if p[1][1] == 'entero' else 'F'
         
@@ -554,7 +557,12 @@ def p_tipocast_string(p):
 
 
 def p_error(p):
-    print("Syntax error!",p)
+    col = find_column(p.lexer.lexdata,p.lexpos)
+    if col > 1:
+        print(f"Syntax error: lin {p.lineno} col {col}")
+    else:
+        col = find_column(p.lexer.lexdata,p.lexpos-2)
+        print(f"Syntax error: {p.lexer.lexdata[p.lexpos-2]} lin {p.lineno-1} col {col}")
     parser.success = False
 
 parser = yacc.yacc()
@@ -568,7 +576,7 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"funcion_potencia.txt","r")
+file = open(path+"cuadrado.txt","r")
 content = file.read()
 
 parser.parse(content)

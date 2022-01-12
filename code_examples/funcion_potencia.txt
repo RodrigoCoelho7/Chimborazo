@@ -1,4 +1,4 @@
 variable res:real
 
-res = 2^1;
+res = Verdadero^4;
 escribe(res);
