@@ -1,0 +1,11 @@
+variable n=5: entero
+
+funcion factorial(n:entero):entero
+    variable res = 1:entero
+    encuanto n > 1 hacer
+       res = res * n;
+       n = n - 1;.
+    devuelve res.
+
+escribe(factorial(entero(lee("N: "))));
+    
