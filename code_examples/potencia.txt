@@ -5,7 +5,7 @@ funcion aux (base : real, expoente : entero) : real
     res = base ^expoente;
     devuelve res.
 
-funcion potencia(a:entero,b:real) : real
+funcion potencia() : real
     variable base, expoente : entero
     variable resultado : real
     base = entero(lee("base: "));
@@ -13,7 +13,7 @@ funcion potencia(a:entero,b:real) : real
     resultado = aux(base,expoente);
     devuelve resultado.
 
-res = potencia(1,2);
+res = potencia();
 escribe(res);
 
     
