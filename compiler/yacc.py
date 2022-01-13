@@ -711,4 +711,4 @@ def compile(filename):
         file_writer.saveFile(filename, path,code )
 
 if __name__ == '__main__':
-    compile('exponencial.txt')
+    compile('test.txt')
