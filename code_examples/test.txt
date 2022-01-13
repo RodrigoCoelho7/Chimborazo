@@ -1,4 +1,11 @@
-variable aux : string
+variable aux : real
 
-aux = "ola";
-escribe(aux);
+funcion auxiliar():real
+    variable a:real
+    variable b:entero
+    variable c:real
+    variable z:entero
+    b = 1;
+    devuelve 1.0.
+
+aux = auxiliar();

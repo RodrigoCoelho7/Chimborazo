@@ -75,6 +75,9 @@ class FUNCTION(PROGRAM):
     
     def clean(self):
         return f'\tPOP {abs(self.GP+1)}\n'
+    
+    def add_memory(self,memory):
+        self.memory = memory + self.memory
 
     def get_push(self,decl):
         return f'\tPUSHL {self.declarations[decl].memory}\n'

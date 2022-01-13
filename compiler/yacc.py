@@ -415,6 +415,18 @@ def p_termo_exp(p):
         p.parser.program.add_function(code.fact,'SYSFACTORIAL')
         C = '\tITOF\n' if p[3][1] == 'entero' else ''
         p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSEXP\n\tCALL\n\tNOP\n\tPOP 2\n','real']
+    
+def p_termo_ln(p):
+    "termo : LN '(' fator ')'"
+    if p[3][1] != 'entero' and p[3][1] != 'real':
+        print(f'Semantic Error: Logaritmo solamente definida para numero entero o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
+    else:
+        p.parser.program.add_function(code.logaritmo,'SYSLN')
+        p.parser.program.add_function(code.pot('F'),'SYSPOTENCIA')
+        C = '\tITOF\n' if p[3][1] == 'entero' else ''
+        p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSLN\n\tCALL\n\tNOP\n\tPOP 2\n','real']
 
 def p_termo_fator(p):
     "termo : fator"
@@ -650,10 +662,6 @@ def p_cast_exp(p):
     "cast : tipocast '(' exp ')'"
     p[0] =  [make_cast(p[3],p[1]),p[1]]
 
-def p_cast_string(p):
-    "cast : tipocast '(' STRING ')'"
-    p[0] = [make_cast(p[3],p[1]),p[1]]
-
 def p_tipocast_float(p):
     "tipocast : REAL"
     p[0] = p[1]
@@ -670,7 +678,7 @@ def p_tipocast_string(p):
 def p_error(p):
     palabras_reservadas = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
-          "AND","OR","LEER","ESCRIBIR","STR","FIM","EXP"]
+          "AND","OR","LEER","ESCRIBIR","STR","FIM","EXP","LN"]
     col = find_column(p.lexer.lexdata,p.lexpos)
     m = f'{p.value} es una palabra reservada y no es posible ser usada en ese contexto. ' if p.type in palabras_reservadas else ''
     if col > 1 or m != '':

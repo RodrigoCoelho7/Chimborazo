@@ -1,6 +1,6 @@
 variable res:real
 
-funcion ln(x:real):real
+funcion log(x:real):real
     variable res=0:real
     variable n=1:entero
     para n < 20 siguiente n = n + 1 hacer
@@ -8,5 +8,5 @@ funcion ln(x:real):real
         escribe(res);.
     devuelve res.
 
-res = ln(real(lee("X: ")));
+res = log(real(lee("X: ")));
 escribe(res);

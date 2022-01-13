@@ -1,0 +1,4 @@
+variable res:real
+
+res = ln(real(lee("X"+": ")));
+escribe(res);
