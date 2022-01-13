@@ -394,7 +394,7 @@ def p_termo_factorial(p):
         p[0] = ['','Sin Tipo']
         p.parser.success = False
     else: 
-        fact = f'  WHILEFACTORIAL: NOP\n\tPUSHL -1\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEFACTORIAL\n\tPUSHL -2\n\tPUSHL -1\
+        fact = f'  WHILEFACTORIAL: NOP\n\tPUSHL -1\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEFACTORIAL\n\tPUSHL -2\n\tPUSHL -1\n\
 	\tMUL\n\tSTOREL -2\n\tPUSHL -1\n\tPUSHI 1\n\tSUB\n\tSTOREL -1\n\tJUMP WHILEFACTORIAL\nENDWHILEFACTORIAL: NOP\n\tRETURN\n'
         p.parser.program.add_function(fact,'SYSFACTORIAL')
         p[0] = [f'\tPUSHI 1\n{p[1][0]}\tPUSHA SYSFACTORIAL\n\tCALL\n\tNOP\n\tPOP 1\n',p[1][1]]
@@ -665,15 +665,19 @@ parser.success = True
 parser.cast = False
 parser.code = 'START\n'
 
-path = 'code_examples/'
-file = open(path+"sys_factorial.txt","r")
-content = file.read()
+
+def parse_compile(content):
+    parser.parse(content)
+    if parser.success and parser.program.success:
+        print("Parsing completed")
+        return parser.code
+    else:
+        print("Error, no fue posible compilar")
+        return None
 
 
-parser.parse(content)
-if parser.success and parser.program.success:
-    f = open(path+'sys_factorial.vm','w')
-    print("Parsing completed")
-    
-else:
-    print("Error, no fue posible compilar")
+if __name__ == '__main__':
+    path = 'code_examples/'
+    file = open(path+"sys_factorial.txt","r")
+    content = file.read()
+    print(parse_compile(content))
