@@ -15,8 +15,8 @@ class DECLARATION:
                 self.TIPO = TIPO
                 print(f'Warning: El tipo fue corregido automaticamente {self.ID}: {self.TOKEN}, {TIPO}')
                 return (True,TIPO)
-            print(f'Verifique o tipo da atribucion, {self.ID}: {self.TOKEN}, {TIPO}')
-            return (True,None)
+            print(f'Semantic Error: Verifique el tipo de la atribucion, {self.ID}: recibio {self.TOKEN}, esperaba {TIPO}')
+            return (False,None)
 
 class PROGRAM:
     def __init__(self):

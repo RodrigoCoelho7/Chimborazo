@@ -1,0 +1,11 @@
+variable e: real
+
+funcion expo(x:real):real
+    variable n = 0: entero
+    variable res=0: real
+    para n < 13 siguiente n = n + 1 hacer
+        res = res + x^n/(n!);.
+    devuelve res.
+
+e = expo(real(lee("x: ")));
+escribe(e);

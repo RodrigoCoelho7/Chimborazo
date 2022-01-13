@@ -2,7 +2,7 @@ import ply.lex as lex
 
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
-          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM"]
+          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM","EXP"]
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";","!"]
 
@@ -10,8 +10,12 @@ def find_column(input, pos):
     line_start = input.rfind('\n', 0, pos) + 1
     return (pos - line_start) + 1
 
+def t_EXP(t):
+    r'\bexp\b'
+    return t
+
 def t_FIM(t):
-    r'fin'
+    r'\bfin\b'
     return t
 
 def t_STR(t):

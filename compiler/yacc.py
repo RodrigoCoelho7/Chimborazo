@@ -3,7 +3,7 @@ from Lex import tokens, find_column
 import re
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
 from libs.functions import allocate_memory,operator,ID_generator,write_f,cast,make_cast
-import file_writer
+import libs.file_writer as file_writer
 
 
 def p_prg(p):
@@ -14,16 +14,19 @@ def p_prg(p):
 
 def p_declarations_1(p):
     "declarations : decl"
-    for decl in p[1][1]:
-        p.parser.program.add_variable(decl)
-    tipo = decl.TIPO
-    N = len(p[1][1])
-    if not p.parser.flag_function:
-        p.parser.program.add_memory(allocate_memory(N,tipo))
+    if len(p[1][1] ) > 0:
+        for decl in p[1][1]:
+            p.parser.program.add_variable(decl)
+        tipo = decl.TIPO
+        N = len(p[1][1])
+        if not p.parser.flag_function:
+            p.parser.program.add_memory(allocate_memory(N,tipo))
+        else:
+            p.parser.flag_function = False
+        p.parser.declarations = []
+        p[0] = [p[1][0],[]]
     else:
-        p.parser.flag_function = False
-    p.parser.declarations = []
-    p[0] = [p[1][0],[]]
+        p[0] = ['',[]]
 
 def p_declarations_mult(p):
     "declarations : declarations decl"
@@ -68,7 +71,8 @@ def p_declV(p):
             p[2][0] = re.sub(r'PUSHI ([0-9]+)',r'PUSHF \1.0',p[2][0])
         p[0] = p[2]
     else:
-        print('Semantic Error con el tipo en las atribuciones')
+        p[0] = ['',[]]
+        p.parser.success = False
 
 def p_vari_atrib(p):
     "vari : atribD"
@@ -299,15 +303,20 @@ def p_atrib_false(p):
 
 def p_atrib(p):
     "atrib : ID '=' exp"
-    if p[3][1] == p.parser.program.declarations[p[1]].TIPO:
-        p[0] = f'{p[3][0]}{p.parser.program.get_store(p[1])}'
-    elif p[3][1] == 'entero' and p.parser.program.declarations[p[1]].TIPO == 'real':
-        print(f'Warning: El tipo de las expresiones: {p[3][1]} no coincide con el de la variable: {p.parser.program.declarations[p[1]].TIPO }, esperado para {p[1]}. lin {p.lexer.lineno}')
-        p[0] = f'{p[3][0]}\tITOF\n{p.parser.program.get_store(p[1])}'
+    if p[1] in list(p.parser.program.declarations.keys()):
+        if p[3][1] == p.parser.program.declarations[p[1]].TIPO:
+            p[0] = f'{p[3][0]}{p.parser.program.get_store(p[1])}'
+        elif p[3][1] == 'entero' and p.parser.program.declarations[p[1]].TIPO == 'real':
+            print(f'Warning: El tipo de las expresiones: {p[3][1]} no coincide con el de la variable: {p.parser.program.declarations[p[1]].TIPO }, esperado para {p[1]}. lin {p.lexer.lineno}')
+            p[0] = f'{p[3][0]}\tITOF\n{p.parser.program.get_store(p[1])}'
+        else:
+            print(f'Semantic Error: El tipo recibido: {p[3][1]}, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
+            p[0] = ''
+            p.parser.success = False
     else:
-        print(f'Semantic Error: El tipo recibido: {p[3][1]}, no coincide con el tipo: {p.parser.program.declarations[p[1]].TIPO}, esperado para {p[1]}. lin {p.lexer.lineno}')
-        p[0] = ''
+        print(f'Semantic Error: La variable {p[1]} no fue definida')
         p.parser.success = False
+        p[0] = ''
 
 def p_exp_soma(p):
     "exp : exp '+' termo"
@@ -426,7 +435,12 @@ def p_fator_STRING(p):
 
 def p_fator_ID(p):
     "fator : ID"
-    p[0] = [p.parser.program.get_push(p[1]),p.parser.program.declarations[p[1]].TIPO]
+    if p[1] in list(p.parser.program.declarations.keys()):
+        p[0] = [p.parser.program.get_push(p[1]),p.parser.program.declarations[p[1]].TIPO]
+    else:
+        print(f'Semantic Error: La variable {p[1]} no fue definida')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
 
 def p_fator_FUNC(p):
     "fator : ID '(' content_params ')' "
@@ -647,9 +661,13 @@ def p_tipocast_string(p):
 
 
 def p_error(p):
+    palabras_reservadas = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
+          ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
+          "AND","OR","LEER","ESCRIBIR","STR","FIM","EXP"]
     col = find_column(p.lexer.lexdata,p.lexpos)
-    if col > 1:
-        print(f"Syntax error: lin {p.lineno} col {col}")
+    m = f'{p.value} es una palabra reservada y no es posible ser usada en ese contexto. ' if p.type in palabras_reservadas else ''
+    if col > 1 or m != '':
+        print(f"Syntax error: {m} lin {p.lineno} col {col}")
     else:
         col = find_column(p.lexer.lexdata,p.lexpos-2)
         print(f"Syntax error: {p.lexer.lexdata[p.lexpos-2]} lin {p.lineno-1} col {col}")
@@ -681,5 +699,9 @@ def compile(filename):
     file = open(path+filename,"r")
     content = file.read()
     code=parse_compile(content)
-    print(code)
-    file_writer.saveFile(filename, path,code )
+    #print(code)
+    if code is not None:
+        file_writer.saveFile(filename, path,code )
+
+if __name__ == '__main__':
+    compile('exponencial.txt')
