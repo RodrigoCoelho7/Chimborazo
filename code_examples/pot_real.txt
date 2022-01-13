@@ -1,0 +1,9 @@
+variable res:real
+
+funcion pot_real(b:real,e:real):real
+    variable res:real
+    res = exp(e*ln(b));
+    devuelve res.
+
+res = pot_real(real(lee("Base: ")),real(lee("Exponente: ")));
+escribe(res);

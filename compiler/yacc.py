@@ -379,24 +379,34 @@ def p_termo_resto(p):
 
 def p_termo_pot(p):
     "termo : termo '^' fator"
-    if p[3][1] != 'entero':
-        print(f'Semantic Error: Potencia solamente definida para exponente entero, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+    if p[3][1] != 'entero' and p[3][1] != 'real':
+        print(f'Semantic Error: Potencia solamente definida para exponente entero o real. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
         p.parser.success = False
     elif p[1][1] != 'entero' and p[1][1] != 'real':
-        print(f'Semantic Error: Potencia solamente definida para base entera o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        print(f'Semantic Error: Potencia solamente definida para base entera o real. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
         p.parser.success = False
     else:
-        c = '' if p[1][1] == 'entero' else 'F'
-        p.parser.program.add_function(code.pot(c),'SYSPOTENCIA')
-        push = '\tPUSHI 1\n' if p[1][1] == 'entero' else '\tPUSHF 1.0\n'
-        p[0] = [f'{push}{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
+        if p[3][1] != 'real':
+            c = '' if p[1][1] == 'entero' else 'F'
+            p.parser.program.add_function(code.pot(c),'SYSPOTENCIA')
+            push = '\tPUSHI 1\n' if p[1][1] == 'entero' else '\tPUSHF 1.0\n'
+            p[0] = [f'{push}{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
+        else:
+            p.parser.program.add_function(code.logaritmo,'SYSLN')
+            p.parser.program.add_function(code.exponencial,'SYSEXP')
+            p.parser.program.add_function(code.pot('F'),'SYSPOTENCIA')
+            p.parser.program.add_function(code.fact,'SYSFACTORIAL')
+            print(f'Warning: La potencia de exponente real es una aproximacion. lin {p.lexer.lineno}')
+            C = '\tITOF\n' if p[1][1] == 'entero' else ''
+            p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSEXP\n\tCALL\n\tNOP\n\tPOP 2\n','real']
+
 
 def p_termo_factorial(p):
-    "termo : termo '!' "
+    "fator : exp '!' "
     if p[1][1] != 'entero':
-        print(f'Semantic Error: Factorial solamente definida para numero entero, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        print(f'Semantic Error: Factorial solamente definida para numero entero. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
         p.parser.success = False
     else: 
@@ -404,7 +414,7 @@ def p_termo_factorial(p):
         p[0] = [f'\tPUSHI 1\n{p[1][0]}\tPUSHA SYSFACTORIAL\n\tCALL\n\tNOP\n\tPOP 1\n',p[1][1]]
 
 def p_termo_exp(p):
-    "termo : EXP '(' fator ')'"
+    "fator : EXP '(' exp ')'"
     if p[3][1] != 'entero' and p[3][1] != 'real':
         print(f'Semantic Error: Exponencial solamente definida para numero entero o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
@@ -417,7 +427,7 @@ def p_termo_exp(p):
         p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSEXP\n\tCALL\n\tNOP\n\tPOP 2\n','real']
     
 def p_termo_ln(p):
-    "termo : LN '(' fator ')'"
+    "fator : LN '(' exp ')'"
     if p[3][1] != 'entero' and p[3][1] != 'real':
         print(f'Semantic Error: Logaritmo solamente definida para numero entero o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
