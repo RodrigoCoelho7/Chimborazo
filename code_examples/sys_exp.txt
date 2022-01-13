@@ -1,0 +1,4 @@
+variable res: real
+
+res = exp(real(lee("x: ")));
+escribe(res);

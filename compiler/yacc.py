@@ -4,6 +4,7 @@ import re
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
 from libs.functions import allocate_memory,operator,ID_generator,write_f,cast,make_cast
 import libs.file_writer as file_writer
+import libs.code as code
 
 
 def p_prg(p):
@@ -388,11 +389,7 @@ def p_termo_pot(p):
         p.parser.success = False
     else:
         c = '' if p[1][1] == 'entero' else 'F'
-            
-        pot = f'  WHILEPOTENCIA: NOP\n\tPUSHL -2\n\tPUSHI 0\n\tSUP\n\tJZ ENDWHILEPOTENCIA\n\tPUSHL -3\n\
-    \tPUSHL -1\n\t{c}MUL\n\tSTOREL -3\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tSTOREL -2\n\tJUMP WHILEPOTENCIA\n\
-  ENDWHILEPOTENCIA: NOP\n\tRETURN\n'
-        p.parser.program.add_function(pot,'SYSPOTENCIA')
+        p.parser.program.add_function(code.pot(c),'SYSPOTENCIA')
         push = '\tPUSHI 1\n' if p[1][1] == 'entero' else '\tPUSHF 1.0\n'
         p[0] = [f'{push}{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
 
@@ -403,11 +400,21 @@ def p_termo_factorial(p):
         p[0] = ['','Sin Tipo']
         p.parser.success = False
     else: 
-        fact = f'  WHILEFACTORIAL: NOP\n\tPUSHL -1\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEFACTORIAL\n\tPUSHL -2\n\tPUSHL -1\n\
-	\tMUL\n\tSTOREL -2\n\tPUSHL -1\n\tPUSHI 1\n\tSUB\n\tSTOREL -1\n\tJUMP WHILEFACTORIAL\nENDWHILEFACTORIAL: NOP\n\tRETURN\n'
-        p.parser.program.add_function(fact,'SYSFACTORIAL')
+        p.parser.program.add_function(code.fact,'SYSFACTORIAL')
         p[0] = [f'\tPUSHI 1\n{p[1][0]}\tPUSHA SYSFACTORIAL\n\tCALL\n\tNOP\n\tPOP 1\n',p[1][1]]
 
+def p_termo_exp(p):
+    "termo : EXP '(' fator ')'"
+    if p[3][1] != 'entero' and p[3][1] != 'real':
+        print(f'Semantic Error: Exponencial solamente definida para numero entero o real, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
+    else:
+        p.parser.program.add_function(code.exponencial,'SYSEXP')
+        p.parser.program.add_function(code.pot('F'),'SYSPOTENCIA')
+        p.parser.program.add_function(code.fact,'SYSFACTORIAL')
+        C = '\tITOF\n' if p[3][1] == 'entero' else ''
+        p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSEXP\n\tCALL\n\tNOP\n\tPOP 2\n','real']
 
 def p_termo_fator(p):
     "termo : fator"
