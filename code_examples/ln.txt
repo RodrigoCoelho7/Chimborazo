@@ -4,7 +4,7 @@ funcion ln(x:real):real
     variable res=0:real
     variable n=1:entero
     para n < 20 siguiente n = n + 1 hacer
-        res = res + 1/n*(1-1/x)^n;.
+        res = res + 1/n*((1-1/x)^n);.
     devuelve res.
 
 res = ln(real(lee("X: ")));
