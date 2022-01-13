@@ -10,4 +10,5 @@ para i<max siguiente i = i +1 hacer
         count = count +1;
         escribe(i,fin:" ");..
 
+escribe("\nCOUNT: ",fin:" ");
 escribe(count);
