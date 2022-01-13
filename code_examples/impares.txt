@@ -8,6 +8,6 @@ i = min;
 para i<max siguiente i = i +1 hacer
     si i resto 2 diferente 0 entonces
         count = count +1;
-        escribe(i);..
+        escribe(i,fin:" ");..
 
 escribe(count);
