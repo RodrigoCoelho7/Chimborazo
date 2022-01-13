@@ -3,6 +3,7 @@ from Lex import tokens, find_column
 import re
 from libs.objects import PROGRAM, DECLARATION, FUNCTION
 from libs.functions import allocate_memory,operator,ID_generator,write_f,cast,make_cast
+import file_writer
 
 
 def p_prg(p):
@@ -650,14 +651,15 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"produtorio.txt","r")
+filename="produtorio.txt"
+file = open(path+filename,"r")
 content = file.read()
+
 
 parser.parse(content)
 if parser.success and parser.program.success:
-    f = open(path+'produtorio.vm','w')
     print("Parsing completed")
-    print(parser.code,file=f)
-    f.close()
+    file_writer.saveFile(filename,path,parser.code)
+    
 else:
     print("Error, no fue posible compilar")
