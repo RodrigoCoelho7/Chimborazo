@@ -1,0 +1,4 @@
+variable n:entero
+
+n = entero(lee("N: "))!;
+escribe(n);
