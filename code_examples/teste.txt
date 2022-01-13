@@ -2,5 +2,5 @@ variable res,x: real
 variable n:entero
 x = real(lee("X: "));
 n = entero(lee("Exponente:"));
-res = 1/n*(1-1/x);
+res = 1/real(n)*(1-1/x);
 escribe(res);
