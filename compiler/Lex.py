@@ -4,7 +4,7 @@ tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFEREN
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
           "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM"]
 
-literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";"]
+literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";","!"]
 
 def find_column(input, pos):
     line_start = input.rfind('\n', 0, pos) + 1

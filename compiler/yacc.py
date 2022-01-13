@@ -344,6 +344,7 @@ def p_termo_mul(p):
         print(f'Semantic Error: La operacion no se encuentra definida para ese tipo de datos: {p[1][1]}, {p[3][1]}. lin {p.lexer.lineno}')
         p[0] = ['','Sin Tipo']
         p.parser.success = False
+    
 
 def p_termo_div(p):
     "termo : termo '/' fator"
@@ -382,7 +383,21 @@ def p_termo_pot(p):
     \tPUSHL -1\n\t{c}MUL\n\tSTOREL -3\n\tPUSHL -2\n\tPUSHI 1\n\tSUB\n\tSTOREL -2\n\tJUMP WHILEPOTENCIA\n\
   ENDWHILEPOTENCIA: NOP\n\tRETURN\n'
         p.parser.program.add_function(pot,'SYSPOTENCIA')
-        p[0] = [f'\tPUSHI 1\n{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
+        push = '\tPUSHI 1\n' if p[1][1] == 'entero' else '\tPUSHF 1.0\n'
+        p[0] = [f'{push}{p[3][0]}{p[1][0]}\tPUSHA SYSPOTENCIA\n\tCALL\n\tNOP\n\tPOP 2\n',p[1][1]]
+
+def p_termo_factorial(p):
+    "termo : termo '!' "
+    if p[1][1] != 'entero':
+        print(f'Semantic Error: Factorial solamente definida para numero entero, lin {p.lexer.lineno}. lin {p.lexer.lineno}')
+        p[0] = ['','Sin Tipo']
+        p.parser.success = False
+    else: 
+        fact = f'  WHILEFACTORIAL: NOP\n\tPUSHL -1\n\tPUSHI 1\n\tSUP\n\tJZ ENDWHILEFACTORIAL\n\tPUSHL -2\n\tPUSHL -1\
+	\tMUL\n\tSTOREL -2\n\tPUSHL -1\n\tPUSHI 1\n\tSUB\n\tSTOREL -1\n\tJUMP WHILEFACTORIAL\nENDWHILEFACTORIAL: NOP\n\tRETURN\n'
+        p.parser.program.add_function(fact,'SYSFACTORIAL')
+        p[0] = [f'\tPUSHI 1\n{p[1][0]}\tPUSHA SYSFACTORIAL\n\tCALL\n\tNOP\n\tPOP 1\n',p[1][1]]
+
 
 def p_termo_fator(p):
     "termo : fator"
@@ -650,12 +665,12 @@ parser.cast = False
 parser.code = 'START\n'
 
 path = 'code_examples/'
-file = open(path+"produtorio.txt","r")
+file = open(path+"sys_factorial.txt","r")
 content = file.read()
 
 parser.parse(content)
 if parser.success and parser.program.success:
-    f = open(path+'produtorio.vm','w')
+    f = open(path+'sys_factorial.vm','w')
     print("Parsing completed")
     print(parser.code,file=f)
     f.close()
