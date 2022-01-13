@@ -1,4 +1,6 @@
-variable res: real
-
-res = (1-1/real(lee("Base: ")))^entero(lee("Exponente:"));
+variable res,x: real
+variable n:entero
+x = real(lee("X: "));
+n = entero(lee("Exponente:"));
+res = 1/n*(1-1/x)^n;
 escribe(res);
