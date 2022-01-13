@@ -1,0 +1,6 @@
+compiler/__pycache__/file_writer.cpython-39.pyc
+compiler/__pycache__/Lex.cpython-39.pyc
+compiler/__pycache__/parsetab.cpython-39.pyc
+compiler/__pycache__/yacc.cpython-39.pyc
+compiler/libs/__pycache__/functions.cpython-39.pyc
+compiler/libs/__pycache__/objects.cpython-39.pyc

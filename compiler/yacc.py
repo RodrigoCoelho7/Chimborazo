@@ -676,8 +676,10 @@ def parse_compile(content):
         return None
 
 
-if __name__ == '__main__':
+def compile(filename):
     path = 'code_examples/'
-    file = open(path+"sys_factorial.txt","r")
+    file = open(path+filename,"r")
     content = file.read()
-    print(parse_compile(content))
+    code=parse_compile(content)
+    print(code)
+    file_writer.saveFile(filename, path,code )
