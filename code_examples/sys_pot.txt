@@ -1,0 +1,4 @@
+variable res:real
+
+res = real(lee("BASE: "))^real(lee("EXPONENTE: "));
+escribe(res);
