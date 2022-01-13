@@ -112,7 +112,7 @@ def p_tipo_STRING(p):
 
 def p_atribD_string(p):
     "atribD : ID '=' STRING"
-    p.parser.declarations.append(DECLARATION(p[1],TOKEN='string',memory=p.parser.program.GP))
+    p[0] = [f'\tPUSHS {p[3]}\n{p.parser.program.get_store()}',[DECLARATION(p[1],TOKEN='string',memory=p.parser.program.GP)]]
     p.parser.program.count_pointer()
 
 def p_atribD_true(p):

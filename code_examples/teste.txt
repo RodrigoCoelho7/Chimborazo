@@ -1,8 +1,4 @@
-variable count, n : entero
+variable res: real
 
-count = 0;
-n = 10;
-
-para count < n siguiente count = count + 1 hacer
-    escribe(count);.
-
+res = real(lee("Base: "))^entero(lee("Exponente:"));
+escribe(res);
