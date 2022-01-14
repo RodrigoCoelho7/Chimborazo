@@ -206,16 +206,22 @@ def p_parametros_0(p):
     if p.parser.save_program is None:
         p.parser.save_program = p.parser.program
         p.parser.program = FUNCTION()
-    p[0] = ''
+        p[0] = ''
+    else:
+        print(f'Fatal Error: No es posible definir funciones dentro de funciones')
+        exit()
 
 def p_parametros_1(p):
     "parametros : ID ':' tipo"
     if p.parser.save_program is None:
         p.parser.save_program = p.parser.program
         p.parser.program = FUNCTION()
-    p.parser.program.set_paramns([DECLARATION(p[1],TIPO=p[3],memory=p.parser.program.GP)])
-    p.parser.program.count_pointer()
-    p[0] = ''
+        p.parser.program.set_paramns([DECLARATION(p[1],TIPO=p[3],memory=p.parser.program.GP)])
+        p.parser.program.count_pointer()
+        p[0] = ''
+    else:
+        print(f'Fatal Error: No es posible definir funciones dentro de funciones')
+        exit()
 
 def p_parametros_mult(p):
     "parametros : parametros ',' ID ':' tipo"
