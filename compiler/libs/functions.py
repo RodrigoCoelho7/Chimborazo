@@ -40,7 +40,7 @@ def F(exp1,exp2,program):
 
 def operator(op,exp1,exp2):
     c = cast(exp1,exp2)
-    if c is not None:
+    if c is not None and c[1] != 'string':
         f = c[0]
         if op == '=':
             f = c[0] if c[1] == 'real' else c[0] + ' '
