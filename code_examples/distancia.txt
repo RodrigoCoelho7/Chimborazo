@@ -1,0 +1,19 @@
+variable res: real
+
+funcion dist(x1:real,x2:real,y1:real,y2:real):real
+    variable res:real
+    res = ((x1-x2)^2+(y1-y2)^2)^0.5;
+    devuelve res.
+
+funcion calculaDistancia():real
+    variable x1,x2,y1,y2,res:real
+    x1 = real(lee("x1: "));
+    x2 = real(lee("x2: "));
+    y1 = real(lee("y1: "));
+    y2 = real(lee("y2: "));
+    res = dist(x1,x2,y1,y2);
+    devuelve res.
+
+res = calculaDistancia();
+escribe(res);
+

@@ -232,7 +232,17 @@ def p_return_INT(p):
 
 def p_return_ID(p):
     "return : ID"
-    p[0] = [f'\tPUSHL {p.parser.program.declarations[p[1]].memory}\n',('ID',p[1])]
+    if p[1] not in list(p.parser.program.declarations.keys()) and p[1] in list(p.parser.save_program.declarations.keys()) and type(p.parser.save_program.declarations[p[1]]) is FUNCTION:
+        print(f'Semantic Error: No es posible usar funciones o su resultado como parametro de devuelve. Experimente usar una variable auxiliar. lin {p.lexer.lineno}')
+        p.success = False
+        p[0] =['',('ID','Sin Tipo')]
+    else:
+        if p[1] not in list(p.parser.program.declarations.keys()):
+            print(f'Semantic Error:La variable {p[1]} no se encuentra definida. lin {p.lexer.lineno}')
+            p.success = False
+            p[0] =['',('ID','Sin Tipo')]
+        else:
+            p[0] = [f'\tPUSHL {p.parser.program.declarations[p[1]].memory}\n',('ID',p[1])]
 
 def p_return_FLOAT(p):
     "return : FLOAT"
@@ -396,11 +406,12 @@ def p_termo_pot(p):
         else:
             p.parser.program.add_function(code.logaritmo,'SYSLN')
             p.parser.program.add_function(code.exponencial,'SYSEXP')
+            p.parser.program.add_function(code.potreal,'SYSPOTREAL')
             p.parser.program.add_function(code.pot('F'),'SYSPOTENCIA')
             p.parser.program.add_function(code.fact,'SYSFACTORIAL')
             print(f'Warning: La potencia de exponente real es una aproximacion. lin {p.lexer.lineno}')
             C = '\tITOF\n' if p[1][1] == 'entero' else ''
-            p[0] = [f'\tPUSHF 0.0\n\tPUSHN 1\n{p[3][0]}{C}\tPUSHA SYSEXP\n\tCALL\n\tNOP\n\tPOP 2\n','real']
+            p[0] = [f'\tPUSHF 0.0\n{p[3][0]}{p[1][0]}{C}\tPUSHA SYSPOTREAL\n\tCALL\n\tNOP\n\tPOP 2\n','real']
 
 
 def p_termo_factorial(p):
