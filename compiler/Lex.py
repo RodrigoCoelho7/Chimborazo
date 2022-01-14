@@ -1,14 +1,38 @@
 import ply.lex as lex
 
+states = [('comentario', 'inclusive'),('comentarios', 'inclusive')]
+
 tokens = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
-          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM","EXP","LN"]
+          "FLOAT","INT","ID","STRING","AND","OR","ENTER","LEER","ESCRIBIR","STR","FIM","EXP","LN","CON","COFF","COM"]
 
 literals = [",",":","=","<",">","+","-","*","/",".","(",")","[","]","'","^",";","!"]
 
 def find_column(input, pos):
     line_start = input.rfind('\n', 0, pos) + 1
     return (pos - line_start) + 1
+
+
+def t_CON(t):
+    r'"""|\#'
+    if t.value == "#":
+        t.lexer.begin('comentario')
+    else:
+        t.lexer.begin('comentarios')
+
+def t_comentarios_COFF(t):
+    r'"""'
+    t.lexer.begin('INITIAL')
+
+def t_comentario_COFF(t):
+    r'\n'
+    t.lexer.begin('INITIAL')
+
+def t_comentario_COM(t):
+    r'.|\n'
+
+def t_comentarios_COM(t):
+    r'.|\n'
 
 def t_LN(t):
     r'\bln\b'
