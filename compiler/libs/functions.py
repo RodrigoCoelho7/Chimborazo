@@ -40,21 +40,23 @@ def F(exp1,exp2,program):
 
 def operator(op,exp1,exp2):
     c = cast(exp1,exp2)
-    f = c[0]
-    if op == '=':
-        f = c[0] if c[1] == 'real' else c[0] + ' '
-        return f'{f[:-1]}EQUAL\n'
-    if op == '!=':
-        f = c[0] + ' ' if c[1] == 'real' else c[0]
-        return f'{f[:-1]}EQUAL\tNOT\n'
-    if op == '<':
-        return f'{f}INF\n'
-    if op == '>':
-        return f'{f}SUP\n'
-    if op == '<=':
-        return f'{f}INFEQ\n'
-    if op == '>=':
-        return f'{f}SUPFEQ\n'
+    if c is not None:
+        f = c[0]
+        if op == '=':
+            f = c[0] if c[1] == 'real' else c[0] + ' '
+            return f'{f[:-1]}EQUAL\n'
+        if op == '!=':
+            f = c[0] + ' ' if c[1] == 'real' else c[0]
+            return f'{f[:-1]}EQUAL\tNOT\n'
+        if op == '<':
+            return f'{f}INF\n'
+        if op == '>':
+            return f'{f}SUP\n'
+        if op == '<=':
+            return f'{f}INFEQ\n'
+        if op == '>=':
+            return f'{f}SUPFEQ\n'
+    return None
     
 def ID_generator():
     np.random.shuffle(CHARS)

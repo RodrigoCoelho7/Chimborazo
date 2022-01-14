@@ -613,7 +613,13 @@ def p_fatorB_expL(p):
 
 def p_condition(p):
     "condition : exp op exp"
-    p[0] = f'{operator(p[2],p[1],p[3])}'
+    c = operator(p[2],p[1],p[3])
+    if c is not None:
+        p[0] = f'{c}'
+    else:
+        print(f'Semantic Error: Las expreciones no son compatibles para la operacion descrita. lin {p.lexer.lineno}')
+        p[0] = ''
+        p.parser.success = False
 
 def p_op_maior(p):
     "op : '>'"
