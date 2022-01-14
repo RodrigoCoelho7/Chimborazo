@@ -16,6 +16,7 @@ class DECLARATION:
                 print(f'Warning: El tipo fue corregido automaticamente {self.ID}: {self.TOKEN}, {TIPO}')
                 return (True,TIPO)
             print(f'Semantic Error: Verifique el tipo de la atribucion, {self.ID}: recibio {self.TOKEN}, esperaba {TIPO}')
+            self.TIPO = 'Sin Tipo'
             return (False,None)
 
 class PROGRAM:

@@ -72,7 +72,7 @@ def p_declV(p):
             p[2][0] = re.sub(r'PUSHI ([0-9]+)',r'PUSHF \1.0',p[2][0])
         p[0] = p[2]
     else:
-        p[0] = ['',[]]
+        p[0] = p[2]
         p.parser.success = False
 
 def p_vari_atrib(p):
