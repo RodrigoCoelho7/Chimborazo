@@ -8,8 +8,8 @@ funcion dist(x1:real,x2:real,y1:real,y2:real):real
 funcion calculaDistancia():real
     variable x1,x2,y1,y2,res:real
     x1 = real(lee("x1: "));
-    x2 = real(lee("x2: "));
     y1 = real(lee("y1: "));
+    x2 = real(lee("x2: "));
     y2 = real(lee("y2: "));
     res = dist(x1,x2,y1,y2);
     devuelve res.

@@ -409,7 +409,7 @@ def p_termo_pot(p):
             p.parser.program.add_function(code.potreal,'SYSPOTREAL')
             p.parser.program.add_function(code.pot('F'),'SYSPOTENCIA')
             p.parser.program.add_function(code.fact,'SYSFACTORIAL')
-            print(f'Warning: La potencia de exponente real es una aproximacion. lin {p.lexer.lineno}')
+            print(f'Warning: La potencia de exponente real es una aproximacion y solo se encuentra definida para base positiva > 0. lin {p.lexer.lineno}')
             C = '\tITOF\n' if p[1][1] == 'entero' else ''
             p[0] = [f'\tPUSHF 0.0\n{p[3][0]}{p[1][0]}{C}\tPUSHA SYSPOTREAL\n\tCALL\n\tNOP\n\tPOP 2\n','real']
 
