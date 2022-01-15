@@ -28,7 +28,7 @@ def t_comentario_COFF(t):
     t.lexer.begin('INITIAL')
 
 def t_comentario_COM(t):
-    r'.|\n'
+    r'.'
 
 def t_comentarios_COM(t):
     r'.|\n'

@@ -712,14 +712,18 @@ def p_error(p):
     palabras_reservadas = ["VAR","PARA","SIGUIENTE","ENTERO","REAL","FUNCION","ENCUANTO","DIFERENTE","IGUAL"
           ,"HACER", "DEVUELVE","LISTA","BOOLEANO","SI","RESTO","ENTONCES","VERDADERO","FALSO","CASO","CONTRARIO",
           "AND","OR","LEER","ESCRIBIR","STR","FIM","EXP","LN"]
-    col = find_column(p.lexer.lexdata,p.lexpos)
-    m = f'{p.value} es una palabra reservada y no es posible ser usada en ese contexto. ' if p.type in palabras_reservadas else ''
-    if col > 1 or m != '':
-        print(f"Syntax error: {m} lin {p.lineno} col {col}")
+    if p is None:
+        print("Sintax Error: Abrio el comentario pero no fue cerrado")
+        parser.success = False
     else:
-        col = find_column(p.lexer.lexdata,p.lexpos-2)
-        print(f"Syntax error: {p.lexer.lexdata[p.lexpos-2]} lin {p.lineno-1} col {col}")
-    parser.success = False
+        col = find_column(p.lexer.lexdata,p.lexpos)
+        m = f'{p.value} es una palabra reservada y no es posible ser usada en ese contexto. ' if p.type in palabras_reservadas else ''
+        if col > 1 or m != '':
+            print(f"Syntax error: {m} lin {p.lineno} col {col}")
+        else:
+            col = find_column(p.lexer.lexdata,p.lexpos-2)
+            print(f"Syntax error: {p.lexer.lexdata[p.lexpos-2]} lin {p.lineno-1} col {col}")
+        parser.success = False
 
 parser = yacc.yacc()
 parser.program = PROGRAM()

@@ -1,6 +1,15 @@
 variable l1,l2,l3,l4: real
 variable aux:string
 
+"""
+Funcion real devuelve
+
+
+
+
+
+######
+
 funcion test(a:real,b:real,c:real,d:real): booleano
     variable res:booleano
     si a igual b Y b igual c Y c igual d entonces
