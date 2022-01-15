@@ -1,0 +1,21 @@
+variable l1,l2,l3,l4 = "ola": real
+variable aux:string
+
+funcion test(a:real,b:real,c:real,d:real): string
+    variable res:booleano
+    si a igual b Y b igual c Y c igual d entonces
+        res = Verdadero;
+    caso contrario
+        res = Falso;.
+    devuelve res.
+
+aux = lee("L1: ");
+l2 = entero(lee("L2: "));
+l3 = real(lee("L3: "));
+l4 = real(lee("L4: "));
+l1 = real(aux);
+
+si test(l1,l2,l3,l4) igual Verdadero entonces
+    escribe("ES CUADRADO DE LADO: "+string(l1));
+caso contrario
+    escribe("NO ES CUADRADO");.
